@@ -1,7 +1,12 @@
-export default function Home() {
+import * as helloService from "./services/hello"
+
+export default async function Home() {
+  const res: { message: string } = await helloService.show()
+
   return (
     <main>
-      Home Page
+      <h1>Home Page</h1>
+      {res.message}
     </main>
   )
 }

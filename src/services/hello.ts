@@ -12,3 +12,6 @@ export const show = async () => {
 
 // Cache prop:
 // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching#dynamic-data-fetching
+
+// Up to date reference app:
+// https://github.com/clerkinc/clerk-next-app

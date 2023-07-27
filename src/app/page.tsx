@@ -1,7 +1,8 @@
 import * as helloService from "./services/hello"
 
 export default async function Home() {
-  const res: { message: string } = await helloService.show()
+  const res: { message: string, greetings: [] } = await helloService.show()
+  console.log("response:", res)
 
   return (
     <main>

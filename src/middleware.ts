@@ -9,9 +9,10 @@
 
 import { authMiddleware } from "@clerk/nextjs"
 
+const publicClientPaths = ["/"]
 const publicAPIPaths = ["/api/hello"]
-const publicClientPaths = ["/", "/sign-up", "/sign-in"]
 
+// Add 'debug: true' to view logs:
 export default authMiddleware({
   publicRoutes: [...publicClientPaths, ...publicAPIPaths]
 })

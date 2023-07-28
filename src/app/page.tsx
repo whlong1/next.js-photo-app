@@ -9,7 +9,7 @@ export default async function Home() {
   console.log("response:", res)
 
   const { userId } = auth()
-  console.log(userId)
+  console.log("User Id", userId)
 
   return (
     <>

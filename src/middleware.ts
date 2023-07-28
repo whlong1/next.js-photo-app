@@ -9,8 +9,8 @@
 
 import { authMiddleware } from "@clerk/nextjs"
 
-const publicClientPaths = ["/"]
 const publicAPIPaths = ["/api/hello"]
+const publicClientPaths = ["/", "/sign-up", "/sign-in"]
 
 export default authMiddleware({
   publicRoutes: [...publicClientPaths, ...publicAPIPaths]

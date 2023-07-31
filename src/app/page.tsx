@@ -2,10 +2,10 @@
 import { auth } from '@clerk/nextjs'
 
 // Services
-import * as helloService from "@/services/hello"
+import * as greetingsService from "@/services/greetingService"
 
 export default async function Home() {
-  const res: { message: string, greetings: [] } = await helloService.show()
+  const res: { message: string, greetings: [] } = await greetingsService.show()
   console.log("response:", res)
 
   const { userId } = auth()

@@ -1,9 +1,18 @@
+import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { NextRequest, NextResponse } from "next/server"
+import { auth } from '@clerk/nextjs'
+import { Video } from "@/types/models"
 
-const POST = async (req: NextRequest) => {
+const GET = (req: Request) =>{
+  const { userId } = auth()
+  if (!userId) return new Response('Unauthorized', { status: 401 })
+  return NextResponse.json({ message: 'Hello User', userId: userId })
+}
+
+const POST = async (req: Request) => {
   try {
-    const video = await prisma.video.create({
+    console.log("REQUEST BODY:", req.body)
+    const video: Video = await prisma.video.create({
       data: {
         year: 0,
         genre: "",
@@ -18,7 +27,7 @@ const POST = async (req: NextRequest) => {
         authorId: ""
       }
     })
-    
+
     return NextResponse.json(video)
   } catch (error) {
     throw error
@@ -26,5 +35,6 @@ const POST = async (req: NextRequest) => {
 }
 
 export {
-  POST
+  GET,
+  POST,
 }

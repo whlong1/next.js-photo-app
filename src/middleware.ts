@@ -14,7 +14,13 @@ const publicAPIPaths = ["/api/greetings"]
 
 // Add 'debug: true' to view logs:
 export default authMiddleware({
-  publicRoutes: [...publicClientPaths, ...publicAPIPaths]
+  publicRoutes: [
+    ...publicAPIPaths,
+    ...publicClientPaths,
+  ],
+  afterAuth(auth, req, evt) {
+    console.log("After Auth")
+  }
 })
 
 export const config = {

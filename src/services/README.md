@@ -1,6 +1,6 @@
 # Services
 
-Functions for for making HTTP requests will be held in this directory. These functions are currently running on the server side. While redundant, this pattern should groups all HTTP requests together and should prove useful if we need to refactor things later on. 
+This directory is designated for functions that make HTTP requests. These functions are split into two categories: back-end and front-end. Although there might be some redundancy in this design, it provides the advantage of organizing all HTTP requests in one place. This can be particularly beneficial if future refactoring becomes necessary.
 
 ## Notes
 

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
 import { Video } from "@/types/models"
 
+
 const GET = async (req: Request) => {
   const { userId } = auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
@@ -12,24 +13,26 @@ const GET = async (req: Request) => {
 
 const POST = async (req: Request) => {
   try {
+    const { userId } = auth()
     console.log("REQUEST BODY:", req.body)
-    const video: Video = await prisma.video.create({
-      data: {
-        year: 0,
-        genre: "",
-        title: "",
-        artist: "",
-        director: "",
-        category: "",
+    console.log("USER ID", userId)
+    // const video: Video = await prisma.video.create({
+    //   data: {
+    //     year: 0,
+    //     genre: "",
+    //     title: "",
+    //     artist: "",
+    //     director: "",
+    //     category: "",
 
-        videoUrl: "",
-        thumbnailUrl: "",
+    //     videoUrl: "",
+    //     thumbnailUrl: "",
 
-        authorId: ""
-      }
-    })
-
-    return NextResponse.json(video)
+    //     authorId: ""
+    //   }
+    // })
+    return NextResponse.json({ message: "Sup" }, { status: 201 })
+    // return NextResponse.json(video)
   } catch (error) {
     throw error
   }

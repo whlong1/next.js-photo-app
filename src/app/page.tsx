@@ -1,13 +1,19 @@
-import * as helloService from "./services/hello"
+// Auth
+import { auth } from '@clerk/nextjs'
+
+// Services
+import * as greetingsService from "@/services/greetingService"
 
 export default async function Home() {
-  const res: { message: string, greetings: [] } = await helloService.show()
-  console.log("response:", res)
+  const { userId } = auth()
+  console.log("Server Component:", userId)
+
+  const greetingObject: { message: string, greetings: [] } = await greetingsService.show()
+  console.log("Response:", greetingObject)
 
   return (
-    <main>
+    <>
       <h1>Home Page</h1>
-      {res.message}
-    </main>
+    </>
   )
 }

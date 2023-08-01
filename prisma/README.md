@@ -5,6 +5,7 @@ This guide covers the basic set up for Prisma with a PostgreSQL database. The gu
 - [Prisma Setup From Scratch](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-postgresql)
 - [Prisma Migrate](https://www.prisma.io/docs/concepts/components/prisma-migrate/get-started)
 - [Instantiating PrismaClient ](https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices)
+- [Prisma CRUD](https://www.prisma.io/docs/concepts/components/prisma-client/crud)
 
 ## Database
 

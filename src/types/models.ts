@@ -6,3 +6,17 @@ export interface Greeting {
   updatedAt: Date;
   createdAt: Date;
 }
+
+export interface Video {
+  year: number;
+  genre: string;
+  title: string;
+  artist: string;
+  director: string;
+  category: string;
+
+  videoUrl: string;
+  thumbnailUrl: string;
+
+  authorId: string;
+}

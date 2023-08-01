@@ -5,16 +5,60 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+//? =========== Example Model =========== 
+
 model Greeting {
-  id  Int @id @default(autoincrement())
-  text String
+  id        String   @id @default(uuid())
+  text      String
   sentiment String
   recipient String
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+}
+
+//? =========== ============= =========== 
+
+// Initial build will link resources directly to a Clerk User Id.
+// Profile table might be useful when building many to many relationships.
+// Profile can be created using Clerk Webhooks, but testing this out on local host
+// will require something like ngrok.
+
+// Resources:
+// https://clerk.com/docs/integration/webhooks
+// https://dev.to/ibrarturi/how-to-test-webhooks-on-your-localhost-3b4f
+
+model Profile {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  email     String   @unique
+  clerkId   String   @unique
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+//? =========== ============= =========== 
+
+model Video {
+  id Int @id @default(autoincrement())
+
+  title    String
+  artist   String
+  year     Int
+  genre    String
+  director String
+  category String
+
+  videoUrl     String // S3 OR MUX
+  thumbnailUrl String // S3 OR MUX
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  // Update when Profile is in use:
+  authorId String
 }

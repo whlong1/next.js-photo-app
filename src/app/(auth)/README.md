@@ -11,3 +11,4 @@ This guide will outline the use of Clerk with Next.js. Any current issues and pl
 ## Issues
 • On sign in, console initially shows an unauthorized msg
 • [Auth data is not present on serverside](https://github.com/clerkinc/javascript/issues/1528)
+• [Cookies are missing if a request is sent from the server side to a Route Handler](https://github.com/vercel/next.js/issues/47126)

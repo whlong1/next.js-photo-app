@@ -4,7 +4,8 @@ import * as videoService from "@/services/videoService"
 // Types
 import { Video } from '@/types/models'
 
-const VideoList = ({ videos }: { videos: Video[] }) => {
+const VideoList = async() => {
+  const videos: Video[] = await videoService.index()
   return (
     videos.map((vid) => (
       <p>V</p>
@@ -14,12 +15,9 @@ const VideoList = ({ videos }: { videos: Video[] }) => {
 
 
 const Videos = async () => {
-  // const videos: Video[] = await videoService.index()
-
   return (
     <>
-      <h1>Videos</h1>
-      {/* <VideoList videos={videos} /> */}
+      <h1>This is the protected videos page</h1>
     </>
   )
 }

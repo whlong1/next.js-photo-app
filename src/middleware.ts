@@ -5,18 +5,21 @@
 
 // For custom sign in pages, don't add them to your publicRoutes. Add them to `.env`
 
-// With the config below, all api endpoints are public.
+// With the configuration below, all api endpoints are public!
 
 //! Note: Clerk requires this file to be in the root or src directory.
 
 import { authMiddleware } from "@clerk/nextjs"
 import { redirectToSignIn } from '@clerk/nextjs'
 
+const publicPages = ["/", "/about"]
+const publicApiEndpoints = ["/api(.*)"]
+
 // Add 'debug: true' to view logs:
 export default authMiddleware({
-  publicRoutes: ["/", "/about"],
+  publicRoutes: [...publicApiEndpoints, ...publicPages],
   afterAuth(auth, req, evt) {
-    console.log("After Auth")
+    console.log("Auth check")
     if (!auth.userId && !auth.isPublicRoute) {
       return redirectToSignIn({ returnBackUrl: req.url })
     }

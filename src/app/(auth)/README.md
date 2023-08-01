@@ -6,6 +6,8 @@ This guide will outline the use of Clerk with Next.js. Any current issues and pl
 
 [Get started with Next.js](https://clerk.com/docs/nextjs/get-started-with-nextjs)
 
+[Clerk+Next.js Reference App](https://github.com/clerkinc/clerk-next-app-router-starter)
+
 [Conditional Rendering](https://clerk.com/blog/conditional-rendering-react?utm_source=www.google.com&utm_medium=referral&utm_campaign=none)
 
 ## Issues

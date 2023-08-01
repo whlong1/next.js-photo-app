@@ -3,10 +3,11 @@ import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
 import { Video } from "@/types/models"
 
-const GET = (req: Request) =>{
+const GET = async (req: Request) => {
   const { userId } = auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })
-  return NextResponse.json({ message: 'Hello User', userId: userId })
+  const videos = await prisma.video.findMany()
+  return NextResponse.json(videos)
 }
 
 const POST = async (req: Request) => {

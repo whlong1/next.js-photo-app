@@ -1,6 +1,6 @@
 # Services
 
-Functions for for making HTTP requests will be held in this directory. 
+Functions for for making HTTP requests will be held in this directory. These functions are currently running on the server side. While redundant, this pattern should groups all HTTP requests together and should prove useful if we need to refactor things later on. 
 
 ## Resources
 
@@ -10,3 +10,5 @@ Functions for for making HTTP requests will be held in this directory.
 
 2. [Notes on Cache prop](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching#dynamic-data-fetching)
     - Include  `{ cache: 'no-store' }` in services to avoid unintentional caching.
+
+3. User information can be accessed within a service function if necessary using Clerk's `auth()` hook.

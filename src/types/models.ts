@@ -18,5 +18,8 @@ export interface Video {
   videoUrl: string;
   thumbnailUrl: string;
 
-  authorId: string;
+  // Optional form data values:
+  authorId?: string;
+  updatedAt?: Date;
+  createdAt?: Date;
 }

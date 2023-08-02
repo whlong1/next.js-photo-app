@@ -6,6 +6,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --font-color: black;
+  --background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,11 +20,22 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--font-color);
+  background: var(--background-color);
+}
+
+
+@layer components {
+  .responsive-grid {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+  }
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+button {
+  color: white;
+  background-color: black !important;
 }

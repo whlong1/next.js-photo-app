@@ -11,7 +11,7 @@ export const fetchGreetings = async () => {
   }
 }
 
-export const indexVideos = async () => {
+export const fetchVideos = async () => {
   try {
     const res = await fetch(`${BASE_URL}/api/videos`, {
       cache: 'no-store',

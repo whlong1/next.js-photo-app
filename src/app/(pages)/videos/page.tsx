@@ -4,6 +4,8 @@ import { Video } from '@/types/models'
 // Components 
 import VideoForm from "./components/VideoForm"
 
+import { fetchVideos } from '@/services/backendServices'
+
 const VideoList = async () => {
   // const videos: Video[] = await ...
   return (
@@ -21,6 +23,7 @@ const NewVideo = async () => {
 }
 
 const Videos = async () => {
+  const data = await fetchVideos()
   return (
     <>
       <h1>This is the protected videos page</h1>

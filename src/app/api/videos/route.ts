@@ -14,25 +14,17 @@ const GET = async (req: Request) => {
 const POST = async (req: Request) => {
   try {
     const { userId } = auth()
-    console.log("REQUEST BODY:", req.body)
-    console.log("USER ID", userId)
-    // const video: Video = await prisma.video.create({
-    //   data: {
-    //     year: 0,
-    //     genre: "",
-    //     title: "",
-    //     artist: "",
-    //     director: "",
-    //     category: "",
+    const data = await req.json()
+    if (!userId) return new Response('Unauthorized', { status: 401 })
 
-    //     videoUrl: "",
-    //     thumbnailUrl: "",
+    const video: Video = await prisma.video.create({
+      data: {
+        ...data,
+        authorId: userId
+      }
+    })
 
-    //     authorId: ""
-    //   }
-    // })
-    return NextResponse.json({ message: "Sup" }, { status: 201 })
-    // return NextResponse.json(video)
+    return NextResponse.json(video, { status: 201 })
   } catch (error) {
     throw error
   }

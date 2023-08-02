@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 const GET = async (req: NextRequest) => {
   try {
     const greetings = await prisma.greeting.findMany()
-    return NextResponse.json({ message: "Welcome", greetings: greetings })
+    return NextResponse.json(greetings)
   } catch (error) {
     throw error
   }

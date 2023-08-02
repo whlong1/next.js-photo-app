@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
 import { Video } from "@/types/models"
 
-
 const GET = async (req: Request) => {
   const { userId } = auth()
   if (!userId) return new Response('Unauthorized', { status: 401 })

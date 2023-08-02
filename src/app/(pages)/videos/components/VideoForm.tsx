@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 // Types
 import { Video } from "@/types/models"
@@ -21,6 +22,7 @@ const VideoForm = () => {
 
   const inputStyle = "border border-black w-100 rounded"
 
+  const router = useRouter()
   const [videoFormData, setVideoFormData] = useState(initialState)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +32,9 @@ const VideoForm = () => {
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     try {
       e.preventDefault()
-      const newVideo = await createVideo(videoFormData)
-      console.log("Client", newVideo)
+      await createVideo(videoFormData)
+      setVideoFormData(initialState)
+      router.push("/")
     } catch (error) {
       console.log(error)
     }
@@ -47,6 +50,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.title}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="artist">Artist:</label>
@@ -57,6 +61,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.artist}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="year">Year:</label>
@@ -67,6 +72,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.year}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="genre">Genre:</label>
@@ -77,6 +83,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.genre}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="director">Director:</label>
@@ -87,6 +94,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.director}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="category">Category:</label>
@@ -97,6 +105,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.category}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="videoUrl">Video URL:</label>
@@ -107,6 +116,7 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.videoUrl}
         onChange={handleChange}
+        required
       />
 
       <label htmlFor="thumbnailUrl">Thumbnail URL:</label>
@@ -117,9 +127,10 @@ const VideoForm = () => {
         className={inputStyle}
         value={videoFormData.thumbnailUrl}
         onChange={handleChange}
+        required
       />
 
-      <button type="submit">SUBMIT</button>
+      <button onClick={handleSubmit}>SUBMIT</button>
     </form>
   )
 }

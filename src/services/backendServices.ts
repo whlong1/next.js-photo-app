@@ -14,7 +14,7 @@ export const fetchGreetings = async (): Promise<Greeting[]> => {
   }
 }
 
-export const fetchVideos = async (searchParams: VideoSearchParams): Promise<Video[]> => {
+export const fetchVideosOnServer = async (searchParams: VideoSearchParams): Promise<Video[]> => {
   try {
     const queryString = Object.keys(searchParams).map((k) => {
       const key = k as keyof typeof searchParams

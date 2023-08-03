@@ -29,6 +29,7 @@ export const fetchVideosOnClient = async (searchParams: VideoSearchParams): Prom
     const res = await fetch(`${BASE_URL}/api/videos?${queryString}`, {
       cache: 'no-store',
     })
+    
     return res.json()
   } catch (error) {
     throw error

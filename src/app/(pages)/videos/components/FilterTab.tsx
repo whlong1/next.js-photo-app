@@ -23,7 +23,7 @@ const FilterButton = ({ selected, optionValue, handleClick }: FilterButtonProps)
   )
 }
 
-const Search = () => {
+const FilterTab = () => {
   const currentYear = new Date().getFullYear()
   const initialState: VideoSearchParams = {
     genre: "",
@@ -39,18 +39,20 @@ const Search = () => {
 
   const [query, setQuery] = useState(initialState)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    await fetchVideosOnClient(query)
+  const handleSearch = async () => {
+    const activeQueries: VideoSearchParams = Object.fromEntries(
+      Object.entries(query).filter(([key, value]) => value)
+    )
+    const videos = await fetchVideosOnClient(activeQueries)
+    console.log("Filtered Videos:", videos)
   }
+
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     setQuery({ ...query, [target.name]: target.value })
   }
 
   const handleSelection = (k: string, v: string) => setQuery({ ...query, [k]: v })
-
-  console.log(query)
 
   const genreList = [
     "comedy",
@@ -68,9 +70,8 @@ const Search = () => {
     return yearStringArray
   }
 
-
   return (
-    <>
+    <nav>
       <section>
         <h2>Genres</h2>
         <ul>
@@ -93,8 +94,10 @@ const Search = () => {
           ))}
         </select>
       </section>
-    </>
+
+      <button onClick={handleSearch}>APPLY</button>
+    </nav>
   )
 }
 
-export default Search
+export default FilterTab

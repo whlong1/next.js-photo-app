@@ -45,9 +45,13 @@ const GET = async (req: Request) => {
     const { userId } = auth()
     if (!userId) return new Response('Unauthorized', { status: 401 })
 
+    console.log("params", getPrismaQuery(getSearchParams(req.url)))
+
     const videos = await prisma.video.findMany({
       where: { AND: getPrismaQuery(getSearchParams(req.url)) }
     })
+
+    console.log("vids", videos)
 
     return NextResponse.json(videos)
   } catch (error) {

@@ -3,8 +3,17 @@ import { useState } from "react"
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
 
-const FilterButton = ({ handleClick, optionValue, selected }: any) => {
-  const style = `text-white rounded p-2 ${selected ? "bg-blue-500" : "bg-black"}`
+interface FilterButtonProps {
+  selected: boolean;
+  optionValue: string;
+  handleClick: (k: string, v: string) => void;
+}
+
+const FilterButton = ({ handleClick, optionValue, selected }: FilterButtonProps) => {
+  const baseStyle = "text-white rounded"
+  const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
+  const style = `${baseStyle} ${selectedStyle}`
+
   return (
     <li>
       <button className={style} onClick={() => handleClick('genre', optionValue)}>
@@ -68,10 +77,6 @@ const Search = () => {
         </ul>
       </section>
 
-
-
-
-
       {/* <form onSubmit={handleSubmit}>
         <label htmlFor="genre-select">GENRE</label>
         <select name="genre" id="genre-select" value={query.genre} onChange={handleChange}>
@@ -79,8 +84,6 @@ const Search = () => {
           <option value="DRAMA">DRAMA</option>
         </select>
       </form> */}
-
-
     </>
   )
 }

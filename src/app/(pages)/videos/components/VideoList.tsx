@@ -8,8 +8,10 @@ import { SearchParams } from '@/types/props'
 // Services
 import { fetchVideos } from '@/services/backendServices'
 import VideoCard from './VideoCard'
+import Search from './Search'
 
-const SearchFilterBar = () => {
+// Appends one key:value pair to URL at a time:
+const FilterTab = () => {
   return (
     <nav>
       <ul>
@@ -27,13 +29,14 @@ const VideoList = async ({ searchParams }: { searchParams: SearchParams }) => {
   return (
     <main className="flex flex-col">
 
-      <SearchFilterBar />
+      <FilterTab />
+      <Search />
       <section className="responsive-grid">
         {videos.map((video: any) => (
           <VideoCard key={video.id} video={video} />
         ))}
       </section>
-      
+
     </main>
   )
 }

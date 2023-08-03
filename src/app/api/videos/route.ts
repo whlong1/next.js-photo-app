@@ -3,21 +3,28 @@ import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
 import { Video } from "@/types/models"
 
-// Currently works for single genre queries:
 const getSearchParams = (url: string) => {
   const { searchParams } = new URL(url)
   return Object.fromEntries(searchParams)
 }
 
+// For more info on the prisma query below:
+// https://github.com/prisma/prisma/discussions/8216#discussioncomment-992302
+
 const GET = async (req: Request) => {
-  const { userId } = auth()
-  if (!userId) return new Response('Unauthorized', { status: 401 })
+  try {
+    const { userId } = auth()
+    if (!userId) return new Response('Unauthorized', { status: 401 })
 
-  const videos = await prisma.video.findMany({
-    where: getSearchParams(req.url)
-  })
+    const videos = await prisma.video.findMany({
+      where: { AND: getSearchParams(req.url) }
+    })
 
-  return NextResponse.json(videos)
+    return NextResponse.json(videos)
+  } catch (error) {
+    console.log("error block")
+    throw error
+  }
 }
 
 const POST = async (req: Request) => {

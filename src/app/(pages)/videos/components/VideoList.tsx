@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 // Types
 import { Video } from '@/types/models'
-import { SearchParams } from '@/types/props'
+import { VideoSearchParams } from '@/types/props'
 
 // Services
 import { fetchVideos } from '@/services/backendServices'
@@ -23,7 +23,7 @@ const FilterTab = () => {
   )
 }
 
-const VideoList = async ({ searchParams }: { searchParams: SearchParams }) => {
+const VideoList = async ({ searchParams }: { searchParams: VideoSearchParams}) => {
   const videos: Video[] = await fetchVideos(searchParams)
 
   return (

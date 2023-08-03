@@ -3,8 +3,22 @@ import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
 import { Video } from "@/types/models"
 
+const validParams = [
+  "year",
+  "genre",
+  "title",
+  "artist",
+  "director",
+  "category",
+  "videoUrl",
+  "thumbnailUrl",
+  "authorId",
+]
+
 const getSearchParams = (url: string) => {
+  console.log("URL", url)
   const { searchParams } = new URL(url)
+
   return Object.fromEntries(searchParams)
 }
 

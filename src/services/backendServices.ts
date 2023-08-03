@@ -1,7 +1,7 @@
 import 'server-only'
 import { headers } from "next/headers"
 import { Video, Greeting } from '@/types/models'
-import { SearchParams } from '@/types/props'
+import { SearchParams, VideoSearchParams } from '@/types/props'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -14,7 +14,7 @@ export const fetchGreetings = async (): Promise<Greeting[]> => {
   }
 }
 
-export const fetchVideos = async (searchParams: SearchParams): Promise<Video[]> => {
+export const fetchVideos = async (searchParams: VideoSearchParams): Promise<Video[]> => {
   const queryString = Object.keys(searchParams).map((k) => {
     const key = k as keyof typeof searchParams
     return `${key}=${searchParams[key]}`

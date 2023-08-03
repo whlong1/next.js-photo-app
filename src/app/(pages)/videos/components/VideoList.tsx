@@ -3,13 +3,17 @@ import Link from 'next/link'
 
 // Types
 import { Video } from '@/types/models'
-import { SearchParams } from '@/types/props'
+import { VideoSearchParams } from '@/types/props'
 
 // Services
-import { fetchVideos } from '@/services/backendServices'
-import VideoCard from './VideoCard'
+import { fetchVideosOnServer } from '@/services/backendServices'
 
-const SearchFilterBar = () => {
+// Components
+import VideoCard from './VideoCard'
+import FilterTab from './FilterTab'
+
+// Appends one key:value pair to URL at a time:
+const ServerSideFilterTab = () => {
   return (
     <nav>
       <ul>
@@ -21,19 +25,18 @@ const SearchFilterBar = () => {
   )
 }
 
-const VideoList = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const videos: Video[] = await fetchVideos(searchParams)
+const VideoList = async ({ searchParams }: { searchParams: VideoSearchParams }) => {
+  const videos: Video[] = await fetchVideosOnServer(searchParams)
 
   return (
     <main className="flex flex-col">
-
-      <SearchFilterBar />
+      <FilterTab />
       <section className="responsive-grid">
         {videos.map((video: any) => (
           <VideoCard key={video.id} video={video} />
         ))}
       </section>
-      
+
     </main>
   )
 }

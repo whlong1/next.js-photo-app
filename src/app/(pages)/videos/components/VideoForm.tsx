@@ -32,7 +32,10 @@ const VideoForm = () => {
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     try {
       e.preventDefault()
-      await createVideo(videoFormData)
+      await createVideo({
+        ...videoFormData,
+        year: Number(videoFormData.year)
+      })
       setVideoFormData(initialState)
       router.push("/")
     } catch (error) {

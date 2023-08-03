@@ -1,5 +1,5 @@
 // Types
-import { SearchParams } from '@/types/props'
+import { VideoSearchParams } from '@/types/props'
 
 // Components 
 import VideoForm from "./components/VideoForm"
@@ -8,7 +8,7 @@ import VideoList from "./components/VideoList"
 // Accessing Search Params in Server Components:
 // https://nextjs.org/docs/app/api-reference/functions/use-search-params#server-components
 
-const Videos = async ({ searchParams }: { searchParams: SearchParams }) => {
+const Videos = async ({ searchParams }: { searchParams: VideoSearchParams }) => {
   return (
     <>
       <h1>Videos Hub</h1>

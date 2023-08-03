@@ -28,8 +28,7 @@ const VideoList = async ({ searchParams }: { searchParams: VideoSearchParams}) =
 
   return (
     <main className="flex flex-col">
-
-      <FilterTab />
+      {/* <FilterTab /> */}
       <Search />
       <section className="responsive-grid">
         {videos.map((video: any) => (

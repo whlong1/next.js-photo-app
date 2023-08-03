@@ -24,7 +24,6 @@ body {
   background: var(--background-color);
 }
 
-
 @layer components {
   .responsive-grid {
     @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
@@ -33,9 +32,4 @@ body {
 
 h1, h2, h3 {
   font-weight: 600;
-}
-
-button {
-  color: white;
-  background-color: black !important;
 }

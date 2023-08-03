@@ -1,25 +1,40 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { auth } from '@clerk/nextjs'
+
+// Types
 import { Video } from "@/types/models"
+import { VideoSearchParams } from "@/types/props"
+import { PrismaVideoQueryParams } from "@/types/queries"
 
-const validParams = [
-  "year",
-  "genre",
-  "title",
-  "artist",
-  "director",
-  "category",
-  "videoUrl",
-  "thumbnailUrl",
-  "authorId",
-]
+const validParams = {
+  year: true,
+  genre: true,
+  title: true,
+  artist: true,
+  director: true,
+  category: true,
+  videoUrl: true,
+  authorId: true,
+  thumbnailUrl: true,
+}
 
-const getSearchParams = (url: string) => {
-  console.log("URL", url)
+// Convert URL into search params object:
+const getSearchParams = (url: string): VideoSearchParams => {
   const { searchParams } = new URL(url)
+  const validPairs = Array.from(searchParams)
+    .filter((pair) => validParams[pair[0] as keyof typeof validParams])
 
-  return Object.fromEntries(searchParams)
+  return Object.fromEntries(validPairs)
+}
+
+// Format search params object into valid Prisma Query:
+// Destructure year from the rest of the object because of how TS reads spread.
+// If year is present, make the query string value a number to match the Prisma model.
+// Parentheses cause the expression to be fully evaluated before the spread is applied
+const getPrismaQuery = (params: VideoSearchParams): PrismaVideoQueryParams => {
+  const { year, ...rest } = params
+  return { ...rest, ...(year && { year: Number(year) }) }
 }
 
 // For more info on the prisma query below:
@@ -31,7 +46,7 @@ const GET = async (req: Request) => {
     if (!userId) return new Response('Unauthorized', { status: 401 })
 
     const videos = await prisma.video.findMany({
-      where: { AND: getSearchParams(req.url) }
+      where: { AND: getPrismaQuery(getSearchParams(req.url)) }
     })
 
     return NextResponse.json(videos)

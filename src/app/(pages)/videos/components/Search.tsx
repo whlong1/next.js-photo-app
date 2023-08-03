@@ -24,8 +24,8 @@ const FilterButton = ({ selected, optionValue, handleClick }: FilterButtonProps)
 }
 
 const Search = () => {
+  const currentYear = new Date().getFullYear()
   const initialState: VideoSearchParams = {
-    year: "",
     genre: "",
     title: "",
     artist: "",
@@ -34,6 +34,7 @@ const Search = () => {
     videoUrl: "",
     authorId: "",
     thumbnailUrl: "",
+    year: currentYear.toString(),
   }
 
   const [query, setQuery] = useState(initialState)
@@ -59,6 +60,15 @@ const Search = () => {
     "science-fiction",
   ]
 
+  const getYearsFrom = (startYear: number): string[] => {
+    const yearStringArray = []
+    for (let year = startYear; year <= currentYear; year++) {
+      yearStringArray.push(year.toString())
+    }
+    return yearStringArray
+  }
+
+
   return (
     <>
       <section>
@@ -75,13 +85,14 @@ const Search = () => {
         </ul>
       </section>
 
-      {/* <form onSubmit={handleSubmit}>
-        <label htmlFor="genre-select">GENRE</label>
-        <select name="genre" id="genre-select" value={query.genre} onChange={handleChange}>
-          <option value="COMEDY">COMEDY</option>
-          <option value="DRAMA">DRAMA</option>
+      <section>
+        <h2>Year</h2>
+        <select name="year" value={query.year} onChange={handleChange}>
+          {getYearsFrom(1900).map((yearStr) => (
+            <option key={yearStr} value={yearStr}>{yearStr}</option>
+          ))}
         </select>
-      </form> */}
+      </section>
     </>
   )
 }

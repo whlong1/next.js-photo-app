@@ -9,14 +9,14 @@ interface FilterButtonProps {
   handleClick: (k: string, v: string) => void;
 }
 
-const FilterButton = ({ handleClick, optionValue, selected }: FilterButtonProps) => {
+const FilterButton = ({ selected, optionValue, handleClick }: FilterButtonProps) => {
   const baseStyle = "text-white rounded"
   const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
   const style = `${baseStyle} ${selectedStyle}`
 
   return (
     <li>
-      <button className={style} onClick={() => handleClick('genre', optionValue)}>
+      <button className={style} onClick={() => handleClick('genre', selected ? "" : optionValue)}>
         {optionValue.toUpperCase()}
       </button>
     </li>
@@ -47,7 +47,7 @@ const Search = () => {
     setQuery({ ...query, [target.name]: target.value })
   }
 
-  const handleClick = (k: string, v: string) => setQuery({ ...query, [k]: v })
+  const handleSelection = (k: string, v: string) => setQuery({ ...query, [k]: v })
 
   console.log(query)
 
@@ -61,8 +61,6 @@ const Search = () => {
 
   return (
     <>
-      SEARCH
-
       <section>
         <h2>Genres</h2>
         <ul>
@@ -70,7 +68,7 @@ const Search = () => {
             <FilterButton
               key={idx}
               optionValue={genreName}
-              handleClick={handleClick}
+              handleClick={handleSelection}
               selected={query.genre === genreName}
             />
           ))}

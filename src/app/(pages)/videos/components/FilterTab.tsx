@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { Video } from '@/types/models'
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
 
@@ -23,7 +24,12 @@ const FilterButton = ({ selected, optionValue, handleClick }: FilterButtonProps)
   )
 }
 
-const FilterTab = () => {
+interface FilterTabProps {
+  videos: Video[];
+  setVideos: (videos: Video[]) => void;
+}
+
+const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
   const currentYear = new Date().getFullYear()
   const initialState: VideoSearchParams = {
     genre: "",
@@ -34,7 +40,8 @@ const FilterTab = () => {
     videoUrl: "",
     authorId: "",
     thumbnailUrl: "",
-    year: currentYear.toString(),
+    year: "",
+    keyword: "",
   }
 
   const [query, setQuery] = useState(initialState)
@@ -43,12 +50,11 @@ const FilterTab = () => {
     const activeQueries: VideoSearchParams = Object.fromEntries(
       Object.entries(query).filter(([key, value]) => value)
     )
-    const videos = await fetchVideosOnClient(activeQueries)
-    console.log("Filtered Videos:", videos)
+    const videoData = await fetchVideosOnClient(activeQueries)
+    setVideos(videoData)
   }
 
-
-  const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     setQuery({ ...query, [target.name]: target.value })
   }
 
@@ -72,6 +78,10 @@ const FilterTab = () => {
 
   return (
     <nav>
+
+      <input type="text" placeholder="Search Keywords" name="keyword" value={query.keyword} onChange={handleChange} />
+
+
       <section>
         <h2>Genres</h2>
         <ul>
@@ -89,6 +99,7 @@ const FilterTab = () => {
       <section>
         <h2>Year</h2>
         <select name="year" value={query.year} onChange={handleChange}>
+          <option value="">ALL</option>
           {getYearsFrom(1900).map((yearStr) => (
             <option key={yearStr} value={yearStr}>{yearStr}</option>
           ))}
@@ -96,6 +107,7 @@ const FilterTab = () => {
       </section>
 
       <button onClick={handleSearch}>APPLY</button>
+
     </nav>
   )
 }

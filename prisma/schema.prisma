@@ -61,4 +61,6 @@ model Video {
 
   // Update when Profile is in use:
   authorId String
+
+  // description tag
 }

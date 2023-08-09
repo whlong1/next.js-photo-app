@@ -3,7 +3,8 @@ import { useState } from "react"
 import { Video } from '@/types/models'
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
-import QueryButton from "./QueryButton"
+
+import GenreList from "./GenreList"
 
 interface FilterTabProps {
   videos: Video[];
@@ -37,16 +38,6 @@ const FilterTab = ({ videos }: FilterTabProps) => {
     setQuery({ ...query, [target.name]: target.value })
   }
 
-  // Handle dynamic options?
-  const handleSelection = (k: string, v: string) => setQuery({ ...query, [k]: v })
-
-  const genreList = [
-    "comedy",
-    "drama",
-    "action",
-    "romance",
-    "science-fiction",
-  ]
 
   const getYearsFrom = (startYear: number): string[] => {
     const yearStringArray = []
@@ -66,18 +57,9 @@ const FilterTab = ({ videos }: FilterTabProps) => {
         placeholder="Search Keywords"
       />
 
-      <section>
-        <h2>Genres</h2>
-        <ul>
-          {genreList.map((genreName, idx) => (
-            <QueryButton
-              key={idx}
-              queryKey="genre"
-              optionValue={genreName}
-            />
-          ))}
-        </ul>
-      </section>
+
+      <GenreList />
+
 
       <section>
         <h2>Year</h2>

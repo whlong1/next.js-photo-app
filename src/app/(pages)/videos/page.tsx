@@ -13,7 +13,6 @@ import { fetchVideosOnServer } from '@/services/backendServices'
 // https://nextjs.org/docs/app/api-reference/functions/use-search-params#server-components
 // Look into dynamic = "force-dynamic"
 
-
 const Videos = async ({ searchParams }: { searchParams: VideoSearchParams }) => {
   const videos: Video[] = await fetchVideosOnServer(searchParams)
   console.log("SERVER SEARCH PARAMS", searchParams)

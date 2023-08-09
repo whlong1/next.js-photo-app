@@ -4,47 +4,53 @@ import { Video } from '@/types/models'
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
 
+import QueryButton from "./QueryButton"
+
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 
-interface FilterButtonProps {
-  queryKey: string;
-  selected: boolean;
-  optionValue: string;
-  handleClick: (k: string, v: string) => void;
-}
+// interface FilterButtonProps {
+//   queryKey: string;
+//   selected: boolean;
+//   optionValue: string;
+//   handleClick: (k: string, v: string) => void;
+// }
 
-const FilterButton = ({ selected, optionValue, queryKey }: FilterButtonProps) => {
-  const baseStyle = "text-white rounded"
-  const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
-  const style = `${baseStyle} ${selectedStyle}`
+// const FilterButton = ({ selected, optionValue, queryKey }: FilterButtonProps) => {
+//   const baseStyle = "text-white rounded"
+//   const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
+//   const style = `${baseStyle} ${selectedStyle}`
 
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+//   const router = useRouter()
+//   const pathname = usePathname()
+//   const searchParams = useSearchParams()
 
-  const updateQueryParams = () => {
-    const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
-    queryParams.set(queryKey, optionValue)
-    router.push(`${pathname}?${queryParams}`)
-  }
+//   const updateQueryParams = () => {
+//     const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
+//     console.log(queryParams.toString())
+//     console.log(searchParams.has(queryKey))
 
-  // Old:
-  // onClick={() => handleClick('genre', selected ? "" : optionValue)}
-  return (
-    <li>
-      <button className={style} onClick={updateQueryParams}>
-        {optionValue.toUpperCase()}
-      </button>
-    </li>
-  )
-}
+//     if (searchParams.has(queryKey)) {
+//       queryParams.delete(queryKey)
+//     } else {
+//       queryParams.set(queryKey, optionValue)
+//     }
+//     router.push(`${pathname}?${queryParams}`)
+//   }
+
+//   return (
+//     <li>
+//       <button className={style} onClick={updateQueryParams}>
+//         {optionValue.toUpperCase()}
+//       </button>
+//     </li>
+//   )
+// }
 
 interface FilterTabProps {
   videos: Video[];
-  setVideos: (videos: Video[]) => void;
 }
 
-const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
+const FilterTab = ({ videos }: FilterTabProps) => {
   const currentYear = new Date().getFullYear()
   const initialState: VideoSearchParams = {
     genre: "",
@@ -66,7 +72,7 @@ const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
       Object.entries(query).filter(([key, value]) => value)
     )
     const videoData = await fetchVideosOnClient(activeQueries)
-    setVideos(videoData)
+    // setVideos(videoData)
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -106,11 +112,10 @@ const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
         <h2>Genres</h2>
         <ul>
           {genreList.map((genreName, idx) => (
-            <FilterButton
+            <QueryButton
               key={idx}
               queryKey="genre"
               optionValue={genreName}
-              handleClick={handleSelection}
               selected={query.genre === genreName}
             />
           ))}

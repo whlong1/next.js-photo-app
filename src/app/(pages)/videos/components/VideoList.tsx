@@ -1,5 +1,3 @@
-"use client"
-import { useState } from 'react'
 // Types
 import { Video } from '@/types/models'
 
@@ -7,12 +5,11 @@ import { Video } from '@/types/models'
 import VideoCard from './VideoCard'
 import FilterTab from './FilterTab'
 
-const VideoList = () => {
-  const [videos, setVideos] = useState<Video[]>([])
+const VideoList = ({ videos }: { videos: Video[] }) => {
 
   return (
     <main className="flex flex-col">
-      <FilterTab videos={videos} setVideos={setVideos} />
+      <FilterTab videos={videos} />
       <section className="responsive-grid">
         {videos.map((video: any) => (
           <VideoCard key={video.id} video={video} />

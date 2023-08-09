@@ -13,12 +13,12 @@ import VideoList from "./components/VideoList"
 import { fetchVideosOnServer } from '@/services/backendServices'
 
 // Appends one key:value pair to URL at a time:
-const ServerSideFilterTab = () => {
+const ServerSideFilterTab = ({ querySeparator }: { querySeparator: "?" | "&" }) => {
   return (
     <nav>
       <ul>
-        <li><Link href="/videos?genre=drama">Drama</Link></li>
-        <li><Link href="/videos?genre=comedy">Comedy</Link></li>
+        <li><Link href={`${querySeparator}genre=drama`} replace>Drama</Link></li>
+        <li><Link href={`${querySeparator}director=greta`} replace>Comedy</Link></li>
         <li><Link href="/videos">Clear</Link></li>
       </ul>
     </nav>
@@ -29,12 +29,17 @@ const ServerSideFilterTab = () => {
 // https://nextjs.org/docs/app/api-reference/functions/use-search-params#server-components
 
 const Videos = async ({ searchParams }: { searchParams: VideoSearchParams }) => {
-  // const videos: Video[] = await fetchVideosOnServer(searchParams)
-  
+  const videos: Video[] = await fetchVideosOnServer(searchParams)
+  console.log("Server videos:", videos)
+
+  // console.log(searchParams)
+  const querySeparator = Object.values(searchParams).length ? "&" : "?"
+
 
   return (
     <>
       <h1>Videos Hub</h1>
+      {/* <ServerSideFilterTab querySeparator={querySeparator} /> */}
       <VideoList />
       <VideoForm />
     </>

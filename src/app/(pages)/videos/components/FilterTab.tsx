@@ -4,20 +4,35 @@ import { Video } from '@/types/models'
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
 
+import { usePathname, useSearchParams, useRouter } from "next/navigation"
+
 interface FilterButtonProps {
+  queryKey: string;
   selected: boolean;
   optionValue: string;
   handleClick: (k: string, v: string) => void;
 }
 
-const FilterButton = ({ selected, optionValue, handleClick }: FilterButtonProps) => {
+const FilterButton = ({ selected, optionValue, queryKey }: FilterButtonProps) => {
   const baseStyle = "text-white rounded"
   const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
   const style = `${baseStyle} ${selectedStyle}`
 
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const updateQueryParams = () => {
+    const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
+    queryParams.set(queryKey, optionValue)
+    router.push(`${pathname}?${queryParams}`)
+  }
+
+  // Old:
+  // onClick={() => handleClick('genre', selected ? "" : optionValue)}
   return (
     <li>
-      <button className={style} onClick={() => handleClick('genre', selected ? "" : optionValue)}>
+      <button className={style} onClick={updateQueryParams}>
         {optionValue.toUpperCase()}
       </button>
     </li>
@@ -58,6 +73,7 @@ const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
     setQuery({ ...query, [target.name]: target.value })
   }
 
+  // Handle dynamic options?
   const handleSelection = (k: string, v: string) => setQuery({ ...query, [k]: v })
 
   const genreList = [
@@ -78,9 +94,13 @@ const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
 
   return (
     <nav>
-
-      <input type="text" placeholder="Search Keywords" name="keyword" value={query.keyword} onChange={handleChange} />
-
+      <input
+        type="text"
+        name="keyword"
+        value={query.keyword}
+        onChange={handleChange}
+        placeholder="Search Keywords"
+      />
 
       <section>
         <h2>Genres</h2>
@@ -88,6 +108,7 @@ const FilterTab = ({ videos, setVideos }: FilterTabProps) => {
           {genreList.map((genreName, idx) => (
             <FilterButton
               key={idx}
+              queryKey="genre"
               optionValue={genreName}
               handleClick={handleSelection}
               selected={query.genre === genreName}

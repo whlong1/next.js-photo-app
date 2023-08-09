@@ -18,7 +18,6 @@ const VideoList = () => {
           <VideoCard key={video.id} video={video} />
         ))}
       </section>
-
     </main>
   )
 }

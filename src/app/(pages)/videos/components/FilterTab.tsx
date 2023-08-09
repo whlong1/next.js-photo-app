@@ -3,48 +3,7 @@ import { useState } from "react"
 import { Video } from '@/types/models'
 import { VideoSearchParams } from '@/types/props'
 import { fetchVideosOnClient } from "@/services/frontendServices"
-
 import QueryButton from "./QueryButton"
-
-import { usePathname, useSearchParams, useRouter } from "next/navigation"
-
-// interface FilterButtonProps {
-//   queryKey: string;
-//   selected: boolean;
-//   optionValue: string;
-//   handleClick: (k: string, v: string) => void;
-// }
-
-// const FilterButton = ({ selected, optionValue, queryKey }: FilterButtonProps) => {
-//   const baseStyle = "text-white rounded"
-//   const selectedStyle = selected ? "bg-blue-500 hover:bg-blue-400" : "bg-slate-950 hover:bg-slate-700"
-//   const style = `${baseStyle} ${selectedStyle}`
-
-//   const router = useRouter()
-//   const pathname = usePathname()
-//   const searchParams = useSearchParams()
-
-//   const updateQueryParams = () => {
-//     const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
-//     console.log(queryParams.toString())
-//     console.log(searchParams.has(queryKey))
-
-//     if (searchParams.has(queryKey)) {
-//       queryParams.delete(queryKey)
-//     } else {
-//       queryParams.set(queryKey, optionValue)
-//     }
-//     router.push(`${pathname}?${queryParams}`)
-//   }
-
-//   return (
-//     <li>
-//       <button className={style} onClick={updateQueryParams}>
-//         {optionValue.toUpperCase()}
-//       </button>
-//     </li>
-//   )
-// }
 
 interface FilterTabProps {
   videos: Video[];
@@ -72,7 +31,6 @@ const FilterTab = ({ videos }: FilterTabProps) => {
       Object.entries(query).filter(([key, value]) => value)
     )
     const videoData = await fetchVideosOnClient(activeQueries)
-    // setVideos(videoData)
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {

@@ -74,7 +74,6 @@ const FilterTab = ({ videos }: FilterTabProps) => {
               key={idx}
               queryKey="genre"
               optionValue={genreName}
-              selected={query.genre === genreName}
             />
           ))}
         </ul>

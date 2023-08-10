@@ -18,18 +18,14 @@ export const createVideo = async (formData: Video): Promise<Video> => {
   }
 }
 
-// CLIENT
-export const fetchVideosOnClient = async (searchParams: VideoSearchParams): Promise<Video[]> => {
+export const uploadMedia = async (file: File, filename: string, fileType: string) => {
   try {
-    const queryString = Object.keys(searchParams).map((k) => {
-      const key = k as keyof typeof searchParams
-      return `${key}=${searchParams[key]}`
-    }).join("&")
-
-    const res = await fetch(`${BASE_URL}/api/videos?${queryString}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/media?file=${filename}&fileType=${fileType}`, {
+      body: file,
+      method: "POST",
       cache: 'no-store',
+      headers: { "Content-Type": fileType },
     })
-    
     return res.json()
   } catch (error) {
     throw error

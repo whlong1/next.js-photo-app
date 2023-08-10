@@ -1,9 +1,29 @@
-# Notes On AWS S3 Media Uploads
+# AWS S3 Media Uploads
+
+This is a brief guide on setting up AWS S3 media storage for use in a Next.js App Router application.
+
+## Outline
+1. Create Bucket
+2. Configure the bucket's public access settings
+3. Configure CORS for the bucket
+4. Edit the Bucket Policy
+5. Create a new IAM User
+7. Grant user `AmazonS3FullAccess` (Permissions tab)
+8. Give the IAM User programmatic access (Security Credentials tab)
+
+## Block public access (bucket settings)
+Do not select the option to `Block all public access`. Select the options as shown below.
+
+> - [x] `Block public access to buckets and objects granted through new access control lists (ACLs)`
+> - [x] `Block public access to buckets and objects granted through any access control lists (ACLs)`
+> - [x] `Block public access to buckets and objects granted through new public bucket or access point policies`
+> - [ ] `Block public and cross-account access to buckets and objects through any public bucket or access point policies`
 
 ## IAM User
 Section is in progress.
 
 ## Bucket Policy
+Add the following to your bucket's `Bucket Policy` section found under the Permissions tab.
 ```
 {
     "Version": "2012-10-17",
@@ -30,6 +50,7 @@ Section is in progress.
 ```
 
 ## Cross-origin resource sharing
+Add the following to your bucket's `Cross-origin resource sharing (CORS)` section found under the Permissions tab.
 ```
 [
     {

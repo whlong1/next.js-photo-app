@@ -17,6 +17,7 @@ const validParams = {
   videoUrl: true,
   authorId: true,
   thumbnailUrl: true,
+  keyword: true,
 }
 
 // Convert URL into search params object:
@@ -28,13 +29,27 @@ const getSearchParams = (url: string): VideoSearchParams => {
   return Object.fromEntries(validPairs)
 }
 
+const getGeneralSearchQuery = (keyword: string) => {
+  return {
+    OR: [
+      { title: { contains: keyword, mode: "insensitive" } },
+      { director: { contains: keyword, mode: "insensitive" } },
+      { genre: { contains: keyword, mode: "insensitive" } },
+    ],
+  }
+}
+
 // Format search params object into valid Prisma Query:
 // Destructure year from the rest of the object because of how TS reads spread.
 // If year is present, make the query string value a number to match the Prisma model.
 // Parentheses cause the expression to be fully evaluated before the spread is applied
 const getPrismaQuery = (params: VideoSearchParams): PrismaVideoQueryParams => {
-  const { year, ...rest } = params
-  return { ...rest, ...(year && { year: Number(year) }) }
+  const { year, keyword, ...rest } = params
+  return {
+    ...rest,
+    ...(year && { year: Number(year) }),
+    ...(keyword && getGeneralSearchQuery(keyword))
+  }
 }
 
 // For more info on the prisma query below:
@@ -45,13 +60,9 @@ const GET = async (req: Request) => {
     const { userId } = auth()
     if (!userId) return new Response('Unauthorized', { status: 401 })
 
-    console.log("params", getPrismaQuery(getSearchParams(req.url)))
-
     const videos = await prisma.video.findMany({
       where: { AND: getPrismaQuery(getSearchParams(req.url)) }
     })
-
-    console.log("vids", videos)
 
     return NextResponse.json(videos)
   } catch (error) {

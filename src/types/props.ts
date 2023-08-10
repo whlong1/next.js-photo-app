@@ -8,6 +8,8 @@ export interface VideoSearchParams {
   videoUrl?: string;
   authorId?: string;
   thumbnailUrl?: string;
+
+  keyword?: string;
 }
 
 // Alternate Approach with Index Signature:

@@ -52,7 +52,6 @@ const getPrismaQuery = (params: VideoSearchParams): PrismaVideoQueryParams => {
   }
 }
 
-
 // For more info on the prisma query below:
 // https://github.com/prisma/prisma/discussions/8216#discussioncomment-992302
 
@@ -61,13 +60,9 @@ const GET = async (req: Request) => {
     const { userId } = auth()
     if (!userId) return new Response('Unauthorized', { status: 401 })
 
-    // console.log("params====", getPrismaQuery(getSearchParams(req.url)))
-
     const videos = await prisma.video.findMany({
       where: { AND: getPrismaQuery(getSearchParams(req.url)) }
     })
-
-    // console.log("vids", videos)
 
     return NextResponse.json(videos)
   } catch (error) {

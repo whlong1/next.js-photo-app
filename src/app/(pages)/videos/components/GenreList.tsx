@@ -1,3 +1,4 @@
+// Components
 import QueryButton from "./QueryButton"
 
 const GenreList = () => {

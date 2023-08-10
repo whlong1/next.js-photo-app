@@ -6,7 +6,6 @@ import VideoCard from './VideoCard'
 import FilterTab from './FilterTab'
 
 const VideoList = ({ videos }: { videos: Video[] }) => {
-
   return (
     <main className="flex flex-col">
       <FilterTab />

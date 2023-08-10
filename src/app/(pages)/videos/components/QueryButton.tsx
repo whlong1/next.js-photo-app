@@ -1,4 +1,6 @@
 "use client"
+
+// Hooks
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 interface QueryButtonProps { queryKey: string; queryValue: string; }

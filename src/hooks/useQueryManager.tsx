@@ -7,7 +7,9 @@ export const useQueryManager = () => {
   const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
 
   const setQueryParams = (queryKey: string, queryValue: string) => {
-    if (queryParams.get(queryKey) === queryValue) {
+    if (queryValue === "") {
+      queryParams.delete(queryKey)
+    } else if (queryParams.get(queryKey) === queryValue) {
       queryParams.delete(queryKey)
     } else {
       queryParams.set(queryKey, queryValue)

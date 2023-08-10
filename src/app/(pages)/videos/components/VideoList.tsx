@@ -9,7 +9,7 @@ const VideoList = ({ videos }: { videos: Video[] }) => {
 
   return (
     <main className="flex flex-col">
-      <FilterTab videos={videos} />
+      <FilterTab />
       <section className="responsive-grid">
         {videos.map((video: any) => (
           <VideoCard key={video.id} video={video} />

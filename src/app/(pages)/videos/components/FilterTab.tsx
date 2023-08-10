@@ -1,19 +1,13 @@
-import { Video } from '@/types/models'
 import GenreList from "./GenreList"
 import SearchBar from './SearchBar'
+import Link from "next/link"
 
-interface FilterTabProps {
-  videos: Video[];
-}
-
-const FilterTab = ({ videos }: FilterTabProps) => {
-
+const FilterTab = () => {
   return (
     <nav>
-
       <GenreList />
       <SearchBar />
-
+      <Link href="/videos">Clear Results</Link>
     </nav>
   )
 }

@@ -16,7 +16,6 @@ const s3 = new S3Client({
 
 const POST = async (req: NextRequest) => {
   try {
-
     const params = {
       Bucket: process.env.BUCKET_NAME,
       Key: req.nextUrl.searchParams.get("file") as string,

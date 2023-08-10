@@ -1,6 +1,5 @@
 // Types
 import { Video } from '@/types/models'
-import { VideoSearchParams } from '@/types/props'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 

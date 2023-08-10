@@ -17,7 +17,7 @@ const GenreList = () => {
           <QueryButton
             key={idx}
             queryKey="genre"
-            optionValue={genreName}
+            queryValue={genreName}
           />
         ))}
       </ul>

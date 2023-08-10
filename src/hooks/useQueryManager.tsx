@@ -1,20 +1,19 @@
 import { usePathname, useSearchParams, useRouter } from "next/navigation"
 
-export const useQueryManager = (queryKey: string, optionValue: string) => {
+export const useQueryManager = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const queryParams = new URLSearchParams(Array.from(searchParams.entries()))
-  const isQueryActive = searchParams.has(queryKey) && queryParams.get(queryKey) === optionValue
 
-  const navigateWithQuery = () => {
-    if (isQueryActive) {
+  const setQueryParams = (queryKey: string, queryValue: string) => {
+    if (queryParams.get(queryKey) === queryValue) {
       queryParams.delete(queryKey)
     } else {
-      queryParams.set(queryKey, optionValue)
+      queryParams.set(queryKey, queryValue)
     }
     router.push(`${pathname}?${queryParams}`)
   }
 
-  return { isQueryActive, navigateWithQuery }
+  return { queryParams, setQueryParams }
 }

@@ -44,10 +44,8 @@ const POST = async (req: NextRequest) => {
       Bucket: process.env.BUCKET_NAME,
     }
 
-    // Better to generate a Pre-signed URL?
     const command = new PutObjectCommand(params)
     const url = await getSignedUrl(client, command, { expiresIn: 3600 })
-    // const response = await s3.send(command)
 
     return NextResponse.json(url, { status: 200 })
   } catch (error) {

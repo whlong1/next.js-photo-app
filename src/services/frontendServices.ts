@@ -20,13 +20,23 @@ export const createVideo = async (formData: Video): Promise<Video> => {
 export const uploadMedia = async (file: File, filename: string, fileType: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/media?filename=${filename}&fileType=${fileType}`, {
-      body: file,
       method: "POST",
       cache: 'no-store',
-      headers: { "Content-Type": fileType },
+      headers: { "Content-Type": fileType }, // JSON?
     })
-    return res.json()
+
+    const url = await res.json()
+    const uploadResponse = await fetch(url, {
+      body: file,
+      method: "PUT",
+      headers: { "Content-Type": fileType }
+    })
+
+    console.log(uploadResponse.ok)
+    return { status: uploadResponse.ok }
+    
   } catch (error) {
+    console.log(error)
     throw error
   }
 }

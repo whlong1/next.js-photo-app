@@ -3,9 +3,9 @@
 // Services
 import { uploadMedia } from "@/services/frontendServices"
 
-const Uploader = () => {
+const MediaUploader = () => {
 
-  const uploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]!
     const filename = file.name
     const fileType = file.type
@@ -18,11 +18,11 @@ const Uploader = () => {
       <h2>Upload Media</h2>
       <input
         type="file"
-        onChange={uploadPhoto}
+        onChange={handleChange}
         accept="image/png, image/jpeg"
       />
     </>
   )
 }
 
-export default Uploader
+export default MediaUploader

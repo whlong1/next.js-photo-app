@@ -5,6 +5,7 @@ const Nav = () => {
   return (
     <nav className="flex flex-row">
       <Link href="/">Home</Link>
+      <Link href="/videos/new">New</Link>
 
       <SignedOut>
         <Link href="/sign-up">Sign Up</Link>

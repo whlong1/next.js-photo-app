@@ -7,7 +7,7 @@ import { fetchGreetings } from '@/services/backendServices'
 // Types
 import { Greeting } from '@/types/models'
 
-import Uploader from '@/components/Uploader'
+import Uploader from '@/app/(pages)/videos/components/MediaUploader'
 
 export default async function Home() {
   const { userId } = auth()

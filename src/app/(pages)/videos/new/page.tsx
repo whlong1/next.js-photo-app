@@ -5,10 +5,8 @@ import MediaUploader from "../components/MediaUploader"
 const NewVideo = () => {
   return (
     <main>
-
       <MediaUploader />
       <VideoForm />
-
     </main>
   )
 }

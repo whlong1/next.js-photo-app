@@ -44,23 +44,22 @@ model Profile {
 //? =========== ============= =========== 
 
 model Video {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
 
-  title    String
-  artist   String
-  year     Int
-  genre    String
-  director String
-  category String
+  title    String?
+  artist   String?
+  year     Int?
+  genre    String?
+  director String?
+  category String?
+  description String?
 
-  videoUrl     String // S3 OR MUX
-  thumbnailUrl String // S3 OR MUX
+  videoUrl     String? // S3
+  thumbnailUrl String? // S3
 
+  status String
+  authorId String
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 
-  // Update when Profile is in use:
-  authorId String
-
-  // description tag
 }

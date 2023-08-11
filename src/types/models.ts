@@ -7,16 +7,19 @@ export interface Greeting {
   createdAt: Date;
 }
 
+// Make new interface for form data
 export interface Video {
-  year: number;
-  genre: string;
-  title: string;
-  artist: string;
-  director: string;
-  category: string;
+  id: string;
 
-  videoUrl: string;
-  thumbnailUrl: string;
+  year?: number | null;
+  genre?: string | null;
+  title?: string | null;
+  artist?: string | null;
+  director?: string | null;
+  category?: string | null;
+
+  videoUrl: string | null;
+  thumbnailUrl: string | null;
 
   // Optional form data values:
   authorId?: string;

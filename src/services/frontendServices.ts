@@ -19,7 +19,7 @@ export const createVideo = async (formData: Video): Promise<Video> => {
 
 export const uploadMedia = async (file: File, filename: string, fileType: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/media?file=${filename}&fileType=${fileType}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/media?filename=${filename}&fileType=${fileType}`, {
       body: file,
       method: "POST",
       cache: 'no-store',

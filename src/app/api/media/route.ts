@@ -4,12 +4,14 @@ import { Video } from "@/types/models"
 import { auth } from '@clerk/nextjs'
 import { prisma } from "@/lib/db"
 
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+
 // Runtime check for environment variables
 if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
   throw new Error("Environment variables are not set")
 }
 
-const s3 = new S3Client({
+const client = new S3Client({
   region: process.env.REGION,
   credentials: {
     accessKeyId: process.env.ACCESS_KEY,
@@ -44,9 +46,10 @@ const POST = async (req: NextRequest) => {
 
     // Better to generate a Pre-signed URL?
     const command = new PutObjectCommand(params)
-    const response = await s3.send(command)
+    const url = await getSignedUrl(client, command, { expiresIn: 3600 })
+    // const response = await s3.send(command)
 
-    return NextResponse.json(response, { status: 200 })
+    return NextResponse.json(url, { status: 200 })
   } catch (error) {
     throw error
   }

@@ -19,15 +19,17 @@ export const createVideo = async (formData: Video): Promise<Video> => {
 
 export const uploadMedia = async (file: File) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/media`, {
+    // POST request to backend route handler
+    const res = await fetch(`${BASE_URL}/api/media`, {
       method: "POST",
-      cache: 'no-store',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size })
     })
-
+    
+    // Response includes a putUrl for upload and a getUrl for displaying a preview
     const { putUrl, getUrl } = await res.json()
 
+    // Request made to putUrl, media file included in body
     const uploadResponse = await fetch(putUrl, {
       body: file,
       method: "PUT",

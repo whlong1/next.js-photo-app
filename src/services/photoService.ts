@@ -3,28 +3,42 @@ import { Photo } from '@/types/models'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export const uploadMedia = async (file: File) => {
+// Response: putUrl for upload, getUrl for previewing, newPhotoId
+const createPhotoAndPresignedUrls = async (file: File) => {
+  const res = await fetch(`${BASE_URL}/api/photos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size })
+  })
+
+  if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
+
+  const { putUrl, getUrl, newPhotoId } = await res.json()
+
+  if (!putUrl || !getUrl || !newPhotoId) {
+    throw new Error("A problem has occured with a presigned URL")
+  }
+
+  return { putUrl, getUrl, newPhotoId }
+}
+
+// Request made to putUrl, media file included in body
+const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
+  const uploadResponse = await fetch(putUrl, {
+    body: file,
+    method: "PUT",
+    headers: { "Content-Type": file.type }
+  })
+  return uploadResponse.ok
+}
+
+// POST request to backend route handler
+export const createAndUploadPhoto = async (file: File) => {
   try {
-    // POST request to backend route handler
-    const res = await fetch(`${BASE_URL}/api/photos`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size })
-    })
-    
-    // Response includes a putUrl for upload and a getUrl for displaying a preview
-    const { putUrl, getUrl } = await res.json()
-
-    // Request made to putUrl, media file included in body
-    const uploadResponse = await fetch(putUrl, {
-      body: file,
-      method: "PUT",
-      headers: { "Content-Type": file.type }
-    })
-
-    return { status: uploadResponse.ok, uploadedUrl: getUrl }
+    const { putUrl, getUrl, newPhotoId } = await createPhotoAndPresignedUrls(file)
+    const uploadStatus = await uploadFileToS3Bucket(file, putUrl)
+    return { uploadStatus, getUrl, newPhotoId }
   } catch (error) {
-    console.log(error)
     throw error
   }
 }

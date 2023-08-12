@@ -7,7 +7,6 @@ export interface Greeting {
   createdAt: Date;
 }
 
-
 export interface Photo {
   id: string;
 
@@ -29,6 +28,7 @@ export interface Photo {
   fileName: string;
   mimeType: string;
 }
+
 
 // Make new interface for form data
 export interface Video {

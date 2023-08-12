@@ -1,4 +1,4 @@
-# AWS S3 Media Uploads
+# AWS S3 Photo Uploads
 
 This is a brief guide on setting up AWS S3 media storage for use in a Next.js App Router application.
 

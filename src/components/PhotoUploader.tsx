@@ -12,12 +12,23 @@ const PhotoUploader = () => {
   const [uploadPending, setUploadPending] = useState(false)
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUploadPending(true)
     const file = e.target.files?.[0]!
+    handleFile(file)
+  }
+
+  const handleFile = async (file: File) => {
+    setUploadPending(true)
     const { getUrl, newPhotoId } = await createAndUploadPhoto(file)
     setPreviewUrl(getUrl)
     setNewPhotoId(newPhotoId)
     setUploadPending(false)
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    if (!e.dataTransfer.items || e.dataTransfer.items.length !== 1) return
+    const file = e.dataTransfer.items[0].getAsFile()!
+    handleFile(file)
   }
 
   const fileInput = (
@@ -35,9 +46,20 @@ const PhotoUploader = () => {
     </div>
   )
 
+  const dragAndDrop = (
+    <div
+      className="w-full h-96 border-4 border-blue"
+      onDrop={handleDrop}
+      onDragOver={(e) => { e.preventDefault(); console.log("Drag Over", e) }}
+    >
+      DRAG N DROP
+    </div>
+  )
+
   return (
     <>
       <h2>Photo Uploader</h2>
+      {dragAndDrop}
       {uploadPending && <p>Pending</p>}
       {newPhotoId && <p>{newPhotoId}</p>}
       {previewUrl && <img src={previewUrl} alt="Preview" />}

@@ -29,9 +29,9 @@ const POST = async (req: NextRequest) => {
       throw new Error("There was a problem with the file!")
     }
 
-    // Create a new media entry in database.
-    // The uploaded media file will be stored in the S3 bucket 
-    // with a name (Key) matching the id (PK) of the newPhoto/photo. 
+    // Create a new photo entry in database.
+    // The uploaded image source file will be stored in the S3 bucket 
+    // with a name (Key) matching the id (PK) of the new photo record. 
     const newPhoto: Photo = await prisma.photo.create({
       data: {
         fileSize: fileSize,

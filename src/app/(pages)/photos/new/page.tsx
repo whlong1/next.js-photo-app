@@ -1,5 +1,5 @@
 // Components
-import MediaUploader from "@/components/MediaUploader"
+import MediaUploader from "@/components/PhotoUploader"
 
 const NewPhoto = () => {
   return (

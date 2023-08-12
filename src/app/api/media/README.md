@@ -78,6 +78,8 @@ Add the following to your bucket's `Cross-origin resource sharing (CORS)` sectio
 
 ## References
 
+• [Documentation on s3-request-presigner](https://www.npmjs.com/package/@aws-sdk/s3-request-presigner)
+
 • [AWS SDK for JavaScript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
 
 • [Guide using Pages Router and AWS SDK v2](https://selectfrom.dev/connecting-aws-s3-buckets-to-next-js-25e903621c70)

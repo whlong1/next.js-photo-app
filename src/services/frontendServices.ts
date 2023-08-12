@@ -1,6 +1,5 @@
 // Types
 import { Video } from '@/types/models'
-import { VideoSearchParams } from '@/types/props'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -18,20 +17,28 @@ export const createVideo = async (formData: Video): Promise<Video> => {
   }
 }
 
-// CLIENT
-export const fetchVideosOnClient = async (searchParams: VideoSearchParams): Promise<Video[]> => {
+export const uploadMedia = async (file: File) => {
   try {
-    const queryString = Object.keys(searchParams).map((k) => {
-      const key = k as keyof typeof searchParams
-      return `${key}=${searchParams[key]}`
-    }).join("&")
-
-    const res = await fetch(`${BASE_URL}/api/videos?${queryString}`, {
-      cache: 'no-store',
+    // POST request to backend route handler
+    const res = await fetch(`${BASE_URL}/api/media`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size })
     })
     
-    return res.json()
+    // Response includes a putUrl for upload and a getUrl for displaying a preview
+    const { putUrl, getUrl } = await res.json()
+
+    // Request made to putUrl, media file included in body
+    const uploadResponse = await fetch(putUrl, {
+      body: file,
+      method: "PUT",
+      headers: { "Content-Type": file.type }
+    })
+
+    return { status: uploadResponse.ok, uploadedUrl: getUrl }
   } catch (error) {
+    console.log(error)
     throw error
   }
 }

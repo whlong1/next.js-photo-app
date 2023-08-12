@@ -8,8 +8,8 @@ import SearchBar from './SearchBar'
 const FilterTab = () => {
   return (
     <nav>
-      <GenreList />
       <SearchBar />
+      <GenreList />
       <YearList />
       <Link href="/videos">Clear Results</Link>
     </nav>

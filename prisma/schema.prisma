@@ -43,24 +43,47 @@ model Profile {
 
 //? =========== ============= =========== 
 
-model Video {
-  id Int @id @default(autoincrement())
+model Photo {
+  id String @id @default(uuid())
 
-  title    String
-  artist   String
-  year     Int
-  genre    String
-  director String
-  category String
-
-  videoUrl     String // S3 OR MUX
-  thumbnailUrl String // S3 OR MUX
+  year     Int?
+  title    String?
+  location String?
+  category String?
+  description String?
+  urlPath  String?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+  isUploaded Boolean @default(false)
 
-  // Update when Profile is in use:
+  authorId String // CLERK
+  authorName String // CLERK
+
+  fileSize Int
+  fileName String
+  mimeType String
+}
+
+//? =========== ============= =========== 
+
+// WORK IN PROGRESS
+model Video {
+  id String @id @default(uuid())
+
+  title    String?
+  artist   String?
+  year     Int?
+  genre    String?
+  director String?
+  category String?
+  description String?
+
+  videoUrl     String?
+  thumbnailUrl String?
+
+  status String
   authorId String
-
-  // description tag
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }

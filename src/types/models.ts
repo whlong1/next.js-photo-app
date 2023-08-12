@@ -7,16 +7,42 @@ export interface Greeting {
   createdAt: Date;
 }
 
-export interface Video {
-  year: number;
-  genre: string;
-  title: string;
-  artist: string;
-  director: string;
-  category: string;
 
-  videoUrl: string;
-  thumbnailUrl: string;
+export interface Photo {
+  id: string;
+
+  year: number | null;
+  title: string | null;
+  category: string | null;
+  location: string | null;
+  description: string | null;
+  urlPath: string | null;
+
+  updatedAt: Date;
+  createdAt: Date;
+  isUploaded: boolean;
+
+  authorId: string;
+  authorName: string;
+
+  fileSize: number;
+  fileName: string;
+  mimeType: string;
+}
+
+// Make new interface for form data
+export interface Video {
+  id: string;
+
+  year?: number | null;
+  genre?: string | null;
+  title?: string | null;
+  artist?: string | null;
+  director?: string | null;
+  category?: string | null;
+
+  videoUrl: string | null;
+  thumbnailUrl: string | null;
 
   // Optional form data values:
   authorId?: string;

@@ -43,6 +43,31 @@ model Profile {
 
 //? =========== ============= =========== 
 
+model Photo {
+  id String @id @default(uuid())
+
+  year     Int?
+  title    String?
+  location String?
+  category String?
+  description String?
+  urlPath  String?
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  isUploaded Boolean @default(false)
+
+  authorId String // CLERK
+  authorName String // CLERK
+
+  fileSize Int
+  fileName String
+  mimeType String
+}
+
+//? =========== ============= =========== 
+
+// WORK IN PROGRESS
 model Video {
   id String @id @default(uuid())
 
@@ -54,12 +79,11 @@ model Video {
   category String?
   description String?
 
-  videoUrl     String? // S3
-  thumbnailUrl String? // S3
+  videoUrl     String?
+  thumbnailUrl String?
 
   status String
   authorId String
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-
 }

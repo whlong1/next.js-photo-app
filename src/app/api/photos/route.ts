@@ -51,7 +51,7 @@ const POST = async (req: NextRequest) => {
       Bucket: process.env.BUCKET_NAME,
     })
     // Generate pre-signed URL for PUT request
-    const putUrl = await getSignedUrl(client, putCommand, { expiresIn: 600 })
+    const putURL = await getSignedUrl(client, putCommand, { expiresIn: 600 })
 
     // GetObjectCommand: used to generate a pre-signed URL for viewing.
     const getCommand = new GetObjectCommand({
@@ -59,9 +59,9 @@ const POST = async (req: NextRequest) => {
       Bucket: process.env.BUCKET_NAME,
     })
     // Generate pre-signed URL for GET request
-    const getUrl = await getSignedUrl(client, getCommand, { expiresIn: 600 })
+    const getURL = await getSignedUrl(client, getCommand, { expiresIn: 600 })
 
-    return NextResponse.json({ putUrl, getUrl, newPhotoId: newPhoto.id }, { status: 200 })
+    return NextResponse.json({ putURL, getURL, newPhotoId: newPhoto.id }, { status: 200 })
   } catch (error) {
     console.log(error)
     throw error

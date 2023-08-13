@@ -1,16 +1,20 @@
 // React
 import { useState } from "react"
 
-interface DragAndDropProps { selectAndPreview: (file: File) => void; uploadPending: boolean }
+interface DragAndDropProps {
+  children: JSX.Element;
+  uploadPending: boolean;
+  selectAndPreview: (file: File) => void;
+}
 
-const DragAndDrop = ({ selectAndPreview, uploadPending }: DragAndDropProps) => {
+const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     if (!e.dataTransfer.items || e.dataTransfer.items.length !== 1) return
-    const file = e.dataTransfer.items[0].getAsFile()!
-    selectAndPreview(file)
+    const file = e.dataTransfer.items[0].getAsFile()
+    if (file) selectAndPreview(file)
   }
 
   const style = `
@@ -30,6 +34,7 @@ const DragAndDrop = ({ selectAndPreview, uploadPending }: DragAndDropProps) => {
       onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
     >
       {uploadPending ? <p>Pending</p> : <p>DRAG N DROP</p>}
+      {children}
     </div>
   )
 }

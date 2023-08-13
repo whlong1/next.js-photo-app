@@ -46,8 +46,9 @@ const PhotoUploader = () => {
   return (
     <>
       <h2>Photo Uploader</h2>
-      <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending} />
-      <FileInput selectAndPreview={selectAndPreview} />
+      <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
+        <FileInput selectAndPreview={selectAndPreview} />
+      </DragAndDrop>
 
       {newPhotoId && <p>{newPhotoId}</p>}
 

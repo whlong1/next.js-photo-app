@@ -1,5 +1,6 @@
-// React
+// Next/React
 import { useState } from "react"
+import Image from "next/image"
 
 interface DragAndDropProps {
   children: JSX.Element;
@@ -18,10 +19,13 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
   }
 
   const style = `
-    h-96 
-    w-full 
-    border-4 
+    rounded
+    h-[420px] 
+    w-[420px] 
+    border-2
     border-blue 
+    bg-slate-400
+    center-items
     ${isDragActive ? "bg-gray-200" : "bg-gray-500"}
   `
 
@@ -33,7 +37,8 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
       onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
       onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
     >
-      {uploadPending ? <p>Pending</p> : <p>DRAG N DROP</p>}
+      <Image src="/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
+      <p className="big-bold text-white mt-4">DRAG & DROP</p>
       {children}
     </div>
   )

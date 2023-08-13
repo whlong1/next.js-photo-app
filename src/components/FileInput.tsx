@@ -18,9 +18,12 @@ const FileInput = ({ selectAndPreview }: { selectAndPreview: (file: File) => voi
     transition-colors 
     duration-200
     font-semibold
+    w-full
+    center-items
+    mt-4
   `
   return (
-    <div className="file-input-wrapper">
+    <div className="w-[220px] center-items">
       <input
         type="file"
         accept="image/*"

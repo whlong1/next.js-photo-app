@@ -33,3 +33,15 @@ body {
 h1, h2, h3 {
   font-weight: 600;
 }
+
+.center-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.big-bold {
+  font-size: 32px;
+  font-weight: 900;
+}

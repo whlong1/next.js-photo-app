@@ -4,6 +4,7 @@
 import { useState } from "react"
 
 // Components
+import FileInput from "./FileInput"
 import DragAndDrop from "./DragAndDrop"
 
 // Services
@@ -11,46 +12,45 @@ import { createAndUploadPhoto } from "@/services/photoService"
 
 const PhotoUploader = () => {
   const [newPhotoId, setNewPhotoId] = useState("")
-  const [previewUrl, setPreviewUrl] = useState("")
+  const [filePreviewURL, setFilePreviewURL] = useState("")
   const [uploadPending, setUploadPending] = useState(false)
+  const [selectedFile, setSelectedFile] = useState<File | null>()
+  const [s3PresignedGetURL, setS3PresignedGetURL] = useState("")
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]!
-    handleFile(file)
-  }
-
-  const handleFile = async (file: File) => {
+  const handleUpload = async () => {
+    if (!selectedFile) return
     setUploadPending(true)
-    const { getUrl, newPhotoId } = await createAndUploadPhoto(file)
-    setPreviewUrl(getUrl)
-    setNewPhotoId(newPhotoId)
+
+    const {
+      getUrl,
+      newPhotoId,
+    } = await createAndUploadPhoto(selectedFile)
+
+    setFilePreviewURL("")
     setUploadPending(false)
+    setNewPhotoId(newPhotoId)
+    setS3PresignedGetURL(getUrl)
+    URL.revokeObjectURL(filePreviewURL)
   }
 
-
-  const fileInput = (
-    <input
-      type="file"
-      onChange={handleChange}
-      accept="image/png, image/jpeg"
-    />
-  )
-
-  const buttonContainer = (
-    <div>
-      <button>CONFIRM</button>
-      <button>CANCEL</button>
-    </div>
-  )
-
+  const selectAndPreview = (file: File) => {
+    setSelectedFile(file)
+    setFilePreviewURL(URL.createObjectURL(file))
+  }
 
   return (
     <>
       <h2>Photo Uploader</h2>
-      <DragAndDrop handleFile={handleFile} uploadPending={uploadPending} />
+      <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending} />
+      <FileInput selectAndPreview={selectAndPreview} />
+
       {newPhotoId && <p>{newPhotoId}</p>}
-      {previewUrl && <img src={previewUrl} alt="Preview" />}
-      {!newPhotoId ? fileInput : buttonContainer}
+
+      {filePreviewURL && <img src={filePreviewURL} alt="Selected file" />}
+      {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
+
+      <button onClick={handleUpload}>CONFIRM</button>
+      <button>CANCEL</button>
     </>
   )
 }

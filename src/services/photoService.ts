@@ -32,7 +32,6 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
   return uploadResponse.ok
 }
 
-// POST request to backend route handler
 export const createAndUploadPhoto = async (file: File) => {
   try {
     const { putUrl, getUrl, newPhotoId } = await createPhotoAndPresignedUrls(file)

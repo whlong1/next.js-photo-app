@@ -13,13 +13,13 @@ const createPhotoAndPresignedUrls = async (file: File) => {
 
   if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
 
-  const { putUrl, getUrl, newPhotoId } = await res.json()
+  const { putURL, getURL, newPhotoId } = await res.json()
 
-  if (!putUrl || !getUrl || !newPhotoId) {
+  if (!putURL || !getURL || !newPhotoId) {
     throw new Error("A problem has occured with a presigned URL")
   }
 
-  return { putUrl, getUrl, newPhotoId }
+  return { putURL, getURL, newPhotoId }
 }
 
 // Request made to putUrl, media file included in body
@@ -34,9 +34,9 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
 
 export const createAndUploadPhoto = async (file: File) => {
   try {
-    const { putUrl, getUrl, newPhotoId } = await createPhotoAndPresignedUrls(file)
-    const uploadStatus = await uploadFileToS3Bucket(file, putUrl)
-    return { uploadStatus, getUrl, newPhotoId }
+    const { putURL, getURL, newPhotoId } = await createPhotoAndPresignedUrls(file)
+    const uploadStatus = await uploadFileToS3Bucket(file, putURL)
+    return { uploadStatus, getURL, newPhotoId }
   } catch (error) {
     throw error
   }

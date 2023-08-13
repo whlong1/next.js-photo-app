@@ -20,8 +20,8 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
 
   const style = `
     rounded
-    h-[420px] 
-    w-[420px] 
+    h-[360px] 
+    w-[500px] 
     border-2
     border-blue 
     bg-slate-400
@@ -39,6 +39,7 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
     >
       <Image src="/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
       <p className="big-bold text-white mt-4">DRAG & DROP</p>
+      <p className="text-white font-semibold mt-1">OR</p>
       {children}
     </div>
   )

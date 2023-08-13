@@ -9,6 +9,7 @@ import { createAndUploadPhoto } from "@/services/photoService"
 const PhotoUploader = () => {
   const [newPhotoId, setNewPhotoId] = useState("")
   const [previewUrl, setPreviewUrl] = useState("")
+  const [isDragActive, setIsDragActive] = useState(false)
   const [uploadPending, setUploadPending] = useState(false)
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,11 +49,13 @@ const PhotoUploader = () => {
 
   const dragAndDrop = (
     <div
-      className="w-full h-96 border-4 border-blue"
+      className={`w-full h-96 border-4 border-blue ${isDragActive ? "bg-gray-200" : "bg-gray-500"}`}
       onDrop={handleDrop}
-      onDragOver={(e) => { e.preventDefault(); console.log("Drag Over", e) }}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
+      onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
     >
-      DRAG N DROP
+      {uploadPending ? <p>Pending</p> : <p>DRAG N DROP</p>}
     </div>
   )
 
@@ -60,7 +63,7 @@ const PhotoUploader = () => {
     <>
       <h2>Photo Uploader</h2>
       {dragAndDrop}
-      {uploadPending && <p>Pending</p>}
+
       {newPhotoId && <p>{newPhotoId}</p>}
       {previewUrl && <img src={previewUrl} alt="Preview" />}
       {!newPhotoId ? fileInput : buttonContainer}

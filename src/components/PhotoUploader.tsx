@@ -3,13 +3,15 @@
 // React
 import { useState } from "react"
 
+// Components
+import DragAndDrop from "./DragAndDrop"
+
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
 
 const PhotoUploader = () => {
   const [newPhotoId, setNewPhotoId] = useState("")
   const [previewUrl, setPreviewUrl] = useState("")
-  const [isDragActive, setIsDragActive] = useState(false)
   const [uploadPending, setUploadPending] = useState(false)
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,12 +27,6 @@ const PhotoUploader = () => {
     setUploadPending(false)
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    if (!e.dataTransfer.items || e.dataTransfer.items.length !== 1) return
-    const file = e.dataTransfer.items[0].getAsFile()!
-    handleFile(file)
-  }
 
   const fileInput = (
     <input
@@ -47,23 +43,11 @@ const PhotoUploader = () => {
     </div>
   )
 
-  const dragAndDrop = (
-    <div
-      className={`w-full h-96 border-4 border-blue ${isDragActive ? "bg-gray-200" : "bg-gray-500"}`}
-      onDrop={handleDrop}
-      onDragOver={(e) => e.preventDefault()}
-      onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
-      onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
-    >
-      {uploadPending ? <p>Pending</p> : <p>DRAG N DROP</p>}
-    </div>
-  )
 
   return (
     <>
       <h2>Photo Uploader</h2>
-      {dragAndDrop}
-
+      <DragAndDrop handleFile={handleFile} uploadPending={uploadPending} />
       {newPhotoId && <p>{newPhotoId}</p>}
       {previewUrl && <img src={previewUrl} alt="Preview" />}
       {!newPhotoId ? fileInput : buttonContainer}

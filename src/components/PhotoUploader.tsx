@@ -14,22 +14,27 @@ const PhotoUploader = () => {
   const [newPhotoId, setNewPhotoId] = useState("")
   const [filePreviewURL, setFilePreviewURL] = useState("")
   const [uploadPending, setUploadPending] = useState(false)
-  const [selectedFile, setSelectedFile] = useState<File | null>()
   const [s3PresignedGetURL, setS3PresignedGetURL] = useState("")
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
   const handleUpload = async () => {
     if (!selectedFile) return
     setUploadPending(true)
 
     const {
-      getUrl,
+      getURL,
       newPhotoId,
     } = await createAndUploadPhoto(selectedFile)
 
+    handleReset()
+    setNewPhotoId(newPhotoId)
+    setS3PresignedGetURL(getURL)
+  }
+
+  const handleReset = () => {
+    setSelectedFile(null)
     setFilePreviewURL("")
     setUploadPending(false)
-    setNewPhotoId(newPhotoId)
-    setS3PresignedGetURL(getUrl)
     URL.revokeObjectURL(filePreviewURL)
   }
 
@@ -50,7 +55,7 @@ const PhotoUploader = () => {
       {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
 
       <button onClick={handleUpload}>CONFIRM</button>
-      <button>CANCEL</button>
+      <button onClick={handleReset}>CANCEL</button>
     </>
   )
 }

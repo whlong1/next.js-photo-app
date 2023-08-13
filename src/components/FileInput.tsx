@@ -5,19 +5,18 @@ const FileInput = ({ selectAndPreview }: { selectAndPreview: (file: File) => voi
     if (file) selectAndPreview(file)
   }
 
-  const style = `
+  const labelStyle = `
     px-4 
     py-2 
     text-white
-    bg-gray-900 
     cursor-pointer
-    border
+    border-2
     rounded
-    border-grey
-    hover:bg-gray-300 
+    border-white
+    hover:bg-slate-500 
     transition-colors 
     duration-200
-    font-semibold
+    font-bold
     w-full
     center-items
     mt-4
@@ -31,7 +30,7 @@ const FileInput = ({ selectAndPreview }: { selectAndPreview: (file: File) => voi
         id="hiddenFileInput"
         onChange={handleChange}
       />
-      <label className={style} htmlFor="hiddenFileInput">
+      <label className={labelStyle} htmlFor="hiddenFileInput">
         SELECT FILE
       </label>
     </div>

@@ -1,4 +1,5 @@
 export interface PhotoFormData {
+  id?: string;
   year?: number;
   title?: string;
   category?: string;
@@ -8,4 +9,6 @@ export interface PhotoFormData {
 
   // Properties not present in client form data:
   // fileSize, fileName, mimeType, authorId, authorName, createdAt, updatedAt
+
+  // Note: id is appended to formData on submit for updates
 }

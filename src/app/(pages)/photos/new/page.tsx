@@ -2,8 +2,9 @@
 import NewPhotoForm from "./components/NewPhotoForm"
 import PhotoUploader from "./components/PhotoUploader"
 
-const NewPhoto = () => {
-  
+const NewPhoto = ({ searchParams }: { searchParams: { photoId: string } }) => {
+  console.log("Search Params", searchParams)
+
   return (
     <main>
 

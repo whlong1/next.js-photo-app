@@ -3,6 +3,9 @@
 // React
 import { useState } from "react"
 
+// Hooks
+import { useQueryManager } from "@/hooks/useQueryManager"
+
 // Components
 import FileInput from "./FileInput"
 import DragAndDrop from "./DragAndDrop"
@@ -15,6 +18,7 @@ const PhotoUploader = () => {
   const [uploadPending, setUploadPending] = useState(false)
   const [s3PresignedGetURL, setS3PresignedGetURL] = useState("")
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const { queryParams, setQueryParams } = useQueryManager()
 
   const handleUpload = async () => {
     if (!selectedFile) return
@@ -27,6 +31,11 @@ const PhotoUploader = () => {
 
     handleReset()
     setNewPhotoId(newPhotoId)
+
+    console.log("RESPONSE")
+    // PARAMS TEST:
+    setQueryParams("photoId", newPhotoId)
+
     setS3PresignedGetURL(getURL)
   }
 

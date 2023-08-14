@@ -70,6 +70,37 @@ const POST = async (req: NextRequest) => {
   }
 }
 
+
+const PUT = async (req: NextRequest) => {
+  try {
+    const formData = await req.json()
+
+    // Id is currently on formData, RESTful conventions would 
+    // imply that the id is on the url. Is there a chance for the id to be updated mistakenly?
+
+    // Add check for isUploaded?
+    // Client vs Server
+
+    // Index user's photos, display isUploaded indicator
+    // How should we deal with the drag and drop UI for a photo that exists?
+
+    // Tabs to see preview and drag and drop
+    // Consider adding crop and editing?
+    // Display file that was uploaded as a row
+    // Display upload progress meter
+    const updatedPhoto: Photo = await prisma.photo.update({
+      data: formData,
+      where: { id: formData.id },
+    })
+
+    return NextResponse.json(updatedPhoto)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
 export {
+  PUT,
   POST,
 }

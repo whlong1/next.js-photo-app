@@ -3,8 +3,14 @@
 // React
 import { useState } from "react"
 
+// Hooks
+import { useQueryManager } from "@/hooks/useQueryManager"
+
 // Types
 import { PhotoFormData } from "@/types/forms"
+
+// Services
+import { updatePhoto } from "@/services/photoService"
 
 const NewPhotoForm = () => {
   const initialState: PhotoFormData = {
@@ -17,9 +23,19 @@ const NewPhotoForm = () => {
   }
 
   const [formData, setFormData] = useState(initialState)
+  const { queryParams, setQueryParams } = useQueryManager()
+
+  console.log("FORM QUERY PARAMS", queryParams.get("photoId"))
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    const photoId = queryParams.get("photoId")
+    if (!photoId) return
 
+    // Need to set formState with updatedPhotoData for editing
+    const updatedPhotoData = await updatePhoto({...formData, id: photoId})
+    console.log(updatedPhotoData)
+    
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {

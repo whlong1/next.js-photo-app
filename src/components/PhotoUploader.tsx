@@ -44,8 +44,8 @@ const PhotoUploader = () => {
   }
 
   return (
-    <>
-      <h2>Photo Uploader</h2>
+    <div className="flex flex-col w-[400px] h-[600px] rounded bg-white items-center p-4">
+      <h2>UPLOAD FILES</h2>
       <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
         <FileInput selectAndPreview={selectAndPreview} />
       </DragAndDrop>
@@ -55,9 +55,12 @@ const PhotoUploader = () => {
       {filePreviewURL && <img src={filePreviewURL} alt="Selected file" />}
       {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
 
-      <button onClick={handleUpload}>CONFIRM</button>
-      <button onClick={handleReset}>CANCEL</button>
-    </>
+      <button
+        className="w-full bg-slate-500 text-white font-semibold"
+        onClick={handleUpload}>CONFIRM</button>
+      <button
+        onClick={handleReset}>CANCEL</button>
+    </div>
   )
 }
 

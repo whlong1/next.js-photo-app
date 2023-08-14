@@ -1,10 +1,12 @@
 // Components
-import MediaUploader from "@/components/PhotoUploader"
+import NewPhotoForm from "./components/NewPhotoForm"
+import PhotoUploader from "./components/PhotoUploader"
 
 const NewPhoto = () => {
   return (
     <main>
-      <MediaUploader />
+      <PhotoUploader />
+      <NewPhotoForm />
     </main>
   )
 }

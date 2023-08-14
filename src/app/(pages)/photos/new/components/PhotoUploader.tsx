@@ -6,7 +6,6 @@ import { useState } from "react"
 // Components
 import FileInput from "./FileInput"
 import DragAndDrop from "./DragAndDrop"
-
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
 

@@ -1,5 +1,6 @@
 // Types
 import { Photo } from '@/types/models'
+import { PhotoFormData } from '@/types/forms'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -38,6 +39,25 @@ export const createAndUploadPhoto = async (file: File) => {
     const uploadStatus = await uploadFileToS3Bucket(file, putURL)
     return { uploadStatus, getURL, newPhotoId }
   } catch (error) {
+    throw error
+  }
+}
+
+export const updatePhoto = async (formData: PhotoFormData, photoId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "PUT",
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+    })
+
+    if (!res.ok) {
+      throw new Error(`Error ${res.status}: ${res.statusText}`)
+    }
+    
+    return await res.json()
+  } catch (error) {
+    console.log(error)
     throw error
   }
 }

@@ -32,8 +32,10 @@ const POST = async (req: NextRequest) => {
     // Create a new photo entry in database.
     // The uploaded image source file will be stored in the S3 bucket 
     // with a name (Key) matching the id (PK) of the new photo record. 
+    // Note: isUploaded has a default value of false on the model
     const newPhoto: Photo = await prisma.photo.create({
       data: {
+        isUploaded: false,
         fileSize: fileSize,
         fileName: fileName,
         mimeType: fileType,

@@ -51,7 +51,9 @@ model Photo {
   location String?
   category String?
   description String?
-  urlPath  String?
+
+  // urlPath might not be necessary:
+  urlPath String?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

@@ -1,6 +1,8 @@
 const NewPhotoForm = () => {
   return (
-    <form action=""></form>
+    <form action="">
+
+    </form>
   )
 }
 

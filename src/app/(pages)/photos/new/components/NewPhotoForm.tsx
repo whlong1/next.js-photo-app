@@ -33,9 +33,9 @@ const NewPhotoForm = () => {
     if (!photoId) return
 
     // Need to set formState with updatedPhotoData for editing
-    const updatedPhotoData = await updatePhoto({...formData, id: photoId})
+    const updatedPhotoData = await updatePhoto(photoId, formData)
     console.log(updatedPhotoData)
-    
+
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {

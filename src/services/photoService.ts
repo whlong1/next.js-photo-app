@@ -43,9 +43,9 @@ export const createAndUploadPhoto = async (file: File) => {
   }
 }
 
-export const updatePhoto = async (formData: PhotoFormData) => {
+export const updatePhoto = async (photoId: string, formData: PhotoFormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/photos`, {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },

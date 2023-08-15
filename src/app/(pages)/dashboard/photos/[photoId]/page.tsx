@@ -1,7 +1,7 @@
 const PhotoDetails = () => {
   return (
     <>
-      photo details
+      <h1>PHOTO DETAILS</h1>
     </>
   )
 }

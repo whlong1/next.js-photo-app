@@ -7,9 +7,12 @@ const DashboardPhotos = async () => {
   console.log("MY PHOTOS", photos)
   return (
     <>
-      PHOTOS DASHBOARD LANDING
+      <h1>
+        PHOTOS DASHBOARD LANDING
+      </h1>
       {photos.map((photo) => (
-        <Link key={photo.id} href={`/dashboard/photos/${photo.id}`}>
+        <Link className="border" key={photo.id} href={`/dashboard/photos/${photo.id}`}>
+          {photo.url && photo.title && <img src={photo.url} alt={photo.title} />}
           {photo.id}
         </Link>
       ))}

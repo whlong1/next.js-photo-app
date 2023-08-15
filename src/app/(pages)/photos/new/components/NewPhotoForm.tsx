@@ -25,12 +25,16 @@ const NewPhotoForm = () => {
   const [formData, setFormData] = useState(initialState)
   const { queryParams, setQueryParams } = useQueryManager()
 
-  console.log("FORM QUERY PARAMS", queryParams.get("photoId"))
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    // This is very unreliable, because the params might be set for something old!!!
     const photoId = queryParams.get("photoId")
-    if (!photoId) return
+    console.log("FORM", queryParams.get("photoId"))
+    if (!photoId) {
+      console.log("PLEASE UPLOAD A FILE FIRST")
+      return
+    }
 
     // Check upload status, add isUploaded prop to formData
     // Need to set formState with updatedPhotoData for editing
@@ -45,8 +49,12 @@ const NewPhotoForm = () => {
 
     // What if a user wants to submit the upload and form at the same time?
     // Add condition to include additional form data in route handler??
+    console.log("Click")
+
+    // How can you pass photoId before it exists? Silly!
     const photoData: Photo = await createOrUpdatePhoto(photoId, formData)
-    console.log(photoData)
+    setQueryParams("photoId", photoData.id)
+    console.log("Photo Data", photoData)
 
   }
 

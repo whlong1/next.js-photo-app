@@ -63,6 +63,13 @@ const PhotoUploader = () => {
       {filePreviewURL && <img src={filePreviewURL} alt="Selected file" />}
       {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
 
+
+      <p>FILES</p>
+      <p>
+        file name <br/>
+        filesize
+      </p>
+
       <button
         className="w-full bg-slate-500 text-white font-semibold"
         onClick={handleUpload}>CONFIRM</button>

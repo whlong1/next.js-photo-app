@@ -1,9 +1,9 @@
-const Dashboard = () => {
+const DashboardLanding = () => {
   return (
     <>
-      <h1>Dashboard</h1>
+      <h1>dashboard landing</h1>
     </>
   )
 }
 
-export default Dashboard
+export default DashboardLanding

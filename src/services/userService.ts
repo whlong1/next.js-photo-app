@@ -8,7 +8,10 @@ export const fetchMyPhotos = async (): Promise<Photo[]> => {
       cache: 'no-store',
       headers: headers(),
     })
-    return await res.json()
+
+    const data = await res.json()
+    console.log("==============", data)
+    return data
   } catch (error) {
     throw error
   }

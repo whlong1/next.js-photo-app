@@ -49,7 +49,6 @@ const NewPhotoForm = () => {
 
     // What if a user wants to submit the upload and form at the same time?
     // Add condition to include additional form data in route handler??
-    console.log("Click")
 
     // How can you pass photoId before it exists? Silly!
     const photoData: Photo = await createOrUpdatePhoto(photoId, formData)

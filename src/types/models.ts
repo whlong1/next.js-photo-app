@@ -22,6 +22,10 @@ export interface Photo {
   fileName: string | null;
   mimeType: string | null;
 
+  // The url prop is temporarily appended on server and not present on data
+  // returned from the initial Prisma operation
+  url?: string | null;
+
   updatedAt: Date;
   createdAt: Date;
   isUploaded: boolean;

@@ -28,6 +28,14 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
     center-items
     border-dashed
 
+    flex
+    flex-col
+    mt-2
+    px-2
+
+    w-full
+    text-white
+
   `
     // custom-dashed
     // ${isDragActive ? "bg-gray-200" : "bg-gray-500"}

@@ -8,9 +8,10 @@ import { useQueryManager } from "@/hooks/useQueryManager"
 
 // Types
 import { PhotoFormData } from "@/types/forms"
+import { Photo } from "@/types/models"
 
 // Services
-import { updatePhoto } from "@/services/photoService"
+import { createOrUpdatePhoto } from "@/services/photoService"
 
 const NewPhotoForm = () => {
   const initialState: PhotoFormData = {
@@ -32,9 +33,14 @@ const NewPhotoForm = () => {
     const photoId = queryParams.get("photoId")
     if (!photoId) return
 
+    // Check upload status, add isUploaded prop to formData
     // Need to set formState with updatedPhotoData for editing
-    const updatedPhotoData = await updatePhoto(photoId, formData)
-    console.log(updatedPhotoData)
+    // In route handler, instead of finding existing, could create new resource
+    // based on isUploaded boolean.
+    // Uploads should be handled in dashboard - better state management
+    // React query cache?
+    const photoData: Photo = await createOrUpdatePhoto(photoId, formData)
+    console.log(photoData)
 
   }
 

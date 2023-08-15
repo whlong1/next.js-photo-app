@@ -3,7 +3,6 @@ import { Photo } from "@/types/models"
 import { currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from "next/server"
 
-
 // Dynamic Route Segments
 // https://nextjs.org/docs/app/building-your-application/routing/route-handlers
 
@@ -13,8 +12,29 @@ import { NextRequest, NextResponse } from "next/server"
 interface RequestOptions { params: { photoId: string } }
 const PUT = async (req: NextRequest, options: RequestOptions) => {
   try {
+    const user = await currentUser()
+    if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+
     const formData = await req.json()
     const { photoId } = options.params
+    const existingPhoto = await prisma.photo.findUnique({ where: { id: photoId } })
+
+    if (!existingPhoto) {
+      // If photo form is submitted before file upload:
+      const newPhoto: Photo = await prisma.photo.create({
+        data: {
+          ...formData,
+          isUploaded: false,
+          authorId: user.id,
+          authorName: `${user.firstName} ${user.lastName}`,
+        }
+      })
+      return NextResponse.json(newPhoto)
+    }
+
+    if (existingPhoto.authorId !== user.id) {
+      return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+    }
 
     const updatedPhoto: Photo = await prisma.photo.update({
       data: formData,

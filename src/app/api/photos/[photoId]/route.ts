@@ -32,6 +32,8 @@ const PUT = async (req: NextRequest, options: RequestOptions) => {
       return NextResponse.json(newPhoto)
     }
 
+    // Should there be an additional check on upload status here?
+    // In theory, a photo with an authorId should have already been uploaded.
     if (existingPhoto.authorId !== user.id) {
       return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
     }

@@ -10,11 +10,17 @@ export interface Greeting {
 export interface Photo {
   id: string;
 
+  // Null properties if file is uploaded before resource:
   year: number | null;
   title: string | null;
   category: string | null;
   location: string | null;
   description: string | null;
+
+  // Null properties if resource is created before upload:
+  fileSize: number | null;
+  fileName: string | null;
+  mimeType: string | null;
 
   updatedAt: Date;
   createdAt: Date;
@@ -22,10 +28,6 @@ export interface Photo {
 
   authorId: string;
   authorName: string;
-
-  fileSize: number | null;
-  fileName: string | null;
-  mimeType: string | null;
 }
 
 

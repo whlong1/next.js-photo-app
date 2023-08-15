@@ -19,7 +19,6 @@ const NewPhotoForm = () => {
     category: "",
     location: "",
     description: "",
-    // isUploaded: false,
     year: new Date().getFullYear(),
   }
 
@@ -39,6 +38,13 @@ const NewPhotoForm = () => {
     // based on isUploaded boolean.
     // Uploads should be handled in dashboard - better state management
     // React query cache?
+    // fetch photos and videos: dynamic segments for users
+
+    // drag and drop quandry, if the image exists, display the image as a row with the data
+    // allow the user to delete it and upload another
+
+    // What if a user wants to submit the upload and form at the same time?
+    // Add condition to include additional form data in route handler??
     const photoData: Photo = await createOrUpdatePhoto(photoId, formData)
     console.log(photoData)
 

@@ -1,16 +1,25 @@
 import { fetchPhotoById } from "@/services/userService"
 
-
 interface PhotoDetailsProps { params: { photoId: string } }
 const PhotoDetails = async ({ params: { photoId } }: PhotoDetailsProps) => {
 
-  const photoData = await fetchPhotoById(photoId)
+  const photo = await fetchPhotoById(photoId)
 
-  console.log("DETAILS", photoData)
+  console.log("DETAILS", photo)
+
   return (
     <>
       <h1>PHOTO DETAILS</h1>
-      {JSON.stringify(photoData)}
+      <div>
+        {photo.url && photo.title &&
+          <img src={photo.url} alt={photo.title} />
+        }
+      </div>
+      <div>
+        {JSON.stringify(photo).split(",").map((property) => (
+          <p>{property}</p>
+        ))}
+      </div>
     </>
   )
 }

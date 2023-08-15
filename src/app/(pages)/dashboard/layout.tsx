@@ -1,14 +1,16 @@
 import Link from "next/link"
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <h1>Dashboard Layout</h1>
-      <nav>
-        <Link href="/dashboard">Dashboard</Link>
-        <Link href="/dashboard/photos">Photos</Link>
+    <main className="flex">
+      <nav className="flex flex-col border">
+        Side Nav
+        <Link className="link" href="/dashboard">Dashboard</Link>
+        <Link className="link" href="/dashboard/photos">Photos</Link>
       </nav>
-      {children}
-    </>
+      <section className="flex flex-col">
+        {children}
+      </section>
+    </main>
   )
 }
 

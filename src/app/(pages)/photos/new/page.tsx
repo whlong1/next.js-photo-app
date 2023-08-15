@@ -1,5 +1,5 @@
 // Components
-import NewPhotoDialog from "./components/NewPhotoDialog"
+import NewPhotoDialog from "../../dashboard/photos/components/NewPhotoDialog"
 
 
 // This page might not be necessary:

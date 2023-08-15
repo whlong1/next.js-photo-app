@@ -41,6 +41,17 @@ h1, h2, h3 {
   flex-direction: column;
 }
 
+.link {
+  color: blue;
+  font-weight: 500;
+}
+
+.tab {
+  margin: 0 8px;
+  text-underline-offset: 2px;
+  text-decoration-line: underline;
+}
+
 .big-bold {
   font-size: 32px;
   font-weight: 900;

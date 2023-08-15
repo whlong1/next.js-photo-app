@@ -1,22 +1,15 @@
 // Components
-import NewPhotoForm from "./components/NewPhotoForm"
-import PhotoUploader from "./components/PhotoUploader"
+import NewPhotoDialog from "./components/NewPhotoDialog"
 
+
+// This page might not be necessary:
 const NewPhoto = ({ searchParams }: { searchParams: { photoId: string } }) => {
   console.log("Search Params", searchParams)
 
   return (
     <main>
 
-      <dialog open className="rounded">
-        <header>
-          <h1>ADD PHOTO</h1>
-        </header>
-        <section className="flex flex-row">
-          <PhotoUploader />
-          <NewPhotoForm />
-        </section>
-      </dialog>
+      <NewPhotoDialog />
 
     </main>
   )

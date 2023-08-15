@@ -15,7 +15,6 @@ export interface Photo {
   category: string | null;
   location: string | null;
   description: string | null;
-  urlPath: string | null;
 
   updatedAt: Date;
   createdAt: Date;
@@ -24,9 +23,9 @@ export interface Photo {
   authorId: string;
   authorName: string;
 
-  fileSize: number;
-  fileName: string;
-  mimeType: string;
+  fileSize: number | null;
+  fileName: string | null;
+  mimeType: string | null;
 }
 
 

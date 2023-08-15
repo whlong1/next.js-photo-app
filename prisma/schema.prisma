@@ -52,8 +52,9 @@ model Photo {
   category String?
   description String?
 
-  // urlPath might not be necessary:
-  urlPath String?
+  fileSize Int?
+  fileName String?
+  mimeType String?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -61,10 +62,6 @@ model Photo {
 
   authorId String // CLERK
   authorName String // CLERK
-
-  fileSize Int
-  fileName String
-  mimeType String
 }
 
 //? =========== ============= =========== 

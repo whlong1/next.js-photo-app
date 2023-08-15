@@ -1,8 +1,9 @@
 const DashboardPhotos = () => {
+  // Default index view???
   return (
-    <div>
-      PHOTOS DASHBOARD
-    </div>
+    <>
+      PHOTOS DASHBOARD LANDING
+    </>
   )
 }
 

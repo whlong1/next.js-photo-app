@@ -22,7 +22,10 @@ const NewPhotoDialog = () => {
   // clicking on a photo would bring its details up (params)
   // refreshing would still grant access to the selected photo
   // pass props down to dialog box
-  // 
+
+  // the dialog box needs to appear for a details view and a new view
+  // drop the component in both pages?
+  // config based on params
 
   return (
     <dialog open className="rounded">

@@ -61,3 +61,4 @@ export const createOrUpdatePhoto = async (photoId: string, formData: PhotoFormDa
     throw error
   }
 }
+

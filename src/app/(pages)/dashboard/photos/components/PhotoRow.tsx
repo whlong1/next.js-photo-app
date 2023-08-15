@@ -3,7 +3,7 @@ import { Photo } from "@/types/models"
 const PhotoRow = ({ photo }: { photo: Photo }) => {
   console.log("Photo Row:", photo)
   return (
-    <Link className="flex border items-center w-full h-24" href={`/dashboard/photos/${photo.id}`}>
+    <Link className="flex border items-center justify-around w-full h-24" href={`/dashboard/photos/${photo.id}`}>
       <div className="border w-12">
         {photo.url && photo.title && <img src={photo.url} alt={photo.title} />}
       </div>
@@ -12,6 +12,9 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
         <p>{photo.fileSize}</p>
       </div>
       <input type="checkbox" checked={photo.isUploaded} />
+      <p>Privacy</p>
+      <p>Delete</p>
+      <p>Options</p>
     </Link>
   )
 }

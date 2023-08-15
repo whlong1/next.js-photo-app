@@ -8,9 +8,7 @@ const DashboardPhotos = async () => {
   const photos: Photo[] = await fetchMyPhotos()
   return (
     <>
-      <h1>
-        PHOTOS DASHBOARD LANDING
-      </h1>
+      <h1>MY PHOTOS</h1>
       {photos.map((photo) => (
         <PhotoRow key={photo.id} photo={photo} />
       ))}

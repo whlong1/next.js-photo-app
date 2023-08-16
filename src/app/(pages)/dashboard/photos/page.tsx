@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { Photo } from "@/types/models"
 import { fetchMyPhotos } from "@/services/userService"
 

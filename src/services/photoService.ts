@@ -62,3 +62,14 @@ export const createOrUpdatePhoto = async (photoId: string, formData: PhotoFormDa
   }
 }
 
+export const deletePhoto = async (photoId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "DELETE",
+    })
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}
+

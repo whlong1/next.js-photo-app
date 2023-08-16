@@ -2,12 +2,15 @@
 import Link from "next/link"
 import { Photo } from "@/types/models"
 
+const RowDeleteButton = ({ photoId }: { photoId: string }) => {
+  const handleDelete = () => { }
+  return <button onClick={handleDelete}>DELETE</button>
+}
+
+
+
 const PhotoRow = ({ photo }: { photo: Photo }) => {
   console.log("Photo Row:", photo.url)
-
-  const handleDelete = () => {
-
-  }
 
   return (
     <Link className="flex border items-center justify-around w-full h-24" href={`/dashboard/photos/${photo.id}`}>
@@ -19,8 +22,8 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
         <p>{photo.fileSize}</p>
       </div>
       <input type="checkbox" readOnly checked={photo.isUploaded} />
-
-      <button onClick={handleDelete}>DELETE</button>
+      
+      <RowDeleteButton photoId={photo.id} />
 
       <p>Privacy</p>
       <p>Options</p>

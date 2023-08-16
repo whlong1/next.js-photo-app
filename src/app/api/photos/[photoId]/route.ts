@@ -36,11 +36,11 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
       Key: photoId,
       Bucket: process.env.BUCKET_NAME,
     })
-    const response = await client.send(deleteCommand)
 
-    console.log("Delete Response:", response)
+    const s3DeleteResponse = await client.send(deleteCommand)
+    const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 
-    return NextResponse.json(response)
+    return NextResponse.json({ ...s3DeleteResponse, ...prismaDeleteResponse })
   } catch (error) {
     console.log(error)
     throw error

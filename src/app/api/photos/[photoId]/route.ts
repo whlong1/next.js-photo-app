@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
 import { currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from "next/server"
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
 
 // Dynamic Route Segments
 // https://nextjs.org/docs/app/building-your-application/routing/route-handlers
@@ -9,7 +11,45 @@ import { NextRequest, NextResponse } from "next/server"
 // Route Segment Config
 // https://nextjs.org/docs/app/building-your-application/routing/route-handlers#segment-config-options
 
+// Runtime check for environment variables
+if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
+  throw new Error("Environment variables are not set")
+}
+
+// Initialize S3Client instance
+const client = new S3Client({
+  region: process.env.REGION,
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  },
+})
+
 interface RequestOptions { params: { photoId: string } }
+
+const DELETE = async (req: NextRequest, options: RequestOptions) => {
+  try {
+    const { photoId } = options.params
+    // Add Auth Check Middleware
+
+    const deleteCommand = new DeleteObjectCommand({
+      Key: photoId,
+      Bucket: process.env.BUCKET_NAME,
+    })
+    const response = await client.send(deleteCommand)
+
+    console.log("Delete Response:", response)
+
+    return NextResponse.json(response)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+
+
+
 const PUT = async (req: NextRequest, options: RequestOptions) => {
   try {
     const user = await currentUser()
@@ -51,5 +91,6 @@ const PUT = async (req: NextRequest, options: RequestOptions) => {
 }
 
 export {
-  PUT
+  PUT,
+  DELETE,
 }

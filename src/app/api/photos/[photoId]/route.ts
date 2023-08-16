@@ -2,7 +2,6 @@ import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
 import { currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from "next/server"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
 
 // Dynamic Route Segments

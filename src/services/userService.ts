@@ -7,6 +7,7 @@ export const fetchMyPhotos = async (): Promise<Photo[]> => {
     const res = await fetch(`${BASE_URL}/api/users/me/photos`, {
       cache: 'no-store',
       headers: headers(),
+      // next: { tags: ['photos'] }
     })
     return await res.json()
   } catch (error) {

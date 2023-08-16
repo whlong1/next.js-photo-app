@@ -1,12 +1,15 @@
 "use client"
 import Link from "next/link"
 import { Photo } from "@/types/models"
+import { useRouter } from "next/navigation"
 
 import { deletePhoto } from "@/services/photoService"
 const RowDeleteButton = ({ photoId }: { photoId: string }) => {
+  const router = useRouter()
   const handleDelete = async () => {
     const res = await deletePhoto(photoId)
     console.log("Component", res)
+    router.refresh()
   }
   return <button onClick={handleDelete}>DELETE</button>
 }
@@ -15,6 +18,7 @@ const RowDeleteButton = ({ photoId }: { photoId: string }) => {
 
 const PhotoRow = ({ photo }: { photo: Photo }) => {
   console.log("Photo Row:", photo.url)
+  
   const path = `/dashboard/photos/${photo.id}`
   const containerStyle = `
     flex 

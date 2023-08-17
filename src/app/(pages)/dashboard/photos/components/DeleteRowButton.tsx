@@ -1,15 +1,23 @@
 "use client"
 import { useRouter } from "next/navigation"
+import { useTransition, useState } from "react"
 import { deletePhoto } from "@/services/photoService"
 
 const DeleteRowButton = ({ photoId }: { photoId: string }) => {
   const router = useRouter()
+  const [isFetching, setIsFetching] = useState(false)
+  const [isPending, startTransition] = useTransition()
+  const isMutating = isFetching || isPending
+
   const handleDelete = async () => {
-    const res = await deletePhoto(photoId)
-    console.log("Delete response:", res)
-    router.refresh()
+    setIsFetching(true)
+    await deletePhoto(photoId)
+    startTransition(() => { router.refresh() })
+    setIsFetching(false)
   }
-  return <button onClick={handleDelete}>DELETE</button>
+
+  const buttonStyle = `bg-slate-400 ${isMutating ? "opacity-25" : "opacity-100"}`
+  return <button className={buttonStyle} onClick={handleDelete}>DELETE</button>
 }
 
 export default DeleteRowButton

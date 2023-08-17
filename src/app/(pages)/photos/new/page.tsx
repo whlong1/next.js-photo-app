@@ -1,11 +1,16 @@
 // Components
-import MediaUploader from "@/components/PhotoUploader"
+import NewPhotoDialog from "../../dashboard/photos/components/NewPhotoDialog"
 
-const NewPhoto = () => {
+
+// This page might not be necessary:
+const NewPhoto = ({ searchParams }: { searchParams: { photoId: string } }) => {
+  console.log("Search Params", searchParams)
+
   return (
     <main>
-      new photo
-      <MediaUploader />
+
+      <NewPhotoDialog />
+
     </main>
   )
 }

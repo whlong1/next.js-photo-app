@@ -10,12 +10,21 @@ export interface Greeting {
 export interface Photo {
   id: string;
 
+  // Null properties if file is uploaded before resource:
   year: number | null;
   title: string | null;
   category: string | null;
   location: string | null;
   description: string | null;
-  urlPath: string | null;
+
+  // Null properties if resource is created before upload:
+  fileSize: number | null;
+  fileName: string | null;
+  mimeType: string | null;
+
+  // The url prop is temporarily appended on server and not present on data
+  // returned from the initial Prisma operation
+  url?: string | null;
 
   updatedAt: Date;
   createdAt: Date;
@@ -23,10 +32,6 @@ export interface Photo {
 
   authorId: string;
   authorName: string;
-
-  fileSize: number;
-  fileName: string;
-  mimeType: string;
 }
 
 

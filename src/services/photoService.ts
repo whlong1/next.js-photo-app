@@ -1,5 +1,6 @@
 // Types
 import { Photo } from '@/types/models'
+import { PhotoFormData } from '@/types/forms'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -41,3 +42,34 @@ export const createAndUploadPhoto = async (file: File) => {
     throw error
   }
 }
+
+export const createOrUpdatePhoto = async (photoId: string, formData: PhotoFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "PUT",
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+    })
+
+    if (!res.ok) {
+      throw new Error(`Error ${res.status}: ${res.statusText}`)
+    }
+
+    return await res.json()
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+export const deletePhoto = async (photoId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "DELETE",
+    })
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}
+

@@ -13,11 +13,11 @@ import { fetchVideosOnServer } from '@/services/backendServices'
 // Look into `dynamic = "force-dynamic"`
 
 const Videos = async ({ searchParams }: { searchParams: VideoSearchParams }) => {
-  const videos: Video[] = await fetchVideosOnServer(searchParams)
+  // const videos: Video[] = await fetchVideosOnServer(searchParams)
   return (
     <main>
       <h1>Videos Hub</h1>
-      <VideoList videos={videos} />
+      {/* <VideoList videos={videos} /> */}
     </main>
   )
 }

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 
+
 // Runtime check for environment variables
 if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
   throw new Error("Environment variables are not set")
@@ -34,6 +35,7 @@ const POST = async (req: NextRequest) => {
     // with a name (Key) matching the id (PK) of the new photo record. 
     const newPhoto: Photo = await prisma.photo.create({
       data: {
+        isUploaded: true,
         fileSize: fileSize,
         fileName: fileName,
         mimeType: fileType,
@@ -41,6 +43,8 @@ const POST = async (req: NextRequest) => {
         authorName: `${user.firstName} ${user.lastName}`
       }
     })
+    //TODO Add an additional check to set it back to false if the upload fails.
+    // Setting isUploaded to true here assumes the upload will be successful.
 
     if (!newPhoto) { throw new Error("Something went wrong!") }
 
@@ -68,6 +72,19 @@ const POST = async (req: NextRequest) => {
   }
 }
 
+const GET = async (req: NextRequest) => {
+  try {
+    const user = await currentUser()
+    if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+    const photos: Photo[] = await prisma.photo.findMany({})
+    return NextResponse.json(photos)
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
 export {
   POST,
+  GET,
 }

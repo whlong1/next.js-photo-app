@@ -1,24 +1,8 @@
-"use client"
 import Link from "next/link"
 import { Photo } from "@/types/models"
-import { useRouter } from "next/navigation"
-
-import { deletePhoto } from "@/services/photoService"
-const RowDeleteButton = ({ photoId }: { photoId: string }) => {
-  const router = useRouter()
-  const handleDelete = async () => {
-    const res = await deletePhoto(photoId)
-    console.log("Component", res)
-    router.refresh()
-  }
-  return <button onClick={handleDelete}>DELETE</button>
-}
-
-
+import DeleteRowButton from "./DeleteRowButton"
 
 const PhotoRow = ({ photo }: { photo: Photo }) => {
-  console.log("Photo Row:", photo.url)
-  
   const path = `/dashboard/photos/${photo.id}`
   const containerStyle = `
     flex 
@@ -28,7 +12,6 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
     w-full 
     h-24
   `
-
   return (
     <div className={containerStyle}>
       <div className="border w-12">
@@ -42,7 +25,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
       </div>
       <input type="checkbox" readOnly checked={photo.isUploaded} />
 
-      <RowDeleteButton photoId={photo.id} />
+      <DeleteRowButton photoId={photo.id} />
       <Link href={path}>VIEW</Link>
 
       <p>Privacy</p>

@@ -12,3 +12,21 @@ export interface PhotoFormData {
 
   // Note: id is appended to formData on submit for updates
 }
+
+
+export interface VideoFormData {
+  year?: number;
+  genre?: string;
+  title?: string;
+  artist?: string;
+  director?: string;
+  category?: string;
+
+  // videoUrl: string | null;
+  // thumbnailUrl: string | null;
+
+  // Optional form data values:
+  // authorId?: string;
+  // updatedAt?: Date;
+  // createdAt?: Date;
+}

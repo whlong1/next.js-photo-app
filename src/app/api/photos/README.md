@@ -78,23 +78,29 @@ Add the following to your bucket's `Cross-origin resource sharing (CORS)` sectio
 
 ## Issues
 
-• [Github](https://github.com/aws/aws-sdk-js-v3/issues/4797)
+`Module not found: Error: Can't resolve '@aws-sdk/signature-v4-crt'`
 
-```
-- warn ./node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs/SignatureV4MultiRegion.js
-Module not found: Can't resolve '@aws-sdk/signature-v4-crt' in '/Users/williamlong/my-portfolio/vod-project/next-vod/node_modules/@aws-sdk/signature-v4-multi-region/dist-cjs'
-```
+- Reference: [GitHub issue #4797](https://github.com/aws/aws-sdk-js-v3/issues/4797).
+
+- Quick fix, downgrade these packages to the following version:
+
+    ```
+    {
+        "@aws-sdk/client-s3": "^3.32.0",
+        "@aws-sdk/s3-request-presigner": "^3.32.0"
+    }
+    ```
 
 ## References
 
-• [Documentation on s3-request-presigner](https://www.npmjs.com/package/@aws-sdk/s3-request-presigner)
+[Documentation on s3-request-presigner](https://www.npmjs.com/package/@aws-sdk/s3-request-presigner)
 
-• [AWS SDK for JavaScript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
+[AWS SDK for JavaScript](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/)
 
-• [Guide using Pages Router and AWS SDK v2](https://selectfrom.dev/connecting-aws-s3-buckets-to-next-js-25e903621c70)
+[Guide using Pages Router and AWS SDK v2](https://selectfrom.dev/connecting-aws-s3-buckets-to-next-js-25e903621c70)
 
-• [Out of date example application](https://vercel.com/templates/next.js/aws-s3-image-upload-nextjs)
+[Out of date example application](https://vercel.com/templates/next.js/aws-s3-image-upload-nextjs)
 
-• [PutObjectCommand()](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-backupstorage/Class/PutObjectCommand/)
+[PutObjectCommand()](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-client-backupstorage/Class/PutObjectCommand/)
 
-• [Discussion on changes to file uploads in Next.js App Router](https://stackoverflow.com/questions/76379368/how-can-i-upload-images-to-an-amazon-s3-bucket-using-next-js-13s-app-router-and)
+[Discussion on changes to file uploads in Next.js App Router](https://stackoverflow.com/questions/76379368/how-can-i-upload-images-to-an-amazon-s3-bucket-using-next-js-13s-app-router-and)

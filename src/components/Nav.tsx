@@ -22,6 +22,10 @@ const Nav = () => {
       </SignedIn>
 
       <SignedIn>
+        <Link href="/dashboard">Dashboard</Link>
+      </SignedIn>
+
+      <SignedIn>
         <UserButton afterSignOutUrl="/" />
       </SignedIn>
     </nav>

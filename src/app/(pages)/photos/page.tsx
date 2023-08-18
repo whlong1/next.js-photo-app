@@ -1,12 +1,10 @@
-import { Photo } from "@/types/models"
-import { fetchMyPhotos } from "@/services/userService"
-
 import { prisma } from "@/lib/db"
+import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
-
 const Photos = async ({ searchParams }: { searchParams: any }) => {
-  console.log(searchParams)
+  console.log("Search Params", searchParams)
+  const photos: Photo[] = await prisma.photo.findMany({})
 
   const fetchInServer = async () => {
     const start = performance.now()

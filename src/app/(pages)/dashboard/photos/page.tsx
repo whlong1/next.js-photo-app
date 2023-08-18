@@ -4,7 +4,7 @@ import PhotoRow from "./components/PhotoRow"
 
 const DashboardPhotos = async () => {
   const photos: Photo[] = await fetchMyPhotos()
-  console.log("Dashboard", photos)
+  // console.log("Dashboard", photos)
 
   return (
     <>

@@ -1,5 +1,11 @@
+// Types
 import { Photo } from "@/types/models"
+
+// Services
 import { fetchPhotos } from "@/services/photoService"
+
+// Components
+import PhotoCard from "./components/PhotoCard"
 
 const Photos = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search Params", searchParams)
@@ -9,13 +15,7 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
     <main>
       <h1>Photos Hub</h1>
       {photos.map((photo) => (
-        <article key={photo.id}>
-          <img
-            className="w-24 h-24 border border-black"
-            src={photo.url ? photo.url : ""}
-            alt={photo.title ? photo.title : ""}
-          />
-        </article>
+        <PhotoCard key={photo.id} photo={photo} />
       ))}
     </main>
   )

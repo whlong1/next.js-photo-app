@@ -1,5 +1,5 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
+import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 
 // Runtime check for environment variables
 if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
@@ -23,4 +23,15 @@ export const generatePresignedGetURL = async (photoId: string) => {
   })
   // Generate pre-signed URL for GET request
   return await getSignedUrl(client, getCommand, { expiresIn: 600 })
+}
+
+export const generatePresignedPutURL = async (photoId: string, fileType: string) => {
+    // PutObjectCommand: used to generate a pre-signed URL for uploading
+    const putCommand = new PutObjectCommand({
+      Key: photoId,
+      ContentType: fileType,
+      Bucket: process.env.BUCKET_NAME,
+    })
+    // Generate pre-signed URL for PUT request
+    return await getSignedUrl(client, putCommand, { expiresIn: 600 })
 }

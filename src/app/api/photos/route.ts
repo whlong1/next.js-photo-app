@@ -2,25 +2,7 @@ import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
 import { currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from "next/server"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
-
-import { generatePresignedGetURL } from "@/lib/aws"
-
-
-// Runtime check for environment variables
-if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
-  throw new Error("Environment variables are not set")
-}
-
-// Initialize S3Client instance
-const client = new S3Client({
-  region: process.env.REGION,
-  credentials: {
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  },
-})
+import { generatePresignedGetURL, generatePresignedPutURL } from "@/lib/aws"
 
 const POST = async (req: NextRequest) => {
   try {
@@ -50,22 +32,9 @@ const POST = async (req: NextRequest) => {
 
     if (!newPhoto) { throw new Error("Something went wrong!") }
 
-    // PutObjectCommand: used to generate a pre-signed URL for uploading
-    const putCommand = new PutObjectCommand({
-      Key: newPhoto.id,
-      ContentType: fileType,
-      Bucket: process.env.BUCKET_NAME,
-    })
-    // Generate pre-signed URL for PUT request
-    const putURL = await getSignedUrl(client, putCommand, { expiresIn: 600 })
-
-    // GetObjectCommand: used to generate a pre-signed URL for viewing.
-    const getCommand = new GetObjectCommand({
-      Key: newPhoto.id,
-      Bucket: process.env.BUCKET_NAME,
-    })
-    // Generate pre-signed URL for GET request
-    const getURL = await getSignedUrl(client, getCommand, { expiresIn: 600 })
+    // Generate presigned URLS
+    const putURL = await generatePresignedPutURL(newPhoto.id, fileType)
+    const getURL = await generatePresignedGetURL(newPhoto.id)
 
     return NextResponse.json({ putURL, getURL, newPhotoId: newPhoto.id }, { status: 200 })
   } catch (error) {

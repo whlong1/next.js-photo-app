@@ -6,6 +6,7 @@ import { fetchPhotos } from "@/services/photoService"
 
 
 const Photos = async ({ searchParams }: { searchParams: any }) => {
+  console.log(searchParams)
 
   const fetchInServer = async () => {
     const start = performance.now()

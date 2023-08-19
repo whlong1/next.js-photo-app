@@ -4,6 +4,8 @@ import { currentUser } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from "next/server"
 import { generatePresignedGetURL, generatePresignedPutURL } from "@/lib/aws"
 
+import { revalidateTag } from 'next/cache'
+
 const POST = async (req: NextRequest) => {
   try {
     const user = await currentUser()
@@ -35,6 +37,8 @@ const POST = async (req: NextRequest) => {
     // Generate presigned URLS
     const putURL = await generatePresignedPutURL(newPhoto.id, fileType)
     const getURL = await generatePresignedGetURL(newPhoto.id)
+
+    revalidateTag("photos")
 
     return NextResponse.json({ putURL, getURL, newPhotoId: newPhoto.id }, { status: 200 })
   } catch (error) {

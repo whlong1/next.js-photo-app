@@ -1,4 +1,5 @@
 import { Photo } from "@/types/models"
+
 const PhotoCard = ({ photo }: { photo: Photo }) => {
   return (
     <article key={photo.id}>

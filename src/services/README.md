@@ -12,3 +12,34 @@ This directory is designated for functions that make HTTP requests. These functi
     - Include  `{ cache: 'no-store' }` in services to avoid unintentional caching.
 
 User information can be accessed within a service function if necessary using Clerk's `auth()` hook.
+
+
+
+
+## Next.js Caching
+
+### [On-demand Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation)
+
+The steps below breakdown the necessary code snippets for On-demand Revalidation when submitting a new record with a client-side form. 
+
+1. **Tag data on Initial Fetch:** 
+    - Add a `tag` to the data during the initial `fetch`:
+        ```typescript
+        const res = await fetch(`${BASE_URL}/api/photos`, {
+            next: { tags: ['photos'] }
+        });
+        ```
+
+2. **Revalidation:** 
+    - Revalidation can be triggered within a `Route Handler` using `revalidateTag()`. Say we want to revalidate the `photos` cache once a new record has been submitted. In that scenario, we could call `revalidateTag("photos")` within the `POST` handler function for the photos resource.
+
+3. **Router Refresh for Client-side Handlers:** 
+    - If the POST request is called from a client-side component, `router.refresh()` should be invoked within the event handler function to trigger the revalidation.
+    
+    - [Deep Dive: Caching and Revalidating](https://github.com/vercel/next.js/discussions/54075) by Tim Neutkens.
+        > "If you were to fetch() a route handler from the user’s browser, it wouldn’t affect their Router Cache because Next.js wouldn't be aware of the changes. In such scenarios, you must call `router.refresh()`."
+
+
+### [Opting out of Data Caching](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#opting-out-of-data-caching)
+
+You can opt out of caching fetched data using the `{ cache: 'no-store' }` option in a `fetch` request. However, if a database mutation is triggered within a client component, you must still call `router.refresh()` within the associated event handler function.

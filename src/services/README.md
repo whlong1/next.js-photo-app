@@ -20,7 +20,7 @@ User information can be accessed within a service function if necessary using Cl
 
 ### [On-demand Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation)
 
-The steps below breakdown the necessary code snippets for On-demand Revalidation when submitting a new record with a client-side form. 
+Below you'll find a breakdown of the code necessary for On-demand Revalidation when submitting a new record from a client-side form. This approach should suffice while server actions are still in their experimental phase.
 
 1. **Tag data on Initial Fetch:** 
     - Add a `tag` to the data during the initial `fetch`:

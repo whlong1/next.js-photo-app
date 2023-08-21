@@ -13,10 +13,19 @@ This directory is designated for functions that make HTTP requests. These functi
 
 User information can be accessed within a service function if necessary using Clerk's `auth()` hook.
 
+## [Next.js Caching](https://nextjs.org/docs/app/building-your-application/caching#overview)
 
+### [Time-based Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#time-based-revalidation)
 
+The `next.revalidate` option in a `fetch` can be used to set how often data will be revalidated. It appears that updates do not occur until the user triggers some sort of navigation or a refresh.
 
-## Next.js Caching
+```typescript
+const res = await fetch(`${BASE_URL}/api/photos`, {
+    next: { revalidate: 600 }
+})
+```
+
+> "Any requests that are called within the specified timeframe (e.g. 60-seconds) will return the cached data. After the timeframe, the next request will still return the cached (now stale) data. Next.js will trigger a revalidation of the data in the background."
 
 ### [On-demand Revalidation](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#on-demand-revalidation)
 

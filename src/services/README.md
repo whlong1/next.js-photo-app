@@ -52,3 +52,10 @@ Below you'll find a breakdown of the code necessary for On-demand Revalidation w
 ### [Opting out of Data Caching](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#opting-out-of-data-caching)
 
 You can opt out of caching fetched data using the `{ cache: 'no-store' }` option in a `fetch` request. However, if a database mutation is triggered within a client component, you must still call `router.refresh()` within the associated event handler function.
+
+Note, if a `header` is included on a request inside server component, the data will not be cached.
+
+> "Next.js provides helpful functions you may need when fetching data in Server Components such as cookies and headers. These will cause the route to be dynamically rendered as they rely on request time information."
+
+### Questions
+1. Is there a way to opt into data caching when using cookies and headers?

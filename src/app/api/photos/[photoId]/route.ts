@@ -45,8 +45,7 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
     })
 
     revalidateTag("photos")
-    revalidateTag("myPhotos")
-
+    
     const s3DeleteResponse = await client.send(deleteCommand)
     const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 

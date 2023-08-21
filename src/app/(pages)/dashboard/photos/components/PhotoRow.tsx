@@ -18,7 +18,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
         {photo.url && photo.title && <img src={photo.url} alt={photo.title} />}
       </div>
       <div className="flex flex-col">
-        <p>{photo.id}</p>
+        <p>{photo.title}</p>
 
         <p>{photo.fileName}</p>
         <p>{photo.fileSize}</p>

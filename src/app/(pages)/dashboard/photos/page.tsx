@@ -2,6 +2,8 @@ import { Photo } from "@/types/models"
 import { fetchMyPhotos } from "@/services/userService"
 import PhotoRow from "./components/PhotoRow"
 
+// import { fetchMyPhotos } from "@/services/photoService"
+
 const DashboardPhotos = async () => {
   const photos: Photo[] = await fetchMyPhotos()
   // console.log("Dashboard", photos)

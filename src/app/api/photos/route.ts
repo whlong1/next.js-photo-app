@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
-import { currentUser } from '@clerk/nextjs'
+import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
 import { generatePresignedGetURL, generatePresignedPutURL } from "@/lib/aws"
 
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from "next/cache"
 
 const POST = async (req: NextRequest) => {
   try {

@@ -3,20 +3,18 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 // Types
-import { Video } from "@/types/models"
+import { VideoFormData } from "@/types/forms"
 
 // Services
 import { createVideo } from "@/services/frontendServices"
 
 const VideoForm = () => {
-  const initialState: Video = {
+  const initialState: VideoFormData = {
     title: "",
     genre: "",
     artist: "",
     director: "",
     category: "",
-    videoUrl: "",
-    thumbnailUrl: "",
     year: new Date().getFullYear(),
   }
 
@@ -108,28 +106,6 @@ const VideoForm = () => {
         id="category"
         className={inputStyle}
         value={videoFormData.category}
-        onChange={handleChange}
-        required
-      />
-
-      <label htmlFor="videoUrl">Video URL:</label>
-      <input
-        type="text"
-        name="videoUrl"
-        id="videoUrl"
-        className={inputStyle}
-        value={videoFormData.videoUrl}
-        onChange={handleChange}
-        required
-      />
-
-      <label htmlFor="thumbnailUrl">Thumbnail URL:</label>
-      <input
-        type="text"
-        name="thumbnailUrl"
-        id="thumbnailUrl"
-        className={inputStyle}
-        value={videoFormData.thumbnailUrl}
         onChange={handleChange}
         required
       />

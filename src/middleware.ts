@@ -19,7 +19,6 @@ const publicApiEndpoints = ["/api(.*)"]
 export default authMiddleware({
   publicRoutes: [...publicApiEndpoints, ...publicPages],
   afterAuth(auth, req, evt) {
-    console.log("Auth check")
     if (!auth.userId && !auth.isPublicRoute) {
       return redirectToSignIn({ returnBackUrl: req.url })
     }

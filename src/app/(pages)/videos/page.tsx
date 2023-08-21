@@ -1,12 +1,12 @@
 // Types
-import { Video } from '@/types/models'
-import { VideoSearchParams } from '@/types/props'
+// import { Video } from '@/types/models'
+// import { VideoSearchParams } from '@/types/props'
 
 // Components 
-import VideoList from "./components/VideoList"
+// import VideoList from "./components/VideoList"
 
 // Services
-import { fetchVideosOnServer } from '@/services/backendServices'
+// import { fetchVideosOnServer } from '@/services/backendServices'
 
 // Accessing Search Params in Server Components:
 // https://nextjs.org/docs/app/api-reference/functions/use-search-params#server-components

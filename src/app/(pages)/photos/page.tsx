@@ -1,15 +1,22 @@
-// Components 
-// import VideoList from "./components/VideoList"
+// Types
+import { Photo } from "@/types/models"
 
 // Services
-import { fetchVideosOnServer } from '@/services/backendServices'
+import { fetchPhotos } from "@/services/photoService"
+
+// Components
+import PhotoCard from "./components/PhotoCard"
 
 const Photos = async ({ searchParams }: { searchParams: any }) => {
-  // const videos: Video[] = await fetchVideosOnServer(searchParams)
+  console.log("Search Params", searchParams)
+  const photos: Photo[] = await fetchPhotos()
+
   return (
     <main>
       <h1>Photos Hub</h1>
-      {/* <VideoList videos={videos} /> */}
+      {photos.map((photo) => (
+        <PhotoCard key={photo.id} photo={photo} />
+      ))}
     </main>
   )
 }

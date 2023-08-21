@@ -1,8 +1,9 @@
 // Types
-import { Video } from '@/types/models'
+import { Video } from "@/types/models"
+import { VideoFormData } from "@/types/forms"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-export const createVideo = async (formData: Video): Promise<Video> => {
+export const createVideo = async (formData: VideoFormData): Promise<Video> => {
   try {
     const res = await fetch(`${BASE_URL}/api/videos`, {
       method: "POST",

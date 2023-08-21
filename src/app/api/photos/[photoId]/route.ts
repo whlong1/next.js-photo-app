@@ -1,8 +1,9 @@
 import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
-import { currentUser } from '@clerk/nextjs'
+import { revalidateTag } from "next/cache"
+import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
-import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3"
 
 // Dynamic Route Segments
 // https://nextjs.org/docs/app/building-your-application/routing/route-handlers
@@ -29,13 +30,22 @@ interface RequestOptions { params: { photoId: string } }
 const DELETE = async (req: NextRequest, options: RequestOptions) => {
   try {
     const { photoId } = options.params
-    // Add Auth Check Middleware
+
+    const user = await currentUser()
+    if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+
+    const photo = await prisma.photo.findUnique({ where: { id: photoId } })
+
+    if (!photo) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+    if (photo.authorId !== user.id) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
 
     const deleteCommand = new DeleteObjectCommand({
       Key: photoId,
       Bucket: process.env.BUCKET_NAME,
     })
 
+    revalidateTag("photos")
+    
     const s3DeleteResponse = await client.send(deleteCommand)
     const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 
@@ -45,9 +55,6 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
     throw error
   }
 }
-
-
-
 
 const PUT = async (req: NextRequest, options: RequestOptions) => {
   try {

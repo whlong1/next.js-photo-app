@@ -1,14 +1,13 @@
 "use client"
 
-// React
-import { useState } from "react"
-
 // Hooks
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 // Types
-import { PhotoFormData } from "@/types/forms"
 import { Photo } from "@/types/models"
+import { PhotoFormData } from "@/types/forms"
 
 // Services
 import { createOrUpdatePhoto } from "@/services/photoService"
@@ -22,10 +21,11 @@ const NewPhotoForm = () => {
     year: new Date().getFullYear(),
   }
 
+  const router = useRouter()
   const [formData, setFormData] = useState(initialState)
   const { queryParams, setQueryParams } = useQueryManager()
 
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // This is very unreliable, because the params might be set for something old!!!
@@ -54,7 +54,7 @@ const NewPhotoForm = () => {
     const photoData: Photo = await createOrUpdatePhoto(photoId, formData)
     setQueryParams("photoId", photoData.id)
     console.log("Photo Data", photoData)
-
+    router.refresh()
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {

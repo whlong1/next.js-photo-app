@@ -1,24 +1,9 @@
 import { prisma } from "@/lib/db"
 import { Photo } from "@/types/models"
-import { currentUser } from '@clerk/nextjs'
+import { revalidateTag } from "next/cache"
+import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
-
-
-// Runtime check for environment variables
-if (!process.env.REGION || !process.env.ACCESS_KEY || !process.env.SECRET_ACCESS_KEY) {
-  throw new Error("Environment variables are not set")
-}
-
-// Initialize S3Client instance
-const client = new S3Client({
-  region: process.env.REGION,
-  credentials: {
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  },
-})
+import { generatePresignedGetURL, generatePresignedPutURL } from "@/lib/aws"
 
 const POST = async (req: NextRequest) => {
   try {
@@ -48,22 +33,12 @@ const POST = async (req: NextRequest) => {
 
     if (!newPhoto) { throw new Error("Something went wrong!") }
 
-    // PutObjectCommand: used to generate a pre-signed URL for uploading
-    const putCommand = new PutObjectCommand({
-      Key: newPhoto.id,
-      ContentType: fileType,
-      Bucket: process.env.BUCKET_NAME,
-    })
-    // Generate pre-signed URL for PUT request
-    const putURL = await getSignedUrl(client, putCommand, { expiresIn: 600 })
+    // Generate presigned URLS
+    const putURL = await generatePresignedPutURL(newPhoto.id, fileType)
+    const getURL = await generatePresignedGetURL(newPhoto.id)
 
-    // GetObjectCommand: used to generate a pre-signed URL for viewing.
-    const getCommand = new GetObjectCommand({
-      Key: newPhoto.id,
-      Bucket: process.env.BUCKET_NAME,
-    })
-    // Generate pre-signed URL for GET request
-    const getURL = await getSignedUrl(client, getCommand, { expiresIn: 600 })
+
+    revalidateTag("photos")
 
     return NextResponse.json({ putURL, getURL, newPhotoId: newPhoto.id }, { status: 200 })
   } catch (error) {
@@ -74,10 +49,15 @@ const POST = async (req: NextRequest) => {
 
 const GET = async (req: NextRequest) => {
   try {
-    const user = await currentUser()
-    if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+    // PUBLIC ROUTE
     const photos: Photo[] = await prisma.photo.findMany({})
-    return NextResponse.json(photos)
+    const photosWithUrl = await Promise.all(photos.map(async (photo) => {
+      // Consider error handling for the generated URL
+      const url = await generatePresignedGetURL(photo.id)
+      return { ...photo, url }
+    }))
+
+    return NextResponse.json(photosWithUrl)
   } catch (error) {
     console.log(error)
     throw error

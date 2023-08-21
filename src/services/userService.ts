@@ -5,9 +5,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 export const fetchMyPhotos = async (): Promise<Photo[]> => {
   try {
     const res = await fetch(`${BASE_URL}/api/users/me/photos`, {
-      cache: 'no-store',
+      // Note: Clerk Auth headers seem to opt out of caching
       headers: headers(),
-      // next: { tags: ['photos'] }
     })
     return await res.json()
   } catch (error) {

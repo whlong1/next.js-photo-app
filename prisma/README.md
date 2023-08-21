@@ -111,3 +111,11 @@ Run the following command to create an initial migration:
 Vercel Postgres is currently in beta. See known issues below:
 
 - [Vercel starter code migration issue](https://github.com/prisma/prisma/issues/19234)
+
+## Query Cheatsheet
+
+Conditional `WHERE` clause:
+
+```typescript
+const filter = { where: { ...userId ? { authorId: userId } : {} } }
+```

@@ -1,15 +1,19 @@
+// Types
 import { Photo } from "@/types/models"
-import { fetchMyPhotos } from "@/services/userService"
 
+// Actions
+import { getMyPhotos } from "@/actions/actions"
+
+// Components
 import PhotoRow from "./components/PhotoRow"
 
 const DashboardPhotos = async () => {
-  const photos: Photo[] = await fetchMyPhotos()
-  console.log("render dashboard photos")
+  const myPhotos: Photo[] = await getMyPhotos()
+
   return (
     <>
       <h1>MY PHOTOS</h1>
-      {photos.map((photo) => (
+      {myPhotos.map((photo) => (
         <PhotoRow key={photo.id} photo={photo} />
       ))}
     </>

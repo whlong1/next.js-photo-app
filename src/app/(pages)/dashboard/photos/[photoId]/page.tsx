@@ -16,9 +16,7 @@ const PhotoDetails = async ({ params: { photoId } }: PhotoDetailsProps) => {
         }
       </div>
       <div>
-        {JSON.stringify(photo).split(",").map((property) => (
-          <p>{property}</p>
-        ))}
+        {JSON.stringify(photo)}
       </div>
     </>
   )

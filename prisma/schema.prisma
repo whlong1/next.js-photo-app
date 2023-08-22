@@ -59,8 +59,6 @@ model Photo {
   // Required?
   width Int?
   height Int?
-  // Needed?
-  gridColumnSpan Int?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())

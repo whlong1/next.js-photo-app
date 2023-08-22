@@ -11,6 +11,8 @@ import PhotoCard from "./components/PhotoCard"
 // https://css-tricks.com/aspect-ratios-grid-items/
 // https://css-tricks.com/seamless-responsive-photo-grid/
 // https://flowbite.com/docs/components/gallery/#masonry-grid
+// https://css-irl.info/masonry-in-css/
+// https://medium.com/notonlycss/tailwindcss-masonry-layout-553cdaea2e8a
 
 const Photos = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search Params", searchParams)
@@ -20,8 +22,9 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
     gap: "8px",
     padding: "8px",
     display: "grid",
+    gridAutoRows: "1fr",
     gridAutoFlow: "dense",
-    gridTemplateColumns: "repeat(8, 1fr)",
+    gridTemplateColumns: "repeat(6, 1fr)",
   }
 
   return (

@@ -29,10 +29,7 @@ const POST = async (req: NextRequest) => {
       data: {
         width: width,
         height: height,
-        // gridColumnSpan: Math.round(width / height),
-
         isUploaded: true,
-
         fileSize: fileSize,
         fileName: fileName,
         mimeType: fileType,

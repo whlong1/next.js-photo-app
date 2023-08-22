@@ -1,3 +1,4 @@
+import { Photo } from "@/types/models"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 
@@ -17,6 +18,14 @@ const client = new S3Client({
 
 export const getPublicURL = (photoId: string) => {
   return `https://${process.env.BUCKET_NAME}.s3.${process.env.REGION}.amazonaws.com/${photoId}`
+}
+
+export const getPhotosWithPresignedUrl = async (photos: Photo[]) => {
+  return await Promise.all(photos.map(async (photo) => {
+    // Temporary presigned URL:
+    const url = await generatePresignedGetURL(photo.id)
+    return { ...photo, url }
+  }))
 }
 
 export const generatePresignedGetURL = async (photoId: string) => {

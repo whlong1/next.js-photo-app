@@ -18,19 +18,10 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search Params", searchParams)
   const photos: Photo[] = await fetchPhotos()
 
-  const styles = {
-    gap: "8px",
-    padding: "8px",
-    display: "grid",
-    gridAutoRows: "1fr",
-    gridAutoFlow: "dense",
-    gridTemplateColumns: "repeat(6, 1fr)",
-  }
-
   return (
     <main>
       <h1>Photos Hub</h1>
-      <section style={styles}>
+      <section className="masonry-grid">
         {photos.map((photo) => (
           <PhotoCard key={photo.id} photo={photo} />
         ))}

@@ -24,13 +24,11 @@ body {
   background: var(--background-color);
 }
 
-@layer components {
-  .responsive-grid {
-    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
-  }
-}
+@layer components { }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 600;
 }
 
@@ -79,4 +77,13 @@ label {
 input {
   border-radius: 4px;
   border: 1px solid black;
+}
+
+.masonry-grid {
+  gap: 8px;
+  padding: 8px;
+  display: grid;
+  grid-auto-flow: dense;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(5, 1fr);
 }

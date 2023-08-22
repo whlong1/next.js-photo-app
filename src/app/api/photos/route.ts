@@ -3,7 +3,7 @@ import { Photo } from "@/types/models"
 import { revalidateTag } from "next/cache"
 import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
-import { generatePresignedGetURL, generatePresignedPutURL } from "@/lib/aws"
+import { generatePresignedGetURL, generatePresignedPutURL, getPublicURL } from "@/lib/aws"
 
 const POST = async (req: NextRequest) => {
   try {
@@ -52,8 +52,14 @@ const GET = async (req: NextRequest) => {
     // PUBLIC ROUTE
     const photos: Photo[] = await prisma.photo.findMany({})
     const photosWithUrl = await Promise.all(photos.map(async (photo) => {
-      // Consider error handling for the generated URL
-      const url = await generatePresignedGetURL(photo.id)
+
+      // Public URL:
+      const url = getPublicURL(photo.id)
+      console.log("PUBLIC URL", url)
+
+      // Temporary presigned URL:
+      // const url = await generatePresignedGetURL(photo.id)
+
       return { ...photo, url }
     }))
 

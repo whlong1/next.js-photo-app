@@ -6,6 +6,7 @@ export interface PhotoFormData {
   location?: string;
   description?: string;
   isUploaded?: boolean;
+  isPublic?: boolean;
 
   // Properties not present in client form data:
   // fileSize, fileName, mimeType, authorId, authorName, createdAt, updatedAt

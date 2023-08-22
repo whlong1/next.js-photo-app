@@ -29,6 +29,7 @@ export interface Photo {
   updatedAt: Date;
   createdAt: Date;
   isUploaded: boolean;
+  isPublic: boolean;
 
   authorId: string;
   authorName: string;

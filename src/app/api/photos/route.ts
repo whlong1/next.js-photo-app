@@ -50,7 +50,7 @@ const POST = async (req: NextRequest) => {
 const GET = async (req: NextRequest) => {
   try {
     const photos: Photo[] = await prisma.photo.findMany({
-      where: { isPublic: true },
+      // where: { isPublic: true },
       orderBy: { createdAt: "desc" }
     })
     

@@ -20,7 +20,7 @@ export const getPublicURL = (photoId: string) => {
   return `https://${process.env.BUCKET_NAME}.s3.${process.env.REGION}.amazonaws.com/${photoId}`
 }
 
-export const getPhotosWithPresignedUrl = async (photos: Photo[]) => {
+export const getPhotosWithPresignedURL = async (photos: Photo[]) => {
   return await Promise.all(photos.map(async (photo) => {
     // Temporary presigned URL:
     const url = await generatePresignedGetURL(photo.id)

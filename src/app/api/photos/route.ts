@@ -54,7 +54,7 @@ const GET = async (req: NextRequest) => {
       orderBy: { createdAt: "desc" }
     })
     
-    // NOTE: getPhotosWithPresignedUrl() would be more secure:
+    // NOTE: getPhotosWithPresignedURL() would be more secure:
     const photosWithPublicUrl = photos.map((photo) => {
       return { ...photo, url: getPublicURL(photo.id) }
     })

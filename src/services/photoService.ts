@@ -1,15 +1,20 @@
 // Types
 import { Photo } from '@/types/models'
-import { PhotoFormData } from '@/types/forms'
+import { PhotoFormData, ImageAttributes } from '@/types/forms'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 // Response: putUrl for upload, getUrl for previewing, newPhotoId
-const createPhotoAndPresignedUrls = async (file: File) => {
+const createPhotoAndPresignedUrls = async (file: File, imageAttributes: ImageAttributes) => {
   const res = await fetch(`${BASE_URL}/api/photos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size })
+    body: JSON.stringify({
+      ...imageAttributes,
+      fileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+    })
   })
 
   if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
@@ -33,9 +38,9 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
   return uploadResponse.ok
 }
 
-export const createAndUploadPhoto = async (file: File) => {
+export const createAndUploadPhoto = async (file: File, imageAttributes: ImageAttributes) => {
   try {
-    const { putURL, getURL, newPhotoId } = await createPhotoAndPresignedUrls(file)
+    const { putURL, getURL, newPhotoId } = await createPhotoAndPresignedUrls(file, imageAttributes)
     const uploadStatus = await uploadFileToS3Bucket(file, putURL)
     return { uploadStatus, getURL, newPhotoId }
   } catch (error) {
@@ -76,7 +81,7 @@ export const deletePhoto = async (photoId: string) => {
 export const fetchPhotos = async (): Promise<Photo[]> => {
   try {
     const res = await fetch(`${BASE_URL}/api/photos`, {
-      next: { tags: ["photos"], revalidate: 600 },
+      next: { tags: ["photos"], revalidate: 0 },
     })
     return await res.json()
   } catch (error) {

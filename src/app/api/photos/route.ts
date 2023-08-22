@@ -10,8 +10,15 @@ const POST = async (req: NextRequest) => {
     const user = await currentUser()
     if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
 
-    const { fileName, fileType, fileSize } = await req.json()
-    if (!fileType || !fileName || !fileSize) {
+    const {
+      width,
+      height,
+      fileName,
+      fileType,
+      fileSize,
+    } = await req.json()
+
+    if (!fileType || !fileName || !fileSize || !width || !height) {
       throw new Error("There was a problem with the file!")
     }
 
@@ -20,7 +27,12 @@ const POST = async (req: NextRequest) => {
     // with a name (Key) matching the id (PK) of the new photo record. 
     const newPhoto: Photo = await prisma.photo.create({
       data: {
+        width: width,
+        height: height,
+        // gridColumnSpan: Math.round(width / height),
+
         isUploaded: true,
+
         fileSize: fileSize,
         fileName: fileName,
         mimeType: fileType,
@@ -53,7 +65,7 @@ const GET = async (req: NextRequest) => {
       // where: { isPublic: true },
       orderBy: { createdAt: "desc" }
     })
-    
+
     // NOTE: getPhotosWithPresignedURL() would be more secure:
     const photosWithPublicUrl = photos.map((photo) => {
       return { ...photo, url: getPublicURL(photo.id) }

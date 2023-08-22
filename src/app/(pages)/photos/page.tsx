@@ -21,7 +21,7 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
     padding: "8px",
     display: "grid",
     gridAutoFlow: "dense",
-    gridTemplateColumns: "repeat(6, 1fr)",
+    gridTemplateColumns: "repeat(8, 1fr)",
   }
 
   return (

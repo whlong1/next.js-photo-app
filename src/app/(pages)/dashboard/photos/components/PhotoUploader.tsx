@@ -13,6 +13,8 @@ import DragAndDrop from "./DragAndDrop"
 import { createAndUploadPhoto } from "@/services/photoService"
 
 const PhotoUploader = () => {
+  const [width, setWidth] = useState(0)
+  const [height, setHeight] = useState(0)
   const [newPhotoId, setNewPhotoId] = useState("")
   const [filePreviewURL, setFilePreviewURL] = useState("")
   const [uploadPending, setUploadPending] = useState(false)
@@ -27,16 +29,12 @@ const PhotoUploader = () => {
     const {
       getURL,
       newPhotoId,
-    } = await createAndUploadPhoto(selectedFile)
+    } = await createAndUploadPhoto(selectedFile, { width, height })
 
     handleReset()
     setNewPhotoId(newPhotoId)
-
-    console.log("RESPONSE")
-    // PARAMS TEST:
-    setQueryParams("photoId", newPhotoId)
-
     setS3PresignedGetURL(getURL)
+    setQueryParams("photoId", newPhotoId)
   }
 
   const handleReset = () => {
@@ -47,6 +45,15 @@ const PhotoUploader = () => {
   }
 
   const selectAndPreview = (file: File) => {
+    const image = new Image()
+    const objectUrl = URL.createObjectURL(file)
+    image.src = objectUrl
+
+    image.onload = () => {
+      setWidth(image.width)
+      setHeight(image.height)
+    }
+
     setSelectedFile(file)
     setFilePreviewURL(URL.createObjectURL(file))
   }
@@ -66,7 +73,7 @@ const PhotoUploader = () => {
 
       <p>FILES</p>
       <p>
-        file name <br/>
+        file name <br />
         filesize
       </p>
 

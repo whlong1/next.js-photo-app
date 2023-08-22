@@ -52,9 +52,15 @@ model Photo {
   category String?
   description String?
 
+  // Required?
   fileSize Int?
   fileName String?
   mimeType String?
+  // Required?
+  width Int?
+  height Int?
+  // Needed?
+  gridColumnSpan Int?
 
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
@@ -63,6 +69,7 @@ model Photo {
 
   authorId String // CLERK
   authorName String // CLERK
+
 }
 
 //? =========== ============= =========== 

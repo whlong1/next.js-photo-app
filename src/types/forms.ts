@@ -31,3 +31,9 @@ export interface VideoFormData {
   // updatedAt?: Date;
   // createdAt?: Date;
 }
+
+
+export interface ImageAttributes {
+  width: number;
+  height: number;
+}

@@ -37,7 +37,6 @@ const POST = async (req: NextRequest) => {
     const putURL = await generatePresignedPutURL(newPhoto.id, fileType)
     const getURL = await generatePresignedGetURL(newPhoto.id)
 
-
     revalidateTag("photos")
 
     return NextResponse.json({ putURL, getURL, newPhotoId: newPhoto.id }, { status: 200 })
@@ -47,23 +46,20 @@ const POST = async (req: NextRequest) => {
   }
 }
 
+
 const GET = async (req: NextRequest) => {
   try {
-    // PUBLIC ROUTE
-    const photos: Photo[] = await prisma.photo.findMany({})
-    const photosWithUrl = await Promise.all(photos.map(async (photo) => {
+    const photos: Photo[] = await prisma.photo.findMany({
+      where: { isPublic: true },
+      orderBy: { createdAt: "desc" }
+    })
+    
+    // NOTE: getPhotosWithPresignedUrl() would be more secure:
+    const photosWithPublicUrl = photos.map((photo) => {
+      return { ...photo, url: getPublicURL(photo.id) }
+    })
 
-      // Public URL:
-      const url = getPublicURL(photo.id)
-      console.log("PUBLIC URL", url)
-
-      // Temporary presigned URL:
-      // const url = await generatePresignedGetURL(photo.id)
-
-      return { ...photo, url }
-    }))
-
-    return NextResponse.json(photosWithUrl)
+    return NextResponse.json(photosWithPublicUrl)
   } catch (error) {
     console.log(error)
     throw error

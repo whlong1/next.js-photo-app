@@ -1,25 +1,29 @@
 import { Photo } from "@/types/models"
 
+//TODO Can the maxGridSpan be calculated based on the total volume of the photo list to reduce gaps?
+
 const PhotoCard = ({ photo }: { photo: Photo }) => {
   const { width, height } = photo
-  const gridColumnSpan = width && height ? Math.round(width / height) : 1
-  const articleStyle = { gridColumnEnd: `span ${gridColumnSpan}` }
 
-  const imgStyle = `
-    w-full 
-    h-full 
-    border
-    border-black
-    object-cover 
-    max-h-[200px]
-  `
+  const dimensions = width && height
+  const getGridSpan = (numerator: number, denominator: number, maxGridSpan: number) => {
+    return Math.min(maxGridSpan, Math.max(1, Math.round(numerator / denominator)))
+  }
+
+  const gridColumnSpan = dimensions ? getGridSpan(width, height, 3) : 1
+  const gridRowSpan = dimensions ? getGridSpan(height, width, 2) : 1
+
+  const articleStyle = {
+    gridRowEnd: `span ${gridRowSpan}`,
+    gridColumnEnd: `span ${gridColumnSpan}`,
+  }
 
   return (
-    <article key={photo.id} style={articleStyle}>
+    <article style={articleStyle}>
       <img
-        className={imgStyle}
         src={photo.url ? photo.url : ""}
         alt={photo.title ? photo.title : ""}
+        className="w-full h-full object-cover"
       />
     </article>
   )

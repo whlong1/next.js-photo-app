@@ -85,5 +85,5 @@ input {
   display: grid;
   grid-auto-flow: dense;
   grid-auto-rows: 200px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }

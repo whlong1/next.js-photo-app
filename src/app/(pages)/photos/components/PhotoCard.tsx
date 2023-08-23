@@ -1,4 +1,8 @@
+// Types
 import { Photo } from "@/types/models"
+
+// Components
+import PhotoInfoOverlay from "./PhotoInfoOverlay"
 
 //TODO Can the maxGridSpan be calculated based on the total volume of the photo list to reduce gaps?
 
@@ -22,31 +26,10 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
     gridColumnEnd: `span ${gridColumnSpan}`,
   }
 
-  const hoverClass = `
-    p-4
-    z-10
-    w-full
-    h-full
-    absolute 
-    text-white
-    opacity-0 
-    bg-black/30
-    hover:opacity-100
-    transition-opacity 
-  `
-  const hoverFrame = (
-    <div className={hoverClass}>
-      <p>{photo.title}</p>
-      <p>{photo.authorName}</p>
-      <p>{photo.year}</p>
-      <p>{photo.location}</p>
-      <p>{photo.width}x{photo.height}</p>
-    </div>
-  )
 
   return (
     <article style={articleStyle as React.CSSProperties}>
-      {hoverFrame}
+      <PhotoInfoOverlay photo={photo} />
       <img
         src={photo.url ? photo.url : ""}
         alt={photo.title ? photo.title : ""}

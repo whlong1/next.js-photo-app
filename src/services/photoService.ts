@@ -81,7 +81,7 @@ export const deletePhoto = async (photoId: string) => {
 export const fetchPhotos = async (): Promise<Photo[]> => {
   try {
     const res = await fetch(`${BASE_URL}/api/photos`, {
-      next: { tags: ["photos"], revalidate: 0 },
+      next: { tags: ["photos"], revalidate: 600 },
     })
     return await res.json()
   } catch (error) {

@@ -8,20 +8,38 @@ const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
     w-full
     h-full
     absolute 
+
+    flex
+    flex-col
+    items-start
+    justify-end
+
     text-white
-    opacity-0 
-    bg-black/30
+    opacity-100
+    leading-none
+    tracking-wide
+
+    rounded
+    bg-black 
+    bg-opacity-50
     hover:opacity-100
-    transition-opacity 
-`
+    transition-opacity
+  `
 
   return (
     <div className={classNames}>
-      <p>{photo.title}</p>
-      <p>{photo.authorName}</p>
-      <p>{photo.year}</p>
-      <p>{photo.location}</p>
-      <p>{photo.width}x{photo.height}</p>
+      <div className="absolute top-4 right-4">
+        <button className="w-7 h-7 leading-none bg-white text-black rounded bg-opacity-75 hover:bg-opacity-90 transition text-sm">
+          X
+        </button>
+      </div>
+      <div className="flex items-center">
+        <div className="bg-black rounded-full	drop-shadow w-9 h-9 border-[.25px] border-slate-500 mr-3" />
+        <div>
+          <h2 className="text-sm mb-[.5px] font-medium">{photo.authorName}</h2>
+          <p className="text-xs font-normal opacity-75">{photo.location}</p>
+        </div>
+      </div>
     </div>
   )
 }

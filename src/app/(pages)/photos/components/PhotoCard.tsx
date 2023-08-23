@@ -26,7 +26,6 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
     gridColumnEnd: `span ${gridColumnSpan}`,
   }
 
-
   return (
     <article style={articleStyle as React.CSSProperties}>
       <PhotoInfoOverlay photo={photo} />

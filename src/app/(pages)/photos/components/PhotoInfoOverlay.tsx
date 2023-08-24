@@ -23,9 +23,10 @@ const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
     
     rounded
     bg-black 
-    opacity-0
+    opacity-100
     bg-opacity-40
     hover:opacity-100
+    hover:cursor-pointer
     transition-opacity
   `
 
@@ -34,9 +35,9 @@ const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
       <OverlayHeader />
       <div className="flex items-center">
         <div className="bg-black rounded-full	drop-shadow w-9 h-9 border-[.25px] border-slate-500 mr-3" />
-        <div>
-          <h2 className="text-sm mb-[.5px] font-medium">{photo.authorName}</h2>
-          <p className="text-xs font-normal opacity-75">{photo.location}</p>
+        <div className="pb-0.5">
+          <h2 className="text-sm mb-[.85px] font-medium">{photo.authorName}</h2>
+          <p className="text-[11px] font-normal opacity-75">{photo.location}</p>
         </div>
       </div>
     </div>

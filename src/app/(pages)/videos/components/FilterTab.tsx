@@ -3,7 +3,7 @@ import Link from "next/link"
 // Components
 import YearList from "./YearList"
 import GenreList from "./GenreList"
-import SearchBar from './SearchBar'
+import SearchBar from '../../photos/components/SearchBar'
 
 const FilterTab = () => {
   return (

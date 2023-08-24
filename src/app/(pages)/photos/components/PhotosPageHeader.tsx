@@ -1,4 +1,5 @@
 // Components
+import SearchBar from "./SearchBar"
 import FilterChip from "./FilterChip"
 
 interface PhotosPageHeaderProps {
@@ -10,6 +11,7 @@ const PhotosPageHeader = ({ activeParams }: PhotosPageHeaderProps) => {
       {activeParams.map((param) => (
         <FilterChip param={param} />
       ))}
+      <SearchBar />
     </header>
   )
 }

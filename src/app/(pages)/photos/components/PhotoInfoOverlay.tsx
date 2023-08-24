@@ -23,7 +23,7 @@ const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
     
     rounded
     bg-black 
-    opacity-100
+    opacity-0
     bg-opacity-40
     hover:opacity-100
     hover:cursor-pointer

@@ -1,11 +1,21 @@
-interface FilterChipProps { param: { queryKey: string, queryValue: string } }
+"use client"
 
+// Hooks
+import { useQueryManager } from "@/hooks/useQueryManager"
+
+interface FilterChipProps { param: { queryKey: string, queryValue: string } }
 const FilterChip = ({ param }: FilterChipProps) => {
+  const { queryParams, setQueryParams } = useQueryManager()
   const chipText = param.queryValue[0].toUpperCase() + param.queryValue.slice(1)
+  const chipClassNames = "inline-flex items-center justify-start rounded bg-slate-500 bg-opacity-50 text-white text-sm py-1 px-3"
+
+  // Passing an empty string as a queryValue will delete the key:
+  const handleClick = () => setQueryParams(param.queryKey, "")
+
   return (
-    <div className="inline-flex items-center justify-start rounded bg-slate-500 bg-opacity-50 text-white text-sm py-1 px-3">
+    <div className={chipClassNames}>
       <p>{chipText}</p>
-      <button className="ml-2">X</button>
+      <button onClick={handleClick} className="ml-2">X</button>
     </div>
   )
 }

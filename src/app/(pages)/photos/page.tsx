@@ -5,6 +5,7 @@ import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
 // Components
+import FilterChip from "./components/FilterChip"
 import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
 import AlternatePhotoGrid from "./components/AlternatePhotoGrid"
 
@@ -15,8 +16,8 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
 
   console.log("Search Params", searchParams)
 
-  const activeParamsArray = Object.entries(searchParams).map((pair) => {
-    return { queryKey: pair[0], queryValue: pair[1] }
+  const activeParamsArray = Object.keys(searchParams).map((key) => {
+    return { queryKey: key, queryValue: searchParams[key] }
   })
   console.log("PARAMS ARRAY", activeParamsArray)
 
@@ -24,10 +25,7 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
     <section className="flex flex-col w-full">
       <header>
         {activeParamsArray.map((param) => (
-          <div className="chip">
-            <p>{param.queryValue}</p>
-            <button>X</button>
-          </div>
+          <FilterChip param={param} />
         ))}
       </header>
       <MasonryPhotoGrid photos={photos} />

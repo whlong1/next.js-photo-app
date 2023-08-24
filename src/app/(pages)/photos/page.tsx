@@ -19,11 +19,10 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   const activeParamsArray = Object.keys(searchParams).map((key) => {
     return { queryKey: key, queryValue: searchParams[key] }
   })
-  console.log("PARAMS ARRAY", activeParamsArray)
 
   return (
     <section className="flex flex-col w-full">
-      <header>
+      <header className="header">
         {activeParamsArray.map((param) => (
           <FilterChip param={param} />
         ))}
@@ -34,11 +33,3 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
 }
 
 export default Photos
-
-
-  // Might want to move the browse header up one level
-  // that could include the search bar?
-  // Other option, remove it, search goes into site nav?
-  // But this would imply a site wide search, whereas
-  // including it in a photos layout implies a search on photos alone.
-  // Showing results text and pagination would make the most sense here.

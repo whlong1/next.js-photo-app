@@ -67,7 +67,6 @@ model Photo {
 
   authorId String // CLERK
   authorName String // CLERK
-
 }
 
 //? =========== ============= =========== 

@@ -5,18 +5,25 @@ import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
 // Components
+import FilterChip from "./components/FilterChip"
+import PhotosPageHeader from "./components/PhotosPageHeader"
 import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
 import AlternatePhotoGrid from "./components/AlternatePhotoGrid"
 
-const Photos = async ({ searchParams }: { searchParams: any }) => {
-  console.log("Search Params", searchParams)
-  const photos: Photo[] = await fetchPhotos()
+// Types
+import { SearchParams } from "@/types/params"
+const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const photos: Photo[] = await fetchPhotos(searchParams)
+
+  const activeParams = Object.keys(searchParams).map((key) => {
+    return { queryKey: key, queryValue: searchParams[key] }
+  })
 
   return (
-    <main>
-      <h1>Photos Hub</h1>
+    <section className="flex flex-col w-full">
+      <PhotosPageHeader activeParams={activeParams} />
       <MasonryPhotoGrid photos={photos} />
-    </main>
+    </section>
   )
 }
 

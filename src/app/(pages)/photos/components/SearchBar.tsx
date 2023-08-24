@@ -23,8 +23,11 @@ const SearchBar = () => {
         value={keyword}
         onChange={handleChange}
         placeholder="Search Keywords"
+        className="text-sm px-1 border-slate-300"
       />
-      <button onClick={handleSearch}>SEARCH</button>
+      <button onClick={handleSearch}>
+        +
+      </button>
     </>
   )
 }

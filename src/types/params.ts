@@ -14,7 +14,7 @@ export interface VideoSearchParams {
 
 // Alternate Approach with Index Signature:
 export interface SearchParams {
-  [key: string]: string | string[] | undefined
+  [key: string]: string
 }
 
 // Note on Index Signatures"

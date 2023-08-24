@@ -87,3 +87,11 @@ input {
   grid-auto-rows: 200px;
   grid-template-columns: repeat(6, 1fr);
 }
+
+.header {
+  height: 64px;
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+}

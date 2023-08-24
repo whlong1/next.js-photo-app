@@ -4,6 +4,7 @@
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 interface QueryButtonProps { queryKey: string; queryValue: string; }
+
 const QueryButton = ({ queryValue, queryKey }: QueryButtonProps) => {
   const { queryParams, setQueryParams } = useQueryManager()
   const isQueryActive = queryParams.get(queryKey) === queryValue

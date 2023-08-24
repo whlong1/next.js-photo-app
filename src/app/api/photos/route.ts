@@ -4,6 +4,7 @@ import { revalidateTag } from "next/cache"
 import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
 import { generatePresignedGetURL, generatePresignedPutURL, getPublicURL } from "@/lib/aws"
+import { getURLSearchParams } from "@/lib/helpers"
 
 const POST = async (req: NextRequest) => {
   try {
@@ -55,11 +56,12 @@ const POST = async (req: NextRequest) => {
   }
 }
 
-
 const GET = async (req: NextRequest) => {
   try {
+    const filterObj = getURLSearchParams(req.url)
     const photos: Photo[] = await prisma.photo.findMany({
       // where: { isPublic: true },
+      where: filterObj,
       orderBy: { createdAt: "desc" }
     })
 

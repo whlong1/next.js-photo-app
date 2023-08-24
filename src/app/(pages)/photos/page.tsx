@@ -8,21 +8,27 @@ import { fetchPhotos } from "@/services/photoService"
 import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
 import AlternatePhotoGrid from "./components/AlternatePhotoGrid"
 
-const Photos = async ({ searchParams }: { searchParams: any }) => {
-  console.log("Search Params", searchParams)
+// Types
+import { SearchParams } from "@/types/params"
+const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   const photos: Photo[] = await fetchPhotos(searchParams)
 
-  // Might want to move the browse header up one level
-  // that could include the search bar?
-  // Other option, remove it, search goes into site nav?
-  // But this would imply a site wide search, whereas
-  // including it in a photos layout implies a search on photos alone.
-  // Showing results text and pagination would make the most sense here.
+  console.log("Search Params", searchParams)
+
+  const activeParamsArray = Object.entries(searchParams).map((pair) => {
+    return { queryKey: pair[0], queryValue: pair[1] }
+  })
+  console.log("PARAMS ARRAY", activeParamsArray)
+
   return (
     <section className="flex flex-col w-full">
       <header>
-        current filters
-        sorting options
+        {activeParamsArray.map((param) => (
+          <div className="chip">
+            <p>{param.queryValue}</p>
+            <button>X</button>
+          </div>
+        ))}
       </header>
       <MasonryPhotoGrid photos={photos} />
     </section>
@@ -30,3 +36,11 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
 }
 
 export default Photos
+
+
+  // Might want to move the browse header up one level
+  // that could include the search bar?
+  // Other option, remove it, search goes into site nav?
+  // But this would imply a site wide search, whereas
+  // including it in a photos layout implies a search on photos alone.
+  // Showing results text and pagination would make the most sense here.

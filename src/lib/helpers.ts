@@ -14,6 +14,7 @@ export const createQueryString = (searchParams: SearchParams): string => {
   }).join("&")
 }
 
+
 const validParams = {
   category: true,
 }

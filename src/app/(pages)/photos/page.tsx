@@ -10,7 +10,7 @@ import AlternatePhotoGrid from "./components/AlternatePhotoGrid"
 
 const Photos = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search Params", searchParams)
-  const photos: Photo[] = await fetchPhotos()
+  const photos: Photo[] = await fetchPhotos(searchParams)
 
   // Might want to move the browse header up one level
   // that could include the search bar?

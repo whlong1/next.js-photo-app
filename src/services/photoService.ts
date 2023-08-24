@@ -1,6 +1,10 @@
 // Types
 import { Photo } from '@/types/models'
+import { SearchParams } from '@/types/params'
 import { PhotoFormData, ImageAttributes } from '@/types/forms'
+
+// Helpers
+import { createQueryString } from '@/lib/helpers'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -78,9 +82,10 @@ export const deletePhoto = async (photoId: string) => {
   }
 }
 
-export const fetchPhotos = async (): Promise<Photo[]> => {
+export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
   try {
-    const res = await fetch(`${BASE_URL}/api/photos`, {
+    const queryString = createQueryString(searchParams)
+    const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
       next: { tags: ["photos"], revalidate: 600 },
     })
     return await res.json()

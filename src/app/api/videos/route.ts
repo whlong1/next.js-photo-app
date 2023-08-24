@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs'
 
 // Types
 import { Video } from "@/types/models"
-import { VideoSearchParams } from "@/types/props"
+import { VideoSearchParams } from "@/types/params"
 import { PrismaVideoQueryParams } from "@/types/queries"
 
 const validParams = {

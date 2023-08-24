@@ -13,10 +13,12 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
   const photos: Photo[] = await fetchPhotos()
 
   return (
-    <main>
-      <h1>Photos Hub</h1>
+    <section className="flex flex-col">
+      <header>
+        <h2>BROWSE PHOTOS</h2>
+      </header>
       <MasonryPhotoGrid photos={photos} />
-    </main>
+    </section>
   )
 }
 

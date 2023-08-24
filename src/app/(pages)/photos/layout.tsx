@@ -1,9 +1,11 @@
+// Components
+import FilterNav from "./components/FilterNav"
+
 const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex">
-      <section className="flex flex-col w-full">
-        {children}
-      </section>
+      <FilterNav />
+      {children}
     </main>
   )
 }

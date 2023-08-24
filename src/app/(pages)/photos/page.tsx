@@ -12,10 +12,17 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search Params", searchParams)
   const photos: Photo[] = await fetchPhotos()
 
+  // Might want to move the browse header up one level
+  // that could include the search bar?
+  // Other option, remove it, search goes into site nav?
+  // But this would imply a site wide search, whereas
+  // including it in a photos layout implies a search on photos alone.
+  // Showing results text and pagination would make the most sense here.
   return (
     <section className="flex flex-col">
       <header>
-        <h2>BROWSE PHOTOS</h2>
+        current filters
+        sorting options
       </header>
       <MasonryPhotoGrid photos={photos} />
     </section>

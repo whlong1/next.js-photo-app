@@ -19,7 +19,7 @@ const Photos = async ({ searchParams }: { searchParams: any }) => {
   // including it in a photos layout implies a search on photos alone.
   // Showing results text and pagination would make the most sense here.
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col w-full">
       <header>
         current filters
         sorting options

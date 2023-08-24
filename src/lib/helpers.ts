@@ -16,7 +16,9 @@ export const createQueryString = (searchParams: SearchParams): string => {
 
 
 const validParams = {
+  year: true,
   category: true,
+  authorName: true,
 }
 
 type ValidParamsKey = keyof typeof validParams

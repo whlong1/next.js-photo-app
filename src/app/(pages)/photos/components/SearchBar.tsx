@@ -1,10 +1,13 @@
 "use client"
+
+// Hooks
 import { useState } from "react"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("")
   const { queryParams, setQueryParams } = useQueryManager()
+  const searchClassNames = `ml-auto`
 
   const handleSearch = async () => {
     setQueryParams("keyword", keyword)
@@ -23,9 +26,9 @@ const SearchBar = () => {
         value={keyword}
         onChange={handleChange}
         placeholder="Search Keywords"
-        className="text-sm px-1 border-slate-300"
+        className={`header-element ${searchClassNames}`}
       />
-      <button onClick={handleSearch}>
+      <button className="header-element ml-2" onClick={handleSearch}>
         +
       </button>
     </>

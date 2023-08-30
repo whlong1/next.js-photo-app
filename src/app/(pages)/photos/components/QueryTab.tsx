@@ -9,10 +9,10 @@ const QueryTab = ({ queryValue, queryKey }: QueryTabProps) => {
   const isQueryActive = queryParams.get(queryKey) === queryValue
 
   const selectedStyle = isQueryActive
-    ? "opacity-100 underline"
+    ? "opacity-75 underline"
     : "opacity-50 hover:underline"
-  const baseStyle = "cursor-pointer text-sm"
-  const style = `${baseStyle} ${selectedStyle}`
+  const baseStyle = "cursor-pointer text-xs"
+  const style = `${baseStyle} ${selectedStyle} mb-4`
 
   const handleClick = () => setQueryParams(queryKey, queryValue)
 

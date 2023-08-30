@@ -9,7 +9,7 @@ import { Photo } from "@/types/models"
 // https://medium.com/notonlycss/tailwindcss-masonry-layout-553cdaea2e8a
 // https://prototypr.io/post/masonry-layout-css-tailwind
 
-const AlternatePhotoGrid = ({ photos }: { photos: Photo[] }) => {
+const ColumnPhotoGrid = ({ photos }: { photos: Photo[] }) => {
   return (
     <section className="gap-2 space-y-2 columns-3">
       {photos.map((photo) => (
@@ -25,4 +25,4 @@ const AlternatePhotoGrid = ({ photos }: { photos: Photo[] }) => {
   )
 }
 
-export default AlternatePhotoGrid
+export default ColumnPhotoGrid

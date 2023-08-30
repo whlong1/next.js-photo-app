@@ -12,7 +12,6 @@ const DashboardPhotos = async () => {
 
   return (
     <>
-      <h1>MY PHOTOS</h1>
       {myPhotos.map((photo) => (
         <PhotoRow key={photo.id} photo={photo} />
       ))}

@@ -1,15 +1,16 @@
 // Components
-import Link from "next/link"
 import FilterSection from "./FilterSection"
 
 const FilterNav = () => {
-
   return (
-    <nav className="flex flex-col border-r w-80">
-      <header className="header justify-between">
-        <h2>FILTERS</h2>
-        <Link href="/photos">CLEAR</Link>
+    <nav className="side-nav">
+      <header className="header">
+        <h2>Browse</h2>
       </header>
+      <FilterSection
+        queryKey="category"
+        queryValues={["people", "food", "nature"]}
+      />
       <FilterSection
         queryKey="category"
         queryValues={["people", "food", "nature"]}

@@ -24,7 +24,7 @@ body {
   background: var(--background-color);
 }
 
-@layer components { }
+@layer components {}
 
 h1,
 h2,
@@ -85,7 +85,24 @@ input {
   display: grid;
   grid-auto-flow: dense;
   grid-auto-rows: 200px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.basic-grid {
+  gap: 8px;
+  padding: 8px;
+  width: 100%;
+  display: grid;
+  grid-auto-rows: 200px; 
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+}
+
+.basic-grid article {
+  max-height: 200px;
+}
+
+.basic-grid article img {
+  object-fit: cover;
 }
 
 .header {

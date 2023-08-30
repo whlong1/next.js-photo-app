@@ -5,10 +5,10 @@ import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
 // Components
-import FilterChip from "./components/FilterChip"
 import PhotosPageHeader from "./components/PhotosPageHeader"
 import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
-import AlternatePhotoGrid from "./components/AlternatePhotoGrid"
+import ColumnPhotoGrid from "./components/ColumnPhotoGrid"
+import BasicPhotoGrid from "./components/BasicPhotoGrid"
 
 // Types
 import { SearchParams } from "@/types/params"
@@ -23,6 +23,7 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
     <section className="flex flex-col w-full">
       <PhotosPageHeader activeParams={activeParams} />
       <MasonryPhotoGrid photos={photos} />
+      <BasicPhotoGrid photos={photos}/>
     </section>
   )
 }

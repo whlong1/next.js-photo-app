@@ -12,7 +12,7 @@ const QueryTab = ({ queryValue, queryKey }: QueryTabProps) => {
     ? "opacity-75 underline"
     : "opacity-50 hover:underline"
   const baseStyle = "cursor-pointer text-xs"
-  const style = `${baseStyle} ${selectedStyle} mb-4`
+  const style = `${baseStyle} ${selectedStyle} mt-4`
 
   const handleClick = () => setQueryParams(queryKey, queryValue)
 

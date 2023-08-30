@@ -6,7 +6,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
   const path = `/dashboard/photos/${photo.id}`
   const containerStyle = `
     flex 
-    border 
+    border-b
     items-center 
     justify-around 
     w-full 
@@ -19,7 +19,6 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
       </div>
       <div className="flex flex-col">
         <p>{photo.title}</p>
-
         <p>{photo.fileName}</p>
         <p>{photo.fileSize}</p>
       </div>

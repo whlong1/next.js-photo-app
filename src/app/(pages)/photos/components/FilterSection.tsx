@@ -13,9 +13,9 @@ const FilterSection = ({ queryKey, queryValues }: FilterSectionProps) => {
   const keyIcon = <img className="w-4 h-4 border" src="/next.svg" alt={queryKey} />
 
   return (
-    <section className="flex flex-col mb-4 p-[16px]">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xs leading-none">{sectionTitle}</h3>
+    <section>
+      <div className="side-nav-item">
+        <h3>{sectionTitle}</h3>
         <button onClick={() => setIsOpen((current) => !current)}>+</button>
       </div>
       {isOpen &&

@@ -4,7 +4,7 @@ interface ClearFiltersButtonProps { activeParams: { queryKey: string, queryValue
 const ClearFiltersButton = ({ activeParams }: ClearFiltersButtonProps) => {
   const active = activeParams.length
   return (
-    <Link className={`header-element`} href="/photos">
+    <Link className={`header-element ml-auto`} href="/photos">
       {active ? "Clear All" : "No Filters"}
     </Link>
   )

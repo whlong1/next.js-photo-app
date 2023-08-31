@@ -24,10 +24,10 @@ To get the app running on your local machine, follow the below steps:
     npm install
     ```
 
-4. Create a .env file in the root directory with the following variables:
+4. Create a `.env` file in the root directory with the following variables:
 
     ```
-
+      
     ```
 
 5. Start the development server:

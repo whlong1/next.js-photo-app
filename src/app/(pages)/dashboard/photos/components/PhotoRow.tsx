@@ -1,34 +1,38 @@
-import Link from "next/link"
+// Types
 import { Photo } from "@/types/models"
+
+// Components
+import Link from "next/link"
+import Thumbnail from "./Thumbnail"
 import DeleteRowButton from "./DeleteRowButton"
+
+// Helpers
+import { formatBytes } from "@/lib/helpers"
 
 const PhotoRow = ({ photo }: { photo: Photo }) => {
   const path = `/dashboard/photos/${photo.id}`
   const containerStyle = `
+    p-4
+    h-20
     flex 
+    w-full 
+    text-xs
     border-b
     items-center 
-    justify-around 
-    w-full 
-    h-24
   `
+
+  // Need to place the following UI:
+  const viewBtn = <Link href={path}>VIEW</Link>
+  const checkBox = <input type="checkbox" readOnly checked={photo.isUploaded} />
+
   return (
     <div className={containerStyle}>
-      <div className="border w-12">
-        {photo.url && photo.title && <img src={photo.url} alt={photo.title} />}
-      </div>
-      <div className="flex flex-col">
-        <p>{photo.title}</p>
+      <Thumbnail photo={photo} />
+      <div className="flex flex-col text-xs">
         <p>{photo.fileName}</p>
-        <p>{photo.fileSize}</p>
+        <p>{photo.fileSize && formatBytes(photo.fileSize)}</p>
       </div>
-      <input type="checkbox" readOnly checked={photo.isUploaded} />
-
       <DeleteRowButton photoId={photo.id} />
-      <Link href={path}>VIEW</Link>
-
-      <p>Privacy</p>
-      <p>Options</p>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { useQueryManager } from "@/hooks/useQueryManager"
 const SearchBar = () => {
   const [keyword, setKeyword] = useState("")
   const { queryParams, setQueryParams } = useQueryManager()
-  const searchClassNames = `ml-auto`
+  const searchClassNames = `ml-4`
 
   const handleSearch = async () => {
     setQueryParams("keyword", keyword)

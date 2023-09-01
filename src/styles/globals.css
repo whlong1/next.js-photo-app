@@ -26,7 +26,16 @@ body {
   background: var(--background-color);
 }
 
-@layer components {}
+@layer components {
+  .btn {
+    @apply font-medium text-sm
+    border rounded py-2 px-4 
+    cursor-pointer transition-colors duration-200;
+  }
+  .btn-slate {
+    @apply bg-slate-200 hover:bg-slate-300 border-white text-white 
+  }
+}
 
 .top-level-nav {
   display: flex;

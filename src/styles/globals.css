@@ -29,13 +29,41 @@ body {
 @layer components {
   .btn {
     @apply font-medium text-sm
-    border rounded py-2 px-4 
+    border rounded py-2 px-4  
     cursor-pointer transition-colors duration-200;
   }
   .btn-slate {
-    @apply bg-slate-200 hover:bg-slate-300 border-white text-white 
+    @apply bg-slate-200 hover:bg-slate-300 border-white text-white;
+  }
+
+  .container-row {
+    @apply flex border items-center w-full p-4;
+  }
+
+  .thumbnail {
+    @apply w-8 h-8 flex-shrink-0;
   }
 }
+
+
+.test-container {
+  display: flex;
+  border: 1px solid green;
+  align-items: center;
+  width: 100%;
+}
+
+.test-container button {
+  margin-left: auto;
+}
+
+/* flex 
+w-full 
+text-xs
+border
+items-center
+bg-slate-100
+justify-center */
 
 .top-level-nav {
   display: flex;

@@ -59,29 +59,24 @@ const PhotoUploader = () => {
   }
 
   return (
-    <div className="flex flex-col w-[400px] h-[600px] rounded bg-white items-center p-4">
-      <h2>UPLOAD FILES</h2>
+    <div className="flex flex-col w-[50%] h-[600px] bg-slate-50 items-center p-4 border-r">
       <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
         <FileInput selectAndPreview={selectAndPreview} />
       </DragAndDrop>
 
       {newPhotoId && <p>{newPhotoId}</p>}
-
       {filePreviewURL && <img src={filePreviewURL} alt="Selected file" />}
       {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
 
+      <div className="w-full border p-4 mt-6"></div>
 
-      <p>FILES</p>
-      <p>
-        file name <br />
-        filesize
-      </p>
+      <button className="form-button-cta mt-6" onClick={handleUpload}>
+        CONFIRM
+      </button>
+      <button className="form-button-secondary mt-2" onClick={handleReset}>
+        CANCEL
+      </button>
 
-      <button
-        className="w-full bg-slate-500 text-white font-semibold"
-        onClick={handleUpload}>CONFIRM</button>
-      <button
-        onClick={handleReset}>CANCEL</button>
     </div>
   )
 }

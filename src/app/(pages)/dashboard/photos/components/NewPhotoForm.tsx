@@ -64,10 +64,14 @@ const NewPhotoForm = () => {
     })
   }
 
+  const inputClassNames = "border border-slate-200 text-slate-300 p-1 mb-4 text-xs"
+  const labelClassNames = "text-slate-300 font-medium text-sm"
+
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="w-[50%] p-4" onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="title">TITLE</label>
+        <label className={labelClassNames} htmlFor="title">TITLE</label>
         <input
           required
           type="text"
@@ -75,11 +79,12 @@ const NewPhotoForm = () => {
           name="title"
           value={formData.title}
           onChange={handleChange}
+          className={inputClassNames}
         />
       </div>
 
       <div>
-        <label htmlFor="category">CATEGORY</label>
+        <label className={labelClassNames} htmlFor="category">CATEGORY</label>
         <input
           required
           type="text"
@@ -87,11 +92,12 @@ const NewPhotoForm = () => {
           name="category"
           value={formData.category}
           onChange={handleChange}
+          className={inputClassNames}
         />
       </div>
 
       <div>
-        <label htmlFor="location">LOCATION</label>
+        <label className={labelClassNames} htmlFor="location">LOCATION</label>
         <input
           required
           type="text"
@@ -99,11 +105,12 @@ const NewPhotoForm = () => {
           name="location"
           value={formData.location}
           onChange={handleChange}
+          className={inputClassNames}
         />
       </div>
 
       <div>
-        <label htmlFor="description">DESCRIPTION</label>
+        <label className={labelClassNames} htmlFor="description">DESCRIPTION</label>
         <input
           required
           type="text"
@@ -111,11 +118,12 @@ const NewPhotoForm = () => {
           name="description"
           value={formData.description}
           onChange={handleChange}
+          className={inputClassNames}
         />
       </div>
 
       <div>
-        <label htmlFor="year">YEAR</label>
+        <label className={labelClassNames} htmlFor="year">YEAR</label>
         <input
           required
           type="number"
@@ -123,10 +131,11 @@ const NewPhotoForm = () => {
           name="year"
           value={formData.year}
           onChange={handleChange}
+          className={inputClassNames}
         />
       </div>
 
-      <button type="submit">SUBMIT</button>
+      <button className="form-button-cta" type="submit">SUBMIT</button>
     </form>
   )
 }

@@ -30,7 +30,7 @@ const FileInput = ({ selectAndPreview }: { selectAndPreview: (file: File) => voi
         id="hiddenFileInput"
         onChange={handleChange}
       />
-      <label className={labelStyle} htmlFor="hiddenFileInput">
+      <label className="form-button-cta mt-2" htmlFor="hiddenFileInput">
         SELECT FILE
       </label>
     </div>

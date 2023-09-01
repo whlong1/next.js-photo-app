@@ -7,7 +7,6 @@ import NewPhotoForm from "./NewPhotoForm"
 import PhotoUploader from "./PhotoUploader"
 
 const NewPhotoDialog = () => {
-
   const [photoId, setPhotoId] = useState("")
 
   //TODO Address state toggle (local vs shared)
@@ -28,15 +27,16 @@ const NewPhotoDialog = () => {
   // config based on params
 
   return (
-    <dialog open className="rounded">
-      <header>
+    <div className="bg-white border rounded">
+      <header className="flex justify-between p-4 border-b">
         <h1>ADD PHOTO</h1>
+        <button>X</button>
       </header>
       <section className="flex flex-row">
         <PhotoUploader />
         <NewPhotoForm />
       </section>
-    </dialog>
+    </div>
   )
 }
 

@@ -2,9 +2,9 @@ import NewPhotoDialog from "@/app/(pages)/dashboard/photos/components/NewPhotoDi
 
 const NewPhoto = () => {
   return (
-    <>
+    <div className="h-full bg-slate-100 p-4">
       <NewPhotoDialog />
-    </>
+    </div>
   )
 }
 

@@ -22,11 +22,8 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
 
   const style = `
     rounded
-    border-2
-    border-white
     
     center-items
-    border-dashed
 
     flex
     flex-col
@@ -35,13 +32,12 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
 
     w-full
     text-white
-
   `
     // custom-dashed
     // ${isDragActive ? "bg-gray-200" : "bg-gray-500"}
 
   return (
-    <div className="bg-slate-400 p-2 w-full">
+    <div className="bg-slate-100 p-4 rounded border w-full border-slate-200">
       <div
         className={style}
         onDrop={handleDrop}
@@ -49,9 +45,9 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
         onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
         onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
       >
-        <Image src="/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
+        <Image src="/assets/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
         <p className="big-bold text-white mt-4">DRAG & DROP</p>
-        <p className="text-white font-semibold mt-1">OR</p>
+        <p className="text-white font-semibold">OR</p>
         {children}
       </div>
     </div>

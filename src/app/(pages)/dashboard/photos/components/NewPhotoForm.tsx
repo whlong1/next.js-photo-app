@@ -64,12 +64,12 @@ const NewPhotoForm = () => {
     })
   }
 
-  const inputClassNames = "border border-slate-200 text-slate-300 p-1 mb-4 text-xs"
-  const labelClassNames = "text-slate-300 font-medium text-sm"
+  const inputClassNames = "border border-slate-200 text-slate-300 p-1 text-xs"
+  const labelClassNames = "text-slate-300 font-medium text-xs mb-1"
 
 
   return (
-    <form className="w-[50%] p-4" onSubmit={handleSubmit}>
+    <form className="w-[50%] h-full flex flex-col justify-between p-4" onSubmit={handleSubmit}>
       <div>
         <label className={labelClassNames} htmlFor="title">TITLE</label>
         <input

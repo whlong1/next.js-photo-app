@@ -9,6 +9,7 @@ import { useQueryManager } from "@/hooks/useQueryManager"
 // Components
 import FileInput from "./FileInput"
 import DragAndDrop from "./DragAndDrop"
+import FilePreviewRow from "./FilePreviewRow"
 
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
@@ -67,34 +68,12 @@ const PhotoUploader = () => {
     </>
   )
 
-  const oldButtonUI = (
-    <>
-      <button className="form-button-cta mt-6" onClick={handleUpload}>
-        CONFIRM
-      </button>
-      <button className="form-button-secondary mt-2" onClick={handleReset}>
-        CANCEL
-      </button>
-    </>
-  )
-  
   return (
     <div className="flex flex-col w-[50%] h-full bg-slate-50 items-center p-4 border-r">
       <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
         <FileInput selectAndPreview={selectAndPreview} />
       </DragAndDrop>
-
-
-      <div className="container-row">
-        <img src="" alt="" className="thumbnail" />
-        <div className="ml-4 w-full pr-4">
-          <p className="text-sm">Filename</p>
-          <p className="text-xs">Filesize</p>
-        </div>
-        <button className="row-button">X</button>
-      </div>
-
-
+      <FilePreviewRow />
     </div>
   )
 }

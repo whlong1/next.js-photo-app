@@ -37,11 +37,11 @@ body {
   }
 
   .container-row {
-    @apply flex border items-center w-full p-4;
+    @apply flex border items-center w-full p-2;
   }
 
   .thumbnail {
-    @apply w-8 h-8 flex-shrink-0;
+    @apply w-8 h-8 flex-shrink-0 rounded;
   }
 }
 
@@ -56,14 +56,6 @@ body {
 .test-container button {
   margin-left: auto;
 }
-
-/* flex 
-w-full 
-text-xs
-border
-items-center
-bg-slate-100
-justify-center */
 
 .top-level-nav {
   display: flex;
@@ -109,11 +101,6 @@ h3 {
 main {
   height: 100vh;
   background-color: #F8F8FA;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
 }
 
 form>div {
@@ -228,6 +215,7 @@ input {
 }
 
 .form-button-cta {
+  margin: 0;
   width: 100%;
   display: flex;
   font-size: 16px;

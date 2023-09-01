@@ -32,7 +32,7 @@ const NewPhotoDialog = () => {
         <h1>ADD PHOTO</h1>
         <button>X</button>
       </header>
-      <section className="flex flex-row">
+      <section className="flex flex-row h-[380px] items-stretch">
         <PhotoUploader />
         <NewPhotoForm />
       </section>

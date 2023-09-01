@@ -1,4 +1,4 @@
-import NewPhotoDialog from "@/app/(pages)/dashboard/photos/components/NewPhotoDialog"
+import NewPhotoDialog from "../components/NewPhotoDialog"
 
 const NewPhoto = () => {
   return (

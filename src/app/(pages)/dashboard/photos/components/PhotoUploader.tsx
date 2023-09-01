@@ -9,6 +9,8 @@ import { useQueryManager } from "@/hooks/useQueryManager"
 // Components
 import FileInput from "./FileInput"
 import DragAndDrop from "./DragAndDrop"
+import FilePreviewRow from "./FilePreviewRow"
+
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
 
@@ -58,25 +60,20 @@ const PhotoUploader = () => {
     setFilePreviewURL(URL.createObjectURL(file))
   }
 
-  return (
-    <div className="flex flex-col w-[50%] h-[600px] bg-slate-50 items-center p-4 border-r">
-      <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
-        <FileInput selectAndPreview={selectAndPreview} />
-      </DragAndDrop>
-
+  const photoPreviewElements = (
+    <>
       {newPhotoId && <p>{newPhotoId}</p>}
       {filePreviewURL && <img src={filePreviewURL} alt="Selected file" />}
       {s3PresignedGetURL && <img src={s3PresignedGetURL} alt="Uploaded file" />}
+    </>
+  )
 
-      <div className="w-full border p-4 mt-6"></div>
-
-      <button className="form-button-cta mt-6" onClick={handleUpload}>
-        CONFIRM
-      </button>
-      <button className="form-button-secondary mt-2" onClick={handleReset}>
-        CANCEL
-      </button>
-
+  return (
+    <div className="flex flex-col w-[50%] h-full bg-slate-50 items-center p-4 border-r">
+      <DragAndDrop selectAndPreview={selectAndPreview} uploadPending={uploadPending}>
+        <FileInput selectAndPreview={selectAndPreview} />
+      </DragAndDrop>
+      <FilePreviewRow />
     </div>
   )
 }

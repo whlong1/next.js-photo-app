@@ -26,7 +26,24 @@ body {
   background: var(--background-color);
 }
 
-@layer components {}
+@layer components {
+  .btn {
+    @apply font-medium text-sm
+    border rounded py-2 px-4  
+    cursor-pointer transition-colors duration-200;
+  }
+  .btn-slate {
+    @apply bg-slate-200 hover:bg-slate-300 border-white text-white;
+  }
+
+  .container-row {
+    @apply flex border items-center w-full p-2;
+  }
+
+  .thumbnail {
+    @apply w-8 h-8 flex-shrink-0 rounded;
+  }
+}
 
 .top-level-nav {
   display: flex;
@@ -72,11 +89,6 @@ h3 {
 main {
   height: 100vh;
   background-color: #F8F8FA;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
 }
 
 form>div {
@@ -191,6 +203,7 @@ input {
 }
 
 .form-button-cta {
+  margin: 0;
   width: 100%;
   display: flex;
   font-size: 16px;

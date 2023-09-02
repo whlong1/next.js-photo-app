@@ -4,13 +4,13 @@ import Image from "next/image"
 
 interface DragAndDropProps {
   children: JSX.Element;
-  uploadPending: boolean;
+  isFileSelected: boolean;
   selectAndPreview: (file: File) => void;
 }
 
-const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropProps) => {
+const DragAndDrop = ({ children, isFileSelected, selectAndPreview }: DragAndDropProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
-  const dragActiveStyle = isDragActive ? "bg-slate-100" : "bg-slate-200"
+  const dragActiveStyle = isDragActive ? "bg-green-100" : "bg-red-200"
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -19,13 +19,22 @@ const DragAndDrop = ({ children, selectAndPreview, uploadPending }: DragAndDropP
     if (file) selectAndPreview(file)
   }
 
+  if (isFileSelected) return (
+    <div
+      className={`w-full h-full flex flex-col center-items rounded`}
+    >
+      <Image src="/assets/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
+      <p className="big-bold text-white mt-4">Thanks</p>
+    </div>
+  )
+
   return (
     <div
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
       onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
-      className={`flex flex-col w-full h-full center-items rounded ${dragActiveStyle}`}
+      className={`w-full h-full flex flex-col center-items rounded ${dragActiveStyle}`}
     >
       <Image src="/assets/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
       <p className="big-bold text-white mt-4">DRAG & DROP</p>

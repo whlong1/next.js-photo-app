@@ -18,6 +18,9 @@ export interface FileUploadData {
   file: File | null;
   width: number;
   height: number;
+  fileName: string;
+  mimeType: string;
+  fileSize: number;
 }
 
 

@@ -1,6 +1,14 @@
-const FilePreviewRow = () => {
+// Helpers
+import { formatBytes } from "@/lib/helpers"
 
-  const noFileContainer = (
+interface FilePreviewRowProps {
+  file: File | null;
+  previewURL: string;
+  handleUploadReset: () => void;
+}
+
+const FilePreviewRow = ({ file, previewURL, handleUploadReset }: FilePreviewRowProps) => {
+  if (!file) return (
     <div className="container-row mt-4 rounded">
       <img src="" alt="" className="thumbnail" />
       <div className="ml-4 w-full pr-4">
@@ -11,12 +19,18 @@ const FilePreviewRow = () => {
 
   return (
     <div className="container-row mt-4 rounded">
-      <img src="" alt="" className="thumbnail" />
+      <img src={previewURL} alt="Preview" className="thumbnail" />
       <div className="ml-4 w-full pr-4">
-        <p className="text-sm">Filename</p>
-        <p className="text-xs">Filesize</p>
+        <p className="single-line-truncate text-xs leading-tight tracking-tight">
+          {file.name}
+        </p>
+        <p className="text-xs opacity-60 leading-tight tracking-tight">
+          {formatBytes(file.size)}
+        </p>
       </div>
-      <button className="row-button">Remove</button>
+      <button className="row-button" onClick={handleUploadReset}>
+        Remove
+      </button>
     </div>
   )
 }

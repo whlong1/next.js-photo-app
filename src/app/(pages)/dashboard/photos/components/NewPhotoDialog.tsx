@@ -10,36 +10,68 @@ import PhotoUploader from "./PhotoUploader"
 
 // Types
 import { Photo } from "@/types/models"
-import { PhotoFormData } from "@/types/forms"
+import { PhotoFormData, FileUploadData } from "@/types/forms"
 
 // Services
-import { createOrUpdatePhoto } from "@/services/photoService"
+import {
+  createOrUpdatePhoto,
+  createAndUploadPhoto,
+} from "@/services/photoService"
 
-/*/
-  PhotUploader updates the URL params with the new photoId
-  NewPhotoForm requires this URL param (queryParams.get("photoId"))
-  Move up necessary state to NewPhotoDialog
-  Submit form and store file in one action
-  Preview image with local file
-  Only downside is edit will require an adjusted workflow
-/*/
+const initialPhotoFormData: PhotoFormData = {
+  title: "",
+  category: "",
+  location: "",
+  description: "",
+  year: new Date().getFullYear(),
+}
+
+const initialFileUploadData: FileUploadData = {
+  width: 0,
+  height: 0,
+  file: null,
+}
 
 const NewPhotoDialog = () => {
-  const initialState: PhotoFormData = {
-    title: "",
-    category: "",
-    location: "",
-    description: "",
-    year: new Date().getFullYear(),
-  }
-
   const router = useRouter()
-  const [formData, setFormData] = useState(initialState)
+  const [msg, setMsg] = useState("")
+  const [previewURL, setPreviewURL] = useState("")
+  const [formData, setFormData] = useState(initialPhotoFormData)
+  const [fileUploadData, setFileUploadData] = useState(initialFileUploadData)
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // const photoData: Photo = await createOrUpdatePhoto(photoId, formData)
+    if (!fileUploadData.file) {
+      setMsg("Please select a file to upload!")
+      return
+    }
+    handleFormReset()
+    handleUploadReset()
     router.refresh()
+  }
+
+  const selectAndPreview = (file: File) => {
+    const image = new Image()
+    const objectUrl = URL.createObjectURL(file)
+    image.src = objectUrl
+    image.onload = () => setFileUploadData((current) => {
+      return { ...current, width: image.height, height: image.height }
+    })
+    setFileUploadData((current) => {
+      return { ...current, file: file }
+    })
+    setPreviewURL(objectUrl)
+  }
+
+  const handleFormReset = () => {
+    setFormData(initialPhotoFormData)
+  }
+
+  const handleUploadReset = () => {
+    setPreviewURL("")
+    URL.revokeObjectURL(previewURL)
+    setFileUploadData(initialFileUploadData)
   }
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +88,11 @@ const NewPhotoDialog = () => {
         <button>X</button>
       </header>
       <section className="flex h-[380px] items-stretch">
-        <PhotoUploader 
-        
+        <PhotoUploader
+          previewURL={previewURL}
+          file={fileUploadData.file}
+          selectAndPreview={selectAndPreview}
+          handleUploadReset={handleUploadReset}
         />
         <NewPhotoForm
           formData={formData}

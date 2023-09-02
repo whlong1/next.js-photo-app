@@ -14,6 +14,12 @@ export interface PhotoFormData {
   // Note: id is appended to formData on submit for updates
 }
 
+export interface FileUploadData {
+  file: File | null;
+  width: number;
+  height: number;
+}
+
 
 export interface VideoFormData {
   year?: number;

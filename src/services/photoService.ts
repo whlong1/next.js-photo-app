@@ -1,36 +1,12 @@
 // Types
-import { Photo } from '@/types/models'
-import { SearchParams } from '@/types/params'
-import { PhotoFormData, ImageAttributes } from '@/types/forms'
+import { Photo } from "@/types/models"
+import { SearchParams } from "@/types/params"
+import { PhotoFormData, FileUploadData } from "@/types/forms"
 
 // Helpers
-import { createQueryString } from '@/lib/helpers'
+import { createQueryString } from "@/lib/helpers"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-
-// Response: putUrl for upload, getUrl for previewing, newPhotoId
-const createPhotoAndPresignedUrls = async (file: File, imageAttributes: ImageAttributes) => {
-  const res = await fetch(`${BASE_URL}/api/photos`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ...imageAttributes,
-      fileName: file.name,
-      fileType: file.type,
-      fileSize: file.size,
-    })
-  })
-
-  if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
-
-  const { putURL, getURL, newPhotoId } = await res.json()
-
-  if (!putURL || !getURL || !newPhotoId) {
-    throw new Error("A problem has occured with a presigned URL")
-  }
-
-  return { putURL, getURL, newPhotoId }
-}
 
 // Request made to putUrl, media file included in body
 const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
@@ -42,31 +18,29 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
   return uploadResponse.ok
 }
 
-export const createAndUploadPhoto = async (file: File, imageAttributes: ImageAttributes) => {
+export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photoFormData: PhotoFormData) => {
   try {
-    const { putURL, getURL, newPhotoId } = await createPhotoAndPresignedUrls(file, imageAttributes)
-    const uploadStatus = await uploadFileToS3Bucket(file, putURL)
-    return { uploadStatus, getURL, newPhotoId }
-  } catch (error) {
-    throw error
-  }
-}
+    const { file, ...fileMetaData } = fileUploadData
+    if (!file) throw new Error("File not found!")
 
-export const createOrUpdatePhoto = async (photoId: string, formData: PhotoFormData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
-      method: "PUT",
-      body: JSON.stringify(formData),
+    const res = await fetch(`${BASE_URL}/api/photos`, {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...fileMetaData,
+        ...photoFormData,
+      })
     })
 
-    if (!res.ok) {
-      throw new Error(`Error ${res.status}: ${res.statusText}`)
-    }
+    if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
+    const { putURL, newPhotoId } = await res.json()
+    if (!putURL) throw new Error("A problem has occured with a presigned URL")
 
-    return await res.json()
+    const uploadStatus = await uploadFileToS3Bucket(file, putURL)
+    console.log("Upload Res:", uploadStatus)
+
+    return { uploadStatus, newPhotoId }
   } catch (error) {
-    console.log(error)
     throw error
   }
 }
@@ -90,20 +64,6 @@ export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> 
     })
     return await res.json()
   } catch (error) {
-    throw error
-  }
-}
-
-export const createPhoto = async (formData: PhotoFormData) => {
-  try {
-    const res = await fetch(`${BASE_URL}/api/photos`, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    })
-    return await res.json()
-  } catch (error) {
-    console.log(error)
     throw error
   }
 }

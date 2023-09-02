@@ -9,14 +9,10 @@ import NewPhotoForm from "./NewPhotoForm"
 import PhotoUploader from "./PhotoUploader"
 
 // Types
-import { Photo } from "@/types/models"
 import { PhotoFormData, FileUploadData } from "@/types/forms"
 
 // Services
-import {
-  createOrUpdatePhoto,
-  createAndUploadPhoto,
-} from "@/services/photoService"
+import { createAndUploadPhoto } from "@/services/photoService"
 
 const initialPhotoFormData: PhotoFormData = {
   title: "",
@@ -30,15 +26,17 @@ const initialFileUploadData: FileUploadData = {
   width: 0,
   height: 0,
   file: null,
+  fileName: "",
+  mimeType: "",
+  fileSize: 0,
 }
 
 const NewPhotoDialog = () => {
   const router = useRouter()
   const [msg, setMsg] = useState("")
   const [previewURL, setPreviewURL] = useState("")
-  const [formData, setFormData] = useState(initialPhotoFormData)
+  const [photoFormData, setPhotoFormData] = useState(initialPhotoFormData)
   const [fileUploadData, setFileUploadData] = useState(initialFileUploadData)
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,6 +44,8 @@ const NewPhotoDialog = () => {
       setMsg("Please select a file to upload!")
       return
     }
+    const res = await createAndUploadPhoto(fileUploadData, photoFormData)
+    console.log("Response:", res)
     handleFormReset()
     handleUploadReset()
     router.refresh()
@@ -59,13 +59,19 @@ const NewPhotoDialog = () => {
       return { ...current, width: image.height, height: image.height }
     })
     setFileUploadData((current) => {
-      return { ...current, file: file }
+      return {
+        ...current,
+        file: file,
+        fileName: file.name,
+        mimeType: file.type,
+        fileSize: file.size,
+      }
     })
     setPreviewURL(objectUrl)
   }
 
   const handleFormReset = () => {
-    setFormData(initialPhotoFormData)
+    setPhotoFormData(initialPhotoFormData)
   }
 
   const handleUploadReset = () => {
@@ -76,10 +82,13 @@ const NewPhotoDialog = () => {
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = target
-    setFormData({
-      ...formData, [name]: type === "number" ? parseInt(value) : value
+    setPhotoFormData({
+      ...photoFormData, [name]: type === "number" ? parseInt(value) : value
     })
   }
+
+  // Display message in modal, form or drag and drop?
+  console.log("Message:", msg)
 
   return (
     <div className="bg-white border rounded">
@@ -95,9 +104,9 @@ const NewPhotoDialog = () => {
           handleUploadReset={handleUploadReset}
         />
         <NewPhotoForm
-          formData={formData}
           handleSubmit={handleSubmit}
           handleChange={handleChange}
+          photoFormData={photoFormData}
         />
       </section>
     </div>

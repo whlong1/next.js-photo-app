@@ -5,7 +5,7 @@ import { Photo } from "@/types/models"
 import { getMyPhotos } from "@/actions/actions"
 
 // Components
-import PhotoRow from "./components/PhotoRow"
+import PhotoRow from "./components/PhotoRow/PhotoRow"
 
 const DashboardPhotos = async () => {
   const myPhotos: Photo[] = await getMyPhotos()

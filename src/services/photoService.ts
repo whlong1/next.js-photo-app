@@ -8,7 +8,8 @@ import { createQueryString } from "@/lib/helpers"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-// Request made to putUrl, media file included in body
+// Service function makes a request to the putURL returned from 
+// createAndUploadPhoto. The media file included in body.
 const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
   const uploadResponse = await fetch(putUrl, {
     body: file,
@@ -18,6 +19,7 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
   return uploadResponse.ok
 }
 
+// Creates the new Photo record and generates the putURL for client side upload.
 export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photoFormData: PhotoFormData) => {
   try {
     const { file, ...fileMetaData } = fileUploadData
@@ -36,6 +38,7 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
     const { putURL, newPhotoId } = await res.json()
     if (!putURL) throw new Error("A problem has occured with a presigned URL")
 
+    // To reduce server load, file is uploaded to S3 bucket from client.
     const uploadStatus = await uploadFileToS3Bucket(file, putURL)
     console.log("Upload Res:", uploadStatus)
 

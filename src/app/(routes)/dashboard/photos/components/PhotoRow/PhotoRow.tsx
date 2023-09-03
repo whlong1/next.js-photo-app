@@ -11,6 +11,9 @@ import Link from "next/link"
 import Thumbnail from "./Thumbnail"
 import DeleteRowButton from "./DeleteRowButton"
 
+// Services
+import { updatePhoto } from "@/services/photoService"
+
 // Helpers
 import { formatBytes } from "@/lib/helpers"
 
@@ -29,8 +32,10 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
 
   // TODO Add modal to view image src, details and stats
 
-  const handlePrivacyChange = () => {
-
+  const handlePrivacyChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPrivacySetting(e.target.value)
+    const formData = { isPublic: e.target.value === "Public" }
+    const res = await updatePhoto(photo.id, formData)
   }
 
   return (

@@ -48,6 +48,20 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
   }
 }
 
+export const updatePhoto = async (photoId: string, photoFormData: PhotoFormData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(photoFormData)
+    })
+    const data = await res.json()
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const deletePhoto = async (photoId: string) => {
   try {
     const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {

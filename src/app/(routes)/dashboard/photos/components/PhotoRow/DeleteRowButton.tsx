@@ -16,8 +16,8 @@ const DeleteRowButton = ({ photoId }: { photoId: string }) => {
     setIsFetching(false)
   }
 
-  const buttonStyle = `row-button ml-auto ${isMutating ? "opacity-25" : "opacity-100"}`
-  return <button className={buttonStyle} onClick={handleDelete}>DELETE</button>
+  const buttonStyle = `row-ui-element ml-auto ${isMutating ? "opacity-25" : "opacity-100"}`
+  return <button className={buttonStyle} onClick={handleDelete}>Remove</button>
 }
 
 export default DeleteRowButton

@@ -40,7 +40,11 @@ body {
     @apply flex border items-center w-full p-2;
   }
 
-  .row-button {
+  .row-container {
+    @apply p-4 h-20 flex w-full text-xs border-b items-center
+  }
+
+  .row-ui-element {
     @apply px-3 py-1 flex items-center text-xs text-gray-500 border rounded border-gray-300 bg-white bg-opacity-40;
   }
 

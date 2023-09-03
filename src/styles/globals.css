@@ -55,7 +55,42 @@ body {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
   }
+
+
+  .form {
+    @apply h-full flex flex-col p-4;
+  }
+
+  .form-element-container {
+    @apply flex flex-col;
+  }
+
+  .form-element-label {
+    @apply text-slate-300 font-medium text-xs mb-2;
+  }
   
+  .form-element {
+    @apply border rounded border-slate-200 text-slate-300 p-1 text-xs;
+  }
+
+  .form-button-cta {
+    @apply 
+      p-1 mt-auto
+      rounded border 
+      text-sm font-medium 
+      w-full bg-opacity-40
+      flex items-center justify-center;
+  }
+
+  .form-button-secondary {
+    @apply opacity-50 text-sm font-medium text-slate-300;
+  }
+
+  .form-gap {
+    @apply mt-4;
+  }
+  
+
 }
 
 .top-level-nav {
@@ -102,20 +137,6 @@ h3 {
 main {
   height: 100vh;
   background-color: #F8F8FA;
-}
-
-form>div {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-weight: bold;
-}
-
-input {
-  border-radius: 4px;
-  border: 1px solid black;
 }
 
 .masonry-grid {
@@ -199,26 +220,4 @@ input {
   font-size: 12px;
   align-items: center;
   justify-content: space-between;
-}
-
-.form-button-cta {
-  margin: 0;
-  width: 100%;
-  display: flex;
-  font-size: 16px;
-  color: #94a3b8;
-  font-weight: 500;
-  padding: 4px 12px;
-  align-items: center;
-  border-radius: 0.25rem;
-  justify-content: center;
-  border: 1px solid #e5e7eb;
-  background-color: rgba(255, 255, 255, .4);
-}
-
-.form-button-secondary {
-  opacity: .5;
-  font-size: 13px;
-  font-weight: 500;
-  color: #94a3b8;
 }

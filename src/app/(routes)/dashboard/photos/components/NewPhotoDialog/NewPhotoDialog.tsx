@@ -9,17 +9,17 @@ import NewPhotoForm from "./NewPhotoForm"
 import PhotoUploader from "./PhotoUploader"
 
 // Types
+import { InputChangeEvent } from "@/types/events"
 import { PhotoFormData, FileUploadData } from "@/types/forms"
 
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
 
 const initialPhotoFormData: PhotoFormData = {
-  title: "",
   category: "",
   location: "",
   description: "",
-  year: new Date().getFullYear(),
+  isPublic: true,
 }
 
 const initialFileUploadData: FileUploadData = {
@@ -80,12 +80,14 @@ const NewPhotoDialog = () => {
     setFileUploadData(initialFileUploadData)
   }
 
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ target }: InputChangeEvent) => {
     const { name, value, type } = target
     setPhotoFormData({
       ...photoFormData, [name]: type === "number" ? parseInt(value) : value
     })
   }
+
+  console.log(photoFormData)
 
   // Display message in modal, form or drag and drop?
   console.log("Message:", msg)
@@ -96,7 +98,7 @@ const NewPhotoDialog = () => {
         <h1>New Photo</h1>
         <button>X</button>
       </header>
-      <section className="flex h-[380px] items-stretch">
+      <section className="flex items-stretch h-[400px]">
         <PhotoUploader
           previewURL={previewURL}
           file={fileUploadData.file}

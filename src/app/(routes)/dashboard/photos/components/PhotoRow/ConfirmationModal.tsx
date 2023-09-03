@@ -3,7 +3,7 @@ interface ConfirmationModalProps {
   message: string;
   showModal: boolean;
   onCancel: () => void;
-  onConfirm: () => void;
+  onConfirm: () => Promise<void>;
 }
 
 const ConfirmationModal = (props: ConfirmationModalProps) => {

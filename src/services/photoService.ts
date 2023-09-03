@@ -48,6 +48,19 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
   }
 }
 
+// Publicly accessible photos
+export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
+  try {
+    const queryString = createQueryString(searchParams)
+    const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
+      next: { tags: ["photos"], revalidate: 0 },
+    })
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}
+
 export const updatePhoto = async (photoId: string, photoFormData: PhotoFormData) => {
   try {
     const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
@@ -66,19 +79,6 @@ export const deletePhoto = async (photoId: string) => {
   try {
     const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
       method: "DELETE",
-    })
-    return await res.json()
-  } catch (error) {
-    throw error
-  }
-}
-
-// Publicly accessible photos
-export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
-  try {
-    const queryString = createQueryString(searchParams)
-    const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
-      next: { tags: ["photos"], revalidate: 0 },
     })
     return await res.json()
   } catch (error) {

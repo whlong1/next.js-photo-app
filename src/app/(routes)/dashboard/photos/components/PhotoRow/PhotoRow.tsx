@@ -27,8 +27,8 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
       </div>
 
       <PrivacyDropdown photo={photo} />
-
       <DeleteRowButton photoId={photo.id} />
+      
     </div>
   )
 }

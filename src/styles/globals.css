@@ -87,7 +87,7 @@ body {
   }
 
   .form-button-secondary {
-    @apply opacity-50 text-sm font-medium text-slate-300;
+    @apply opacity-50 text-sm font-medium text-slate-300 w-full flex items-center justify-center;
   }
 
   .form-gap {

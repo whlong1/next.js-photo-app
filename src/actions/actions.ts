@@ -18,7 +18,12 @@ export const getMyPhotos = async () => {
     const { userId } = auth()
     if (!userId) throw new Error("User not authenticated.")
 
-    const photos: Photo[] = await prisma.photo.findMany({ where: { authorId: userId } })
+    const photos: Photo[] = await prisma.photo.findMany({
+      where: { authorId: userId },
+      orderBy: [
+        { createdAt: 'desc' },
+      ],
+    })
     const photosWithUrl = await Promise.all(photos.map(async (photo) => {
       const url = await generatePresignedGetURL(photo.id)
       return { ...photo, url }

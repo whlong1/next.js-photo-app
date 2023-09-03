@@ -1,8 +1,8 @@
 import { Photo } from "@/types/models"
 
 const Thumbnail = ({ photo }: { photo: Photo }) => {
-  const imageInfo = photo.url && photo.title
-    ? { src: photo.url, alt: photo.title }
+  const imageInfo = photo.url
+    ? { src: photo.url, alt: "Thumbnail" }
     : { src: "placeholder", alt: "No image source" }
 
   return (

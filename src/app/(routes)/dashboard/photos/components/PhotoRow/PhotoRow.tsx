@@ -20,7 +20,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
     border-b
     items-center 
   `
-
+  
   // Need to place the following UI:
   const viewBtn = <Link href={path}>VIEW</Link>
   const checkBox = <input type="checkbox" readOnly checked={photo.isUploaded} />
@@ -29,7 +29,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
     <div className={containerStyle}>
       <Thumbnail photo={photo} />
       <div className="flex flex-col text-xs">
-        <p>{photo.fileName}</p>
+        <p className="max-w-[360px] single-line-truncate">{photo.fileName}</p>
         <p>{photo.fileSize && formatBytes(photo.fileSize)}</p>
       </div>
       <DeleteRowButton photoId={photo.id} />

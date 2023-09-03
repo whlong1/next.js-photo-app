@@ -34,3 +34,25 @@ export const getMyPhotos = async () => {
     throw error
   }
 }
+
+// const GET = async (req: NextRequest, { params }: { params: { photoId: string } }) => {
+//   try {
+//     const user = await currentUser()
+//     if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+
+//     const { photoId } = params
+//     if (!photoId) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+
+//     const photo: Photo | null = await prisma.photo.findUnique({ where: { id: photoId } })
+
+//     if (!photo) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+
+//     const url = await generatePresignedURL(photoId)
+//     if (!url) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+
+//     return NextResponse.json({ ...photo, url })
+//   } catch (error) {
+//     console.log(error)
+//     throw error
+//   }
+// }

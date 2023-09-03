@@ -73,11 +73,12 @@ export const deletePhoto = async (photoId: string) => {
   }
 }
 
+// Publicly accessible photos
 export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
   try {
     const queryString = createQueryString(searchParams)
     const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
-      next: { tags: ["photos"], revalidate: 600 },
+      next: { tags: ["photos"], revalidate: 0 },
     })
     return await res.json()
   } catch (error) {

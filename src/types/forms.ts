@@ -22,7 +22,6 @@ export interface FileUploadData {
   fileSize: number;
 }
 
-
 export interface VideoFormData {
   year?: number;
   genre?: string;

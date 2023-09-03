@@ -25,7 +25,6 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
     photo.isPublic ? "Public" : "Private"
   )
 
-
   // Need to place the following UI:
   const viewBtn = <Link href={path}>VIEW</Link>
   const checkBox = <input type="checkbox" readOnly checked={photo.isUploaded} />
@@ -33,9 +32,12 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
   // TODO Add modal to view image src, details and stats
 
   const handlePrivacyChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("run")
     setPrivacySetting(e.target.value)
     const formData = { isPublic: e.target.value === "Public" }
     const res = await updatePhoto(photo.id, formData)
+
+    console.log(res)
   }
 
   return (

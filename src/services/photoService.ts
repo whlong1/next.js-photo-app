@@ -68,8 +68,8 @@ export const updatePhoto = async (photoId: string, photoFormData: PhotoFormData)
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(photoFormData)
     })
-    const data = await res.json()
-    return data
+    if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
+    return await res.json()
   } catch (error) {
     throw error
   }

@@ -30,10 +30,13 @@ const PrivacyDropdown = ({ photo }: { photo: Photo }) => {
   }
 
   const updatePrivacySetting = async () => {
-    setShowModal(false)
-    const formData = { isPublic: privacySetting === "Public" }
-    const res = await updatePhoto(photo.id, formData)
-    console.log(res)
+    try {
+      setShowModal(false)
+      await updatePhoto(photo.id, { isPublic: privacySetting === "Public" })
+    } catch (error) {
+      console.log(error)
+      setPrivacySetting(photo.isPublic ? "Public" : "Private")
+    }
   }
 
   return (

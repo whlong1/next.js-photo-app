@@ -10,6 +10,8 @@ const POST = async (req: NextRequest) => {
   try {
     const user = await currentUser()
     if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
+
+    // TODO Add type
     const requestBody = await req.json()
 
     // Create a new photo entry in database.
@@ -44,12 +46,12 @@ const GET = async (req: NextRequest) => {
   try {
     const prismaQueryObject = createPrismaQueryFromURL(req.url)
     const photos: Photo[] = await prisma.photo.findMany({
-      // where: { isPublic: true },
       where: prismaQueryObject,
       orderBy: { createdAt: "desc" }
     })
 
-    // NOTE: getPhotosWithPresignedURL() would be more secure:
+    // Note, getPhotosWithPresignedURL() is more secure,
+    // but the returned photos have been marked as public by the author.
     const photosWithPublicUrl = photos.map((photo) => {
       return { ...photo, url: getPublicURL(photo.id) }
     })

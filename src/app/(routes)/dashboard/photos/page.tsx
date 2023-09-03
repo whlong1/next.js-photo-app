@@ -5,10 +5,9 @@ import { Photo } from "@/types/models"
 import { getMyPhotos } from "@/actions/actions"
 
 // Components
-import PhotoRow from "./components/PhotoRow/PhotoRow"
-
+import PhotoList from "./components/PhotoList/PhotoList"
 const DashboardPhotos = async () => {
-  const myPhotos: Photo[] = await getMyPhotos()
+  const serverSidePhotoData: Photo[] = await getMyPhotos()
 
   return (
     <>
@@ -17,9 +16,7 @@ const DashboardPhotos = async () => {
         <p>Public</p>
         <p>Date Uploaded</p>
       </header>
-      {myPhotos.map((photo) => (
-        <PhotoRow key={photo.id} photo={photo} />
-      ))}
+      <PhotoList serverSidePhotoData={serverSidePhotoData} />
     </>
   )
 }

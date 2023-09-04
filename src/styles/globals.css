@@ -40,8 +40,12 @@ body {
     @apply flex border items-center w-full p-2;
   }
 
-  .row-button {
-    @apply px-3 py-1 flex items-center text-xs text-gray-500 border rounded border-gray-300 bg-white bg-opacity-40;
+  .row-container {
+    @apply p-4 h-20 flex w-full text-xs border-b items-center
+  }
+
+  .row-ui-element {
+    @apply ml-4 px-3 py-1 flex items-center text-xs text-gray-500 border rounded border-gray-300 bg-white bg-opacity-40;
   }
 
   .thumbnail {
@@ -55,7 +59,50 @@ body {
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
   }
+
+
+  .form {
+    @apply h-full flex flex-col p-4;
+  }
+
+  .form-element-container {
+    @apply flex flex-col;
+  }
+
+  .form-element-label {
+    @apply text-slate-300 font-medium text-xs mb-2;
+  }
   
+  .form-element {
+    @apply border rounded border-slate-200 text-slate-300 p-1 text-xs;
+  }
+
+  .form-button-cta {
+    @apply 
+      p-1 mt-auto
+      rounded border 
+      text-sm font-medium 
+      w-full bg-opacity-40
+      flex items-center justify-center;
+  }
+
+  .form-button-secondary {
+    @apply opacity-50 text-sm font-medium text-slate-300 w-full flex items-center justify-center;
+  }
+
+  .form-gap {
+    @apply mt-4;
+  }
+
+
+  .basic-grid {
+    @apply gap-2 p-4 w-full grid;
+    grid-auto-rows: 200px;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  
+  
+
 }
 
 .top-level-nav {
@@ -104,20 +151,6 @@ main {
   background-color: #F8F8FA;
 }
 
-form>div {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-weight: bold;
-}
-
-input {
-  border-radius: 4px;
-  border: 1px solid black;
-}
-
 .masonry-grid {
   gap: 8px;
   padding: 16px;
@@ -125,15 +158,6 @@ input {
   grid-auto-flow: dense;
   grid-auto-rows: 200px;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.basic-grid {
-  gap: 8px;
-  padding: 16px;
-  width: 100%;
-  display: grid;
-  grid-auto-rows: 200px;
-  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
 }
 
 .basic-grid article {
@@ -199,26 +223,4 @@ input {
   font-size: 12px;
   align-items: center;
   justify-content: space-between;
-}
-
-.form-button-cta {
-  margin: 0;
-  width: 100%;
-  display: flex;
-  font-size: 16px;
-  color: #94a3b8;
-  font-weight: 500;
-  padding: 4px 12px;
-  align-items: center;
-  border-radius: 0.25rem;
-  justify-content: center;
-  border: 1px solid #e5e7eb;
-  background-color: rgba(255, 255, 255, .4);
-}
-
-.form-button-secondary {
-  opacity: .5;
-  font-size: 13px;
-  font-weight: 500;
-  color: #94a3b8;
 }

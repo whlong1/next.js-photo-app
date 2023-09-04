@@ -1,5 +1,6 @@
 // Types
 import { Photo } from "@/types/models"
+
 // Components
 import PhotoCard from "./PhotoCard"
 
@@ -10,6 +11,7 @@ const BasicPhotoGrid = ({ photos }: { photos: Photo[] }) => {
         <PhotoCard key={photo.id} photo={photo} />
       ))}
     </section>
+
   )
 }
 

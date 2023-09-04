@@ -1,46 +1,36 @@
 // Types
 import { PhotoFormData } from "@/types/forms"
+import { InputChangeEvent } from "@/types/events"
+
+// Constants
+import { PHOTO_CATEGORIES } from "@/lib/constants"
 
 interface NewPhotoFormProps {
   photoFormData: PhotoFormData;
+  handleChange: (e: InputChangeEvent) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const NewPhotoForm = ({ photoFormData, handleSubmit, handleChange }: NewPhotoFormProps) => {
-  const inputClassNames = "border border-slate-200 text-slate-300 p-1 text-xs"
-  const labelClassNames = "text-slate-300 font-medium text-xs mb-1"
+
+  const tagsInput = (
+    <div className="form-element-container">
+      <label className="form-element-label" htmlFor="year">Tags</label>
+      <input
+        required
+        type="text"
+        id="tags"
+        name="tags"
+        className="form-element"
+      />
+    </div>
+  )
 
   return (
-    <form className="w-[50%] h-full flex flex-col justify-between p-4" onSubmit={handleSubmit}>
-      <div>
-        <label className={labelClassNames} htmlFor="title">TITLE</label>
-        <input
-          required
-          type="text"
-          id="title"
-          name="title"
-          value={photoFormData.title}
-          onChange={handleChange}
-          className={inputClassNames}
-        />
-      </div>
+    <form className="form w-[50%]" onSubmit={handleSubmit}>
 
-      <div>
-        <label className={labelClassNames} htmlFor="category">CATEGORY</label>
-        <input
-          required
-          type="text"
-          id="category"
-          name="category"
-          value={photoFormData.category}
-          onChange={handleChange}
-          className={inputClassNames}
-        />
-      </div>
-
-      <div>
-        <label className={labelClassNames} htmlFor="location">LOCATION</label>
+      <div className="form-element-container">
+        <label className="form-element-label" htmlFor="location">Location</label>
         <input
           required
           type="text"
@@ -48,12 +38,12 @@ const NewPhotoForm = ({ photoFormData, handleSubmit, handleChange }: NewPhotoFor
           name="location"
           value={photoFormData.location}
           onChange={handleChange}
-          className={inputClassNames}
+          className="form-element"
         />
       </div>
 
-      <div>
-        <label className={labelClassNames} htmlFor="description">DESCRIPTION</label>
+      <div className="form-element-container form-gap">
+        <label className="form-element-label" htmlFor="description">Description</label>
         <input
           required
           type="text"
@@ -61,21 +51,38 @@ const NewPhotoForm = ({ photoFormData, handleSubmit, handleChange }: NewPhotoFor
           name="description"
           value={photoFormData.description}
           onChange={handleChange}
-          className={inputClassNames}
+          className="form-element"
         />
       </div>
 
-      <div>
-        <label className={labelClassNames} htmlFor="year">YEAR</label>
-        <input
+      <div className="form-element-container form-gap">
+        <label className="form-element-label" htmlFor="category">Category</label>
+        <select
           required
-          type="number"
-          id="year"
-          name="year"
-          value={photoFormData.year}
+          id="category"
+          name="category"
           onChange={handleChange}
-          className={inputClassNames}
-        />
+          className="form-element"
+        >
+          <option value="">Select A Category</option>
+          {PHOTO_CATEGORIES.map((category) => (
+            <option key={category} value={category}>{category}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-element-container form-gap">
+        <label className="form-element-label">Privacy Settings</label>
+        <select
+          required
+          id="isPublic"
+          name="isPublic"
+          className="form-element"
+          onChange={handleChange}
+        >
+          <option value="true">Public</option>
+          <option value="false">Private</option>
+        </select>
       </div>
 
       <button className="form-button-cta" type="submit">SUBMIT</button>

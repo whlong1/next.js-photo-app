@@ -1,3 +1,5 @@
+"use client"
+
 // Types
 import { Photo } from "@/types/models"
 
@@ -30,6 +32,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
     <article style={articleStyle as React.CSSProperties}>
       <PhotoInfoOverlay photo={photo} />
       <img
+        onLoad={() => console.log("")}
         src={photo.url ? photo.url : ""}
         alt={photo.title ? photo.title : ""}
         className="w-full h-full object-cover border border-slate-300 drop-shadow rounded"

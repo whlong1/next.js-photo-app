@@ -10,8 +10,7 @@ export interface PhotoFormData {
 
   // Properties not present in client form data:
   // fileSize, fileName, mimeType, authorId, authorName, createdAt, updatedAt
-
-  // Note: id is appended to formData on submit for updates
+  // Note: id can be appended to formData on submit for updates
 }
 
 export interface FileUploadData {
@@ -22,7 +21,6 @@ export interface FileUploadData {
   mimeType: string;
   fileSize: number;
 }
-
 
 export interface VideoFormData {
   year?: number;

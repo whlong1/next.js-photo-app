@@ -48,10 +48,12 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
   }
 }
 
-export const deletePhoto = async (photoId: string) => {
+// Publicly accessible photos
+export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
   try {
-    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
-      method: "DELETE",
+    const queryString = createQueryString(searchParams)
+    const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
+      next: { tags: ["photos"], revalidate: 0 },
     })
     return await res.json()
   } catch (error) {
@@ -59,11 +61,24 @@ export const deletePhoto = async (photoId: string) => {
   }
 }
 
-export const fetchPhotos = async (searchParams: SearchParams): Promise<Photo[]> => {
+export const updatePhoto = async (photoId: string, photoFormData: PhotoFormData) => {
   try {
-    const queryString = createQueryString(searchParams)
-    const res = await fetch(`${BASE_URL}/api/photos?${queryString}`, {
-      next: { tags: ["photos"], revalidate: 600 },
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(photoFormData)
+    })
+    if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}
+
+export const deletePhoto = async (photoId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}`, {
+      method: "DELETE",
     })
     return await res.json()
   } catch (error) {

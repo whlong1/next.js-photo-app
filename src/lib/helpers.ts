@@ -11,6 +11,7 @@ interface ORCondition {
 }
 
 interface PrismaQueryObject {
+  isPublic: boolean;
   category?: string;
   location?: string;
   authorName?: string;
@@ -73,7 +74,7 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   const { keyword, ...rest } = searchParamsObject
 
   // Handle general keyword search with OR condition.
-  return { ...rest, ...(keyword && getORCondition(keyword)) }
+  return { isPublic: true, ...rest, ...(keyword && getORCondition(keyword)) }
 }
 
 

@@ -28,7 +28,7 @@ const FilePreviewRow = ({ file, previewURL, handleUploadReset }: FilePreviewRowP
           {formatBytes(file.size)}
         </p>
       </div>
-      <button className="row-button" onClick={handleUploadReset}>
+      <button className="row-ui-element" onClick={handleUploadReset}>
         Remove
       </button>
     </div>

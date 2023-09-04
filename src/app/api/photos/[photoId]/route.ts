@@ -45,7 +45,7 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
     })
 
     revalidateTag("photos")
-    
+
     const s3DeleteResponse = await client.send(deleteCommand)
     const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 
@@ -63,24 +63,13 @@ const PUT = async (req: NextRequest, options: RequestOptions) => {
 
     const formData = await req.json()
     const { photoId } = options.params
-    const existingPhoto = await prisma.photo.findUnique({ where: { id: photoId } })
+    const currentPhotoData = await prisma.photo.findUnique({ where: { id: photoId } })
 
-    if (!existingPhoto) {
-      // If photo form is submitted before file upload:
-      const newPhoto: Photo = await prisma.photo.create({
-        data: {
-          ...formData,
-          isUploaded: false,
-          authorId: user.id,
-          authorName: `${user.firstName} ${user.lastName}`,
-        }
-      })
-      return NextResponse.json(newPhoto)
+    if (!currentPhotoData) {
+      return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
     }
 
-    // Should there be an additional check on upload status here?
-    // In theory, a photo with an authorId should have already been uploaded.
-    if (existingPhoto.authorId !== user.id) {
+    if (currentPhotoData.authorId !== user.id) {
       return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
     }
 

@@ -1,6 +1,9 @@
 // Components
 import FilterSection from "./FilterSection"
 
+// Constants
+import { PHOTO_CATEGORIES, ASPECT_RATIOS } from "@/lib/constants"
+
 const FilterNav = () => {
   return (
     <nav className="side-nav">
@@ -9,11 +12,11 @@ const FilterNav = () => {
       </header>
       <FilterSection
         queryKey="category"
-        queryValues={["people", "food", "nature"]}
+        queryValues={PHOTO_CATEGORIES}
       />
       <FilterSection
-        queryKey="category"
-        queryValues={["people", "food", "nature"]}
+        queryKey="Aspect Ratio"
+        queryValues={ASPECT_RATIOS}
       />
     </nav>
   )

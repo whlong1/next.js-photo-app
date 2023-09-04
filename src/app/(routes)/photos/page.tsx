@@ -12,9 +12,9 @@ import BasicPhotoGrid from "./components/BasicPhotoGrid"
 
 // Types
 import { SearchParams } from "@/types/params"
+
 const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   const photos: Photo[] = await fetchPhotos(searchParams)
-
   const activeParams = Object.keys(searchParams).map((key) => {
     return { queryKey: key, queryValue: searchParams[key] }
   })

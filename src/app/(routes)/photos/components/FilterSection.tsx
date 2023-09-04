@@ -21,7 +21,7 @@ const FilterSection = ({ queryKey, queryValues }: FilterSectionProps) => {
       {isOpen &&
         <ul className="list-none">
           {queryValues.map((val) => (
-            <QueryTab queryKey={queryKey} queryValue={val} />
+            <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}
         </ul>
       }

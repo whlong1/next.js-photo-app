@@ -22,11 +22,12 @@ const Nav = () => {
       </SignedIn>
 
 
-      <div className="ml-auto border rounded-full">
+      <div className="ml-auto border rounded-full w-[34px] h-[34px]">
         <SignedIn >
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
       </div>
+
     </nav>
   )
 }

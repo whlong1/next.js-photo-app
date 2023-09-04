@@ -15,12 +15,9 @@ import PrivacyDropdown from "./PrivacyDropdown"
 import { useMutationTransition } from "@/hooks/useMutationTransition"
 
 const PhotoRow = ({ photo }: { photo: Photo }) => {
-  const {
-    handleTransition,
-    transitionStyle,
-  } = useMutationTransition("opacity-25 animate-pulse")
-
   const path = `/dashboard/photos/${photo.id}`
+  const pendingStyle = "opacity-25 animate-pulse"
+  const { handleTransition, transitionStyle } = useMutationTransition(pendingStyle)
 
   return (
     <div className={`row-container ${transitionStyle}`}>

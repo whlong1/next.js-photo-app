@@ -12,7 +12,7 @@ import Image from "next/image"
 const Thumbnail = ({ photo }: { photo: Photo }) => {
   const imageInfo = photo.url
     ? { src: photo.url, alt: "Thumbnail" }
-    : { src: "placeholder", alt: "No image source" }
+    : { src: "/assets/placeholder.png", alt: "No image source" }
 
   return (
     <div className="bg-slate-200 relative w-12 h-12 border rounded mr-4" >

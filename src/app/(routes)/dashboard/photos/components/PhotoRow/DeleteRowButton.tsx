@@ -29,7 +29,7 @@ const DeleteRowButton = ({ photoId, handleTransition }: DeleteRowButtonProps) =>
 
   return (
     <>
-      <button className="row-ui-element ml-auto" onClick={handleModal}>
+      <button className="row-ui-element" onClick={handleModal}>
         Remove
       </button>
       <ConfirmationModal

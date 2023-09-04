@@ -31,11 +31,13 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
         <p>{photo.fileSize && formatBytes(photo.fileSize)}</p>
       </div>
 
-      <PrivacyDropdown photo={photo} />
-      <DeleteRowButton
-        photoId={photo.id}
-        handleTransition={handleTransition}
-      />
+      <section className="flex ml-auto">
+        <PrivacyDropdown photo={photo} />
+        <DeleteRowButton
+          photoId={photo.id}
+          handleTransition={handleTransition}
+        />
+      </section>
     </div>
   )
 }

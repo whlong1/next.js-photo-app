@@ -6,8 +6,11 @@ import { getMyPhotos } from "@/actions/actions"
 
 // Components
 import PhotoList from "./components/PhotoList/PhotoList"
+import PhotoRow from "./components/PhotoRow/PhotoRow"
+import { Suspense } from "react"
+
 const DashboardPhotos = async () => {
-  const serverSidePhotoData: Photo[] = await getMyPhotos()
+  const photos: Photo[] = await getMyPhotos()
 
   return (
     <>
@@ -16,7 +19,12 @@ const DashboardPhotos = async () => {
         <p>Public</p>
         <p>Date Uploaded</p>
       </header>
-      <PhotoList serverSidePhotoData={serverSidePhotoData} />
+      <Suspense fallback={<p>Loading</p>}>
+        {photos.map((photo) => (
+          <PhotoRow key={photo.id} photo={photo} />
+        ))}
+      </Suspense>
+      {/* <PhotoList serverSidePhotoData={serverSidePhotoData} /> */}
     </>
   )
 }

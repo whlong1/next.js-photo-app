@@ -93,6 +93,14 @@ body {
   .form-gap {
     @apply mt-4;
   }
+
+
+  .basic-grid {
+    @apply gap-2 p-4 w-full grid;
+    grid-auto-rows: 200px;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  
   
 
 }
@@ -150,15 +158,6 @@ main {
   grid-auto-flow: dense;
   grid-auto-rows: 200px;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.basic-grid {
-  gap: 8px;
-  padding: 16px;
-  width: 100%;
-  display: grid;
-  grid-auto-rows: 200px;
-  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
 }
 
 .basic-grid article {

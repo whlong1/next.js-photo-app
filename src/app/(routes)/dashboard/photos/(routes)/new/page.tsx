@@ -1,4 +1,4 @@
-import NewPhotoDialog from "../../../components/NewPhotoDialog/NewPhotoDialog"
+import NewPhotoDialog from "../../components/NewPhotoDialog/NewPhotoDialog"
 
 const NewPhoto = () => {
   return (

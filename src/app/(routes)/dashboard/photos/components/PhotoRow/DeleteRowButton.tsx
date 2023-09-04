@@ -1,8 +1,7 @@
 "use client"
 
 // Hooks
-import { useRouter } from "next/navigation"
-import { useTransition, useState } from "react"
+import { useState } from "react"
 
 // Services
 import { deletePhoto } from "@/services/photoService"
@@ -10,38 +9,27 @@ import { deletePhoto } from "@/services/photoService"
 // Components
 import ConfirmationModal from "./ConfirmationModal"
 
-const DeleteRowButton = ({ photoId }: { photoId: string }) => {
-  const router = useRouter()
 
+interface DeleteRowButtonProps {
+  photoId: string;
+  handleTransition: (callback: () => Promise<void>) => Promise<void>;
+}
+
+const DeleteRowButton = ({ photoId, handleTransition }: DeleteRowButtonProps) => {
   const [showModal, setShowModal] = useState(false)
-  const [isFetching, setIsFetching] = useState(false)
-  const [isPending, startTransition] = useTransition()
-
-  const isMutating = isFetching || isPending
-  const buttonStyle = `
-    row-ui-element ml-auto 
-    ${isMutating ? "opacity-25" : "opacity-100"}
-  `
 
   const handleModal = () => {
     setShowModal(!showModal)
   }
 
   const handleDelete = async () => {
-    try {
-      handleModal()
-      setIsFetching(true)
-      await deletePhoto(photoId)
-      startTransition(() => { router.refresh() })
-      setIsFetching(false)
-    } catch (error) {
-      console.log(error)
-    }
+    handleModal()
+    await handleTransition(() => deletePhoto(photoId))
   }
 
   return (
     <>
-      <button className={buttonStyle} onClick={handleModal}>
+      <button className="row-ui-element ml-auto" onClick={handleModal}>
         Remove
       </button>
       <ConfirmationModal

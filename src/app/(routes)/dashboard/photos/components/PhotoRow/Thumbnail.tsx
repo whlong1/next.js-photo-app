@@ -6,6 +6,9 @@ import { Photo } from "@/types/models"
 // Components
 import Image from "next/image"
 
+// Credit for the smooth Image loading idea:
+// https://www.youtube.com/watch?v=GG66vQgc1Vg&ab_channel=SakuraDev
+
 const Thumbnail = ({ photo }: { photo: Photo }) => {
   const imageInfo = photo.url
     ? { src: photo.url, alt: "Thumbnail" }

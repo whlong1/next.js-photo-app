@@ -11,7 +11,7 @@ interface DragAndDropProps {
 
 const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
-  const dragActiveStyle = isDragActive ? "bg-green-100" : "bg-red-200"
+  const dragActiveStyle = isDragActive ? "bg-slate-300" : "bg-slate-200"
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement | HTMLLabelElement>) => {
     e.preventDefault()
@@ -44,8 +44,8 @@ const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => 
         src="/assets/icons/upload.svg"
         className="pointer-events-none"
       />
-      <p className="big-bold text-white mt-4 pointer-events-none">DRAG & DROP</p>
-      <p className="text-white font-semibold pointer-events-none">OR</p>
+      <p className="big-bold text-white mt-3 pointer-events-none">DRAG & DROP</p>
+      <p className="text-white font-semibold mb-3 pointer-events-none">OR</p>
       <FileInput selectAndPreview={selectAndPreview} handleDrop={handleDrop} setIsDragActive={setIsDragActive} />
     </div>
   )

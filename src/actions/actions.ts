@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
 import { Photo } from "@/types/models"
-import { generatePresignedGetURL } from "@/lib/aws"
+import { headers } from "next/headers"
+import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 
 // This action appears to be dynamic (no apparent need for cache management)
 // Question: Will all db operations on the server behave the same way?
@@ -13,46 +14,50 @@ import { generatePresignedGetURL } from "@/lib/aws"
 // direct DB query inside the server component, though taking advantage of the cache 
 // might be preferable eventually.
 
-export const getMyPhotos = async () => {
+// Alternate service function approach for reference:
+const fetchAuthenticatedUserPhotos = async (): Promise<Photo[]> => {
   try {
-    const { userId } = auth()
-    if (!userId) throw new Error("User not authenticated.")
-
-    const photos: Photo[] = await prisma.photo.findMany({
-      where: { authorId: userId },
-      orderBy: [
-        { createdAt: 'desc' },
-      ],
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/photos/self`, {
+      headers: headers(),
+      next: { tags: ["my-photos"], revalidate: 60 },
     })
-    const photosWithUrl = await Promise.all(photos.map(async (photo) => {
-      const url = await generatePresignedGetURL(photo.id)
-      return { ...photo, url }
-    }))
-
-    return photosWithUrl
+    const data = await res.json()
+    return data
   } catch (error) {
     throw error
   }
 }
 
-// const GET = async (req: NextRequest, { params }: { params: { photoId: string } }) => {
-//   try {
-//     const user = await currentUser()
-//     if (!user) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
 
-//     const { photoId } = params
-//     if (!photoId) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+// Helper
+const appendPublicURLs = (photos: Photo[]): Photo[] => {
+  return photos.map((photo) => {
+    return { ...photo, url: getPublicURL(photo.id) }
+  })
+}
 
-//     const photo: Photo | null = await prisma.photo.findUnique({ where: { id: photoId } })
+// Alternate approach for added security
+const appendPresignedURLs = async (photos: Photo[]): Promise<Photo[]> => {
+  return await Promise.all(photos.map(async (photo) => {
+    const url = await generatePresignedGetURL(photo.id)
+    return { ...photo, url }
+  }))
+}
 
-//     if (!photo) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+export const getMyPhotos = async () => {
+  try {
+    const { userId } = auth()
+    if (!userId) throw new Error("Unauthorized")
 
-//     const url = await generatePresignedURL(photoId)
-//     if (!url) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
+    const photos: Photo[] = await prisma.photo.findMany({
+      where: { authorId: userId },
+      orderBy: [{ createdAt: 'desc' }],
+    })
 
-//     return NextResponse.json({ ...photo, url })
-//   } catch (error) {
-//     console.log(error)
-//     throw error
-//   }
-// }
+    const photosWithPublicUrl = appendPublicURLs(photos)
+
+    return photosWithPublicUrl
+  } catch (error) {
+    throw error
+  }
+}

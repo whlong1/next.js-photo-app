@@ -9,7 +9,16 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </header>
         <section>
+          <Link className="side-nav-item" href="/dashboard/account">Account</Link>
+        </section>
+        <section>
           <Link className="side-nav-item" href="/dashboard/photos">Photos</Link>
+        </section>
+        <section>
+          <Link className="side-nav-item" href="/dashboard/favorites">Favorites</Link>
+        </section>
+        <section>
+          <Link className="side-nav-item" href="/dashboard/favorites">Analytics</Link>
         </section>
       </nav>
       <section className="flex flex-col w-full">

@@ -1,7 +1,8 @@
 // Components
 import { Suspense } from "react"
-import UploadModal from "./components/UploadModal/UploadModal"
-import DashboardPhotoList from "./components/DashboardPhotoList/DashboardPhotoList"
+import UploadModal from "../components/UploadModal/UploadModal"
+import PhotoListLoading from "../components/PhotoListLoading/PhotoListLoading"
+import DashboardPhotoList from "../components/DashboardPhotoList/DashboardPhotoList"
 
 // Types 
 import { SearchParams } from "@/types/params"
@@ -20,7 +21,7 @@ const DashboardPhotos = async ({ searchParams }: DashboardPhotosProps) => {
 
       {searchParams.new && <UploadModal />}
 
-      <Suspense fallback={<p>Loading</p>}>
+      <Suspense fallback={<PhotoListLoading />}>
         <DashboardPhotoList />
       </Suspense>
     </section>

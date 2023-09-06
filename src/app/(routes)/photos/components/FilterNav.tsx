@@ -8,7 +8,7 @@ const FilterNav = () => {
   return (
     <nav className="side-nav">
       <header className="header">
-        <h2>Browse</h2>
+        <h2 className="text-sm">Browse</h2>
       </header>
       <FilterSection
         queryKey="category"

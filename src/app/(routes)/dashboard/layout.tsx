@@ -5,21 +5,13 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <nav className="side-nav">
         <header className="header">
           <Link href="/dashboard">
-            <h2>Dashboard</h2>
+            <h2 className="text-sm">Dashboard</h2>
           </Link>
         </header>
-        <section>
-          <Link className="side-nav-item" href="/dashboard/account">Account</Link>
-        </section>
-        <section>
-          <Link className="side-nav-item" href="/dashboard/photos">Photos</Link>
-        </section>
-        <section>
-          <Link className="side-nav-item" href="/dashboard/favorites">Favorites</Link>
-        </section>
-        <section>
-          <Link className="side-nav-item" href="/dashboard/favorites">Analytics</Link>
-        </section>
+        <Link className="nav-item" href="/dashboard/account">Account</Link>
+        <Link className="nav-item" href="/dashboard/photos">Photos</Link>
+        <Link className="nav-item" href="/dashboard/favorites">Favorites</Link>
+        <Link className="nav-item" href="/dashboard/favorites">Analytics</Link>
       </nav>
       <section className="flex flex-col w-full">
         {children}

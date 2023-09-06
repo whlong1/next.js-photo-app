@@ -10,8 +10,9 @@ interface PhotoUploaderProps {
 }
 
 const PhotoUploader = ({ file, previewURL, handleUploadReset, selectAndPreview }: PhotoUploaderProps) => {
+
   return (
-    <div className="flex flex-col w-[50%] h-full bg-slate-50 items-center p-4 border-r">
+    <div className="flex flex-col w-[50%] bg-slate-50 items-center p-4 border-r h-full">
       <DragAndDrop selectAndPreview={selectAndPreview} isFileSelected={!!file} />
       <FilePreviewRow file={file} previewURL={previewURL} handleUploadReset={handleUploadReset} />
     </div>

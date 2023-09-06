@@ -1,18 +1,26 @@
+// Components
 import Link from "next/link"
+import Menu from "@/components/Menu"
+
+// Types 
+import { MenuElements } from "@/types/elements"
+
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <main className="flex">
-      <nav className="side-nav">
-        <header className="header">
-          <Link href="/dashboard">
-            <h2 className="text-sm">Dashboard</h2>
-          </Link>
-        </header>
+  const menuElements: MenuElements = {
+    name: <h2 className="text-sm">Dashboard</h2>,
+    content: (
+      <>
         <Link className="nav-item" href="/dashboard/account">Account</Link>
         <Link className="nav-item" href="/dashboard/photos">Photos</Link>
         <Link className="nav-item" href="/dashboard/favorites">Favorites</Link>
-        <Link className="nav-item" href="/dashboard/favorites">Analytics</Link>
-      </nav>
+        <Link className="nav-item" href="/dashboard/analytics">Analytics</Link>
+      </>
+    )
+  }
+
+  return (
+    <main className="flex">
+      <Menu menuElements={menuElements} />
       <section className="flex flex-col w-full">
         {children}
       </section>

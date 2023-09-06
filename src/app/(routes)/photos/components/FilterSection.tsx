@@ -14,12 +14,12 @@ const FilterSection = ({ queryKey, queryValues }: FilterSectionProps) => {
 
   return (
     <section>
-      <div className="side-nav-item">
+      <div className="nav-item">
         <h3>{sectionTitle}</h3>
         <button onClick={() => setIsOpen((current) => !current)}>+</button>
       </div>
       {isOpen &&
-        <ul className="list-none">
+        <ul className="list-none pl-4 pb-4 border-b">
           {queryValues.map((val) => (
             <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}

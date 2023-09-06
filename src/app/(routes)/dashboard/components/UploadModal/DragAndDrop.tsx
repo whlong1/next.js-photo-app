@@ -22,7 +22,7 @@ const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => 
 
   if (isFileSelected) return (
     <div
-      className={`w-full h-full flex flex-col center-items rounded`}
+      className={`w-full h-full flex flex-col items-center justify-center rounded`}
     >
       <Image src="/assets/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
       <p className="big-bold text-white mt-4">Thanks</p>
@@ -35,7 +35,7 @@ const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => 
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
       onDragLeave={(e) => { console.log("Leaving"); e.preventDefault(); setIsDragActive(false) }}
-      className={`w-full h-full flex flex-col center-items rounded border border-slate-800 border-opacity-10 sm:py-8 ${dragActiveStyle}`}
+      className={`w-full h-full flex flex-col items-center justify-center rounded border border-slate-800 border-opacity-10 sm:py-8 ${dragActiveStyle}`}
     >
       <Image
         width="64"
@@ -44,7 +44,7 @@ const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => 
         src="/assets/icons/upload.svg"
         className="pointer-events-none drop-shadow"
       />
-      <p className="big-bold text-white mt-3 pointer-events-none drop-shadow">DRAG & DROP</p>
+      <p className="text-2xl font-black	font text-white mt-3 pointer-events-none drop-shadow">DRAG & DROP</p>
       <p className="text-white text-base font-semibold mb-3 pointer-events-none drop-shadow">OR</p>
       <FileInput selectAndPreview={selectAndPreview} handleDrop={handleDrop} setIsDragActive={setIsDragActive} />
     </div>

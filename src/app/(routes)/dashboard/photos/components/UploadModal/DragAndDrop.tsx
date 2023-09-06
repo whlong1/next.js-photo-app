@@ -35,7 +35,7 @@ const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => 
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
       onDragLeave={(e) => { console.log("Leaving"); e.preventDefault(); setIsDragActive(false) }}
-      className={`w-full h-full flex flex-col center-items rounded ${dragActiveStyle}`}
+      className={`w-full h-full flex flex-col center-items rounded border border-slate-800 border-opacity-10 ${dragActiveStyle}`}
     >
       <Image
         width="64"

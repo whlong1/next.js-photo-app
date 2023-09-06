@@ -24,7 +24,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
   overflow: hidden;
@@ -45,7 +46,7 @@ body {
   background: var(--background-color);
 }
 
-body > nav {
+body>nav {
   flex-shrink: 0;
   display: flex;
   width: 100%;
@@ -62,16 +63,14 @@ main {
   flex-grow: 1;
 }
 
-body > footer {
+body>footer {
   flex-shrink: 0;
 }
 
 
 @layer components {
   .btn {
-    @apply font-medium text-sm
-    border rounded py-2 px-4  
-    cursor-pointer transition-colors duration-200;
+    @apply font-medium text-sm border rounded py-2 px-4 cursor-pointer transition-colors duration-200;
   }
 
   .container-row {
@@ -109,18 +108,13 @@ body > footer {
   .form-element-label {
     @apply text-slate-300 font-medium text-xs mb-2;
   }
-  
+
   .form-element {
     @apply border rounded border-slate-200 text-slate-300 p-1 text-xs;
   }
 
   .form-button-cta {
-    @apply 
-      p-1 mt-auto
-      rounded border 
-      text-sm font-medium 
-      w-full bg-opacity-40
-      flex items-center justify-center;
+    @apply p-1 mt-auto rounded border text-sm font-medium w-full bg-opacity-40 flex items-center justify-center;
   }
 
   .form-button-secondary {
@@ -131,12 +125,12 @@ body > footer {
     @apply mt-4;
   }
 
-
   .basic-grid {
     @apply gap-2 p-4 w-full grid;
     grid-auto-rows: 200px;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   }
+
 }
 
 h1,

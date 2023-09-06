@@ -91,13 +91,13 @@ const UploadModal = () => {
   console.log("Message:", msg)
 
   return (
-    <div className="w-full h-full bg-black bg-opacity-50 absolute inset-0 z-50 flex justify-center p-20">
-      <div className="flex flex-col bg-white border rounded w-full max-h-[500px] max-w-[900px]">
+    <div className="w-full h-full bg-black bg-opacity-50 absolute inset-0 z-50 flex justify-center overflow-auto p-4">
+      <div className="flex flex-col bg-white border rounded w-full md:max-h-[500px] max-w-[900px] min-h-[500px] sm:max-h-full">
         <header className="flex justify-between p-4 border-b">
           <h1>Upload Files</h1>
           <Link href="/dashboard/photos">X</Link>
         </header>
-        <section className="flex flex-grow">
+        <section className="flex flex-grow flex-col md:flex-row">
           <PhotoUploader
             previewURL={previewURL}
             file={fileUploadData.file}

@@ -1,7 +1,7 @@
 // Components
 import { Suspense } from "react"
-import UploadModal from "./components/UploadModal/UploadModal"
-import DashboardPhotoList from "./components/DashboardPhotoList/DashboardPhotoList"
+import UploadModal from "../components/UploadModal/UploadModal"
+import DashboardPhotoList from "../components/DashboardPhotoList/DashboardPhotoList"
 
 // Types 
 import { SearchParams } from "@/types/params"

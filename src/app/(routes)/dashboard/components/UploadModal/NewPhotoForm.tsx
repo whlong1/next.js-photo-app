@@ -27,8 +27,7 @@ const NewPhotoForm = ({ photoFormData, handleSubmit, handleChange }: NewPhotoFor
   )
 
   return (
-    <form className="form w-[50%] h-full" onSubmit={handleSubmit}>
-
+    <form className="form w-full md:w-[50%] h-full" onSubmit={handleSubmit}>
       <div className="form-element-container">
         <label className="form-element-label" htmlFor="location">Location</label>
         <input

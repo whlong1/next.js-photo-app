@@ -1,12 +1,12 @@
 import Link from "next/link"
 
-const DashboardPhotosLayout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <header className="header">
-        <h1>Your Photos</h1>
-        <Link className="header-element" href="/dashboard/photos?new=true">
-          NEW PHOTO
+        <h1>Recent Files</h1>
+        <Link className="ml-auto header-element" href="/dashboard/photos?new=true">
+          New Photo
         </Link>
       </header>
       {children}
@@ -14,4 +14,4 @@ const DashboardPhotosLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default DashboardPhotosLayout
+export default Layout

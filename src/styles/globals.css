@@ -154,15 +154,17 @@ body>footer {
   }
 
   .side-nav {
-    @apply w-[20rem] flex flex-col border-r border-[var(--border-color)];
+    @apply 
+    w-[20rem] border-r border-[var(--border-color)] 
+    hidden md:flex md:flex-col;
   }
 
   .nav-item {
-    @apply flex items-center justify-between text-xs leading-none h-[45px] p-4 border-b flex-row;
+    @apply flex items-center justify-between text-xs leading-none h-[45px] p-4 border-b flex-row cursor-pointer;
   }
 
   .header {
-    @apply min-h-[64px] flex p-4 items-center border-b border-gray-300;
+    @apply min-h-[64px] flex p-4 items-center border-b;
   }
   
   .header-element {

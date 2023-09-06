@@ -14,9 +14,9 @@ const FilterSection = ({ queryKey, queryValues }: FilterSectionProps) => {
 
   return (
     <section>
-      <div className="nav-item">
-        <h3>{sectionTitle}</h3>
-        <button onClick={() => setIsOpen((current) => !current)}>+</button>
+      <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
+        <p>{sectionTitle}</p>
+        <button>{isOpen ? "x": "o"}</button>
       </div>
       {isOpen &&
         <ul className="list-none pl-4 pb-4 border-b">

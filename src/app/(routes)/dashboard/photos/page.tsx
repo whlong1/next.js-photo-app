@@ -1,7 +1,6 @@
 // Components
 import { Suspense } from "react"
-import Link from "next/link"
-// import NewPhotoDialog from "./components/NewPhotoDialog/NewPhotoDialog"
+import UploadModal from "./components/UploadModal/UploadModal"
 import DashboardPhotoList from "./components/DashboardPhotoList/DashboardPhotoList"
 
 // Types 
@@ -11,28 +10,20 @@ interface DashboardPhotosProps { searchParams: SearchParams; }
 const DashboardPhotos = async ({ searchParams }: DashboardPhotosProps) => {
 
   return (
-    <>
-      <header className="header">
-        <h1>Recent Files</h1>
-        <Link className="ml-auto header-element" href="/dashboard/photos/new">
-          NEW PHOTO
-        </Link>
+    <section className="h-full">
+      <header className="p-4 h-[45px] flex w-full text-xs border-b items-center">
+        <p>File</p>
+        <p>Public</p>
+        <p>Date Uploaded</p>
+        <p>Sort goes here</p>
       </header>
-      <section className="relative h-full">
-        <header className="p-4 h-[45px] flex w-full text-xs border-b items-center">
-          <p>File</p>
-          <p>Public</p>
-          <p>Date Uploaded</p>
-          <p>Sort goes here</p>
-        </header>
 
-        {/* {searchParams.new && <NewPhotoDialog />} */}
+      {searchParams.new && <UploadModal />}
 
-        <Suspense fallback={<p>Loading</p>}>
-          <DashboardPhotoList />
-        </Suspense>
-      </section>
-    </>
+      <Suspense fallback={<p>Loading</p>}>
+        <DashboardPhotoList />
+      </Suspense>
+    </section>
   )
 }
 

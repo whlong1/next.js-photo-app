@@ -5,8 +5,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 // Components
-import NewPhotoForm from "../../components/NewPhotoDialog/NewPhotoForm"
-import PhotoUploader from "../../components/NewPhotoDialog/PhotoUploader"
+import NewPhotoForm from "../../components/UploadModal/NewPhotoForm"
+import PhotoUploader from "../../components/UploadModal/PhotoUploader"
 
 // Types
 import { InputChangeEvent } from "@/types/events"
@@ -31,7 +31,7 @@ const initialFileUploadData: FileUploadData = {
 	fileSize: 0,
 }
 
-const NewPhoto = () => {
+const NewPhotoPage = () => {
 	const router = useRouter()
 	const [msg, setMsg] = useState("")
 	const [previewURL, setPreviewURL] = useState("")
@@ -108,4 +108,4 @@ const NewPhoto = () => {
 	)
 }
 
-export default NewPhoto
+export default NewPhotoPage

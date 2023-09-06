@@ -32,7 +32,7 @@ const initialFileUploadData: FileUploadData = {
   fileSize: 0,
 }
 
-const NewPhotoDialog = () => {
+const UploadModal = () => {
   const router = useRouter()
   const [msg, setMsg] = useState("")
   const [previewURL, setPreviewURL] = useState("")
@@ -91,13 +91,13 @@ const NewPhotoDialog = () => {
   console.log("Message:", msg)
 
   return (
-    <div className="w-full h-full bg-black bg-opacity-50 absolute inset-0 z-50 flex justify-center p-4">
-      <div className="bg-white border rounded w-full">
+    <div className="w-full h-full bg-black bg-opacity-50 absolute inset-0 z-50 flex justify-center p-20">
+      <div className="flex flex-col bg-white border rounded w-full max-h-[500px] max-w-[900px]">
         <header className="flex justify-between p-4 border-b">
-          <h1>New Photo</h1>
+          <h1>Upload Files</h1>
           <Link href="/dashboard/photos">X</Link>
         </header>
-        <section className="flex items-stretch h-[400px]">
+        <section className="flex flex-grow">
           <PhotoUploader
             previewURL={previewURL}
             file={fileUploadData.file}
@@ -115,4 +115,4 @@ const NewPhotoDialog = () => {
   )
 }
 
-export default NewPhotoDialog
+export default UploadModal

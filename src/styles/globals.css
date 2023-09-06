@@ -98,7 +98,6 @@ body > footer {
     text-overflow: ellipsis;
   }
 
-
   .form {
     @apply h-full flex flex-col p-4;
   }

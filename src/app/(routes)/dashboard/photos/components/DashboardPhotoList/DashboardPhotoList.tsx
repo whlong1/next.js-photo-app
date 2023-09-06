@@ -7,7 +7,7 @@ import PhotoRow from "../PhotoRow/PhotoRow"
 // Actions
 import { getMyPhotos } from "@/actions/actions"
 
-const PhotoList = async() => {
+const DashboardPhotoList = async () => {
   const photos: Photo[] = await getMyPhotos()
   return (
     photos.map((photo) => (
@@ -16,4 +16,4 @@ const PhotoList = async() => {
   )
 }
 
-export default PhotoList
+export default DashboardPhotoList

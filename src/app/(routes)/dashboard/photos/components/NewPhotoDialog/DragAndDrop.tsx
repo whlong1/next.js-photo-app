@@ -2,17 +2,18 @@
 import { useState } from "react"
 import Image from "next/image"
 
+import FileInput from "./FileInput";
+
 interface DragAndDropProps {
-  children: JSX.Element;
   isFileSelected: boolean;
   selectAndPreview: (file: File) => void;
 }
 
-const DragAndDrop = ({ children, isFileSelected, selectAndPreview }: DragAndDropProps) => {
+const DragAndDrop = ({ isFileSelected, selectAndPreview }: DragAndDropProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
-  const dragActiveStyle = isDragActive ? "bg-green-100" : "bg-red-200"
+  const dragActiveStyle = isDragActive ? "bg-slate-300" : "bg-slate-200"
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement | HTMLLabelElement>) => {
     e.preventDefault()
     if (!e.dataTransfer.items || e.dataTransfer.items.length !== 1) return
     const file = e.dataTransfer.items[0].getAsFile()
@@ -33,13 +34,19 @@ const DragAndDrop = ({ children, isFileSelected, selectAndPreview }: DragAndDrop
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
       onDragEnter={(e) => { e.preventDefault(); setIsDragActive(true) }}
-      onDragLeave={(e) => { e.preventDefault(); setIsDragActive(false) }}
+      onDragLeave={(e) => { console.log("Leaving"); e.preventDefault(); setIsDragActive(false) }}
       className={`w-full h-full flex flex-col center-items rounded ${dragActiveStyle}`}
     >
-      <Image src="/assets/icons/upload.svg" alt="Arrow Cloud" width="64" height="64" />
-      <p className="big-bold text-white mt-4">DRAG & DROP</p>
-      <p className="text-white font-semibold">OR</p>
-      {children}
+      <Image
+        width="64"
+        height="64"
+        alt="Arrow Cloud"
+        src="/assets/icons/upload.svg"
+        className="pointer-events-none drop-shadow"
+      />
+      <p className="big-bold text-white mt-3 pointer-events-none drop-shadow">DRAG & DROP</p>
+      <p className="text-white text-base font-semibold mb-3 pointer-events-none drop-shadow">OR</p>
+      <FileInput selectAndPreview={selectAndPreview} handleDrop={handleDrop} setIsDragActive={setIsDragActive} />
     </div>
   )
 }

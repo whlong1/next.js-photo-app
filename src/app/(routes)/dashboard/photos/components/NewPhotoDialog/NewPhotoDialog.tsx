@@ -5,6 +5,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 // Components
+import Link from "next/link"
 import NewPhotoForm from "./NewPhotoForm"
 import PhotoUploader from "./PhotoUploader"
 
@@ -45,7 +46,6 @@ const NewPhotoDialog = () => {
       return
     }
     const res = await createAndUploadPhoto(fileUploadData, photoFormData)
-    console.log("Response:", res)
     handleFormReset()
     handleUploadReset()
     router.refresh()
@@ -87,30 +87,30 @@ const NewPhotoDialog = () => {
     })
   }
 
-  console.log(photoFormData)
-
   // Display message in modal, form or drag and drop?
   console.log("Message:", msg)
 
   return (
-    <div className="bg-white border rounded">
-      <header className="flex justify-between p-4 border-b">
-        <h1>New Photo</h1>
-        <button>X</button>
-      </header>
-      <section className="flex items-stretch h-[400px]">
-        <PhotoUploader
-          previewURL={previewURL}
-          file={fileUploadData.file}
-          selectAndPreview={selectAndPreview}
-          handleUploadReset={handleUploadReset}
-        />
-        <NewPhotoForm
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          photoFormData={photoFormData}
-        />
-      </section>
+    <div className="w-full h-full bg-black bg-opacity-50 absolute inset-0 z-50 flex justify-center p-4">
+      <div className="bg-white border rounded w-full">
+        <header className="flex justify-between p-4 border-b">
+          <h1>New Photo</h1>
+          <Link href="/dashboard/photos">X</Link>
+        </header>
+        <section className="flex items-stretch h-[400px]">
+          <PhotoUploader
+            previewURL={previewURL}
+            file={fileUploadData.file}
+            selectAndPreview={selectAndPreview}
+            handleUploadReset={handleUploadReset}
+          />
+          <NewPhotoForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            photoFormData={photoFormData}
+          />
+        </section>
+      </div>
     </div>
   )
 }

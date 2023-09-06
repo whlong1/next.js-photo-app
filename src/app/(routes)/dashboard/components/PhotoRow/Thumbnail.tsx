@@ -19,7 +19,7 @@ const Thumbnail = ({ photo }: { photo: Photo }) => {
   // as it's directly fetched from the source (S3)
 
   return (
-    <div className="bg-slate-200 relative w-12 h-12 border rounded mr-4" >
+    <div className="thumbnail">
       <Image
         fill={true}
         unoptimized={true}

@@ -170,4 +170,8 @@ body>footer {
   .header-element {
     @apply flex text-xs text-gray-400 px-3 py-1 items-center rounded border border-gray-300 justify-start bg-white bg-opacity-40;
   }
+
+  .thumbnail {
+    @apply bg-slate-200 relative w-12 h-12 border rounded mr-4;
+  }
 }

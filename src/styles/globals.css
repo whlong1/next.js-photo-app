@@ -155,8 +155,11 @@ body>footer {
 
   .side-nav {
     @apply 
-    w-[20rem] border-r border-[var(--border-color)] 
-    hidden md:flex md:flex-col;
+    w-[20rem] 
+    md:flex md:flex-col
+    border-r border-[var(--border-color)] 
+    hidden
+    ;
   }
 
   .nav-item {

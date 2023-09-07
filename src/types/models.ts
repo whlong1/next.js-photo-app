@@ -36,4 +36,7 @@ export interface Photo {
 
   authorId: string;
   authorName: string;
+
+  // New
+  aspectRatio: string | null;
 }

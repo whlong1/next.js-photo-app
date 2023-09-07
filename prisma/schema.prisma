@@ -60,6 +60,9 @@ model Photo {
   width Int?
   height Int?
 
+  // New
+  aspectRatio String?
+
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
   isUploaded Boolean @default(false)

@@ -20,6 +20,9 @@ export interface FileUploadData {
   fileName: string;
   mimeType: string;
   fileSize: number;
+
+  // New
+  aspectRatio?: string;
 }
 
 export interface VideoFormData {

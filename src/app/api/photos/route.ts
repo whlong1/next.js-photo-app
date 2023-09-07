@@ -14,7 +14,7 @@ const POST = async (req: NextRequest) => {
     // TODO Add type
     const requestBody = await req.json()
 
-    // Create a new photo entry in database.
+    // Creates a new photo entry in database.
     // The uploaded image source file will be stored in the S3 bucket 
     // with a name (Key) matching the id (PK) of the new photo record. 
     const newPhoto: Photo = await prisma.photo.create({
@@ -31,12 +31,16 @@ const POST = async (req: NextRequest) => {
 
     if (!newPhoto) { throw new Error("Something went wrong!") }
 
-    // Generate presigned PutURL for uploading on client side:
-    const putURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType)
+    // Generates a presigned PutURL for uploading the Fullsize photo:
+    const fullsizePutURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType, "fullsize")
+    // Generates a presigned PutURL for uploading the Thumbnail photo:
+    const thumbnailPutURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType, "thumbnail")
+    // In both scenarios, the actual upload occurs on the client side using the URLs generated here
 
+    // Revalidates cache
     revalidateTag("photos")
 
-    return NextResponse.json({ putURL, newPhotoId: newPhoto.id }, { status: 200 })
+    return NextResponse.json({ fullsizePutURL, thumbnailPutURL, newPhotoId: newPhoto.id }, { status: 200 })
   } catch (error) {
     console.log(error)
     throw error

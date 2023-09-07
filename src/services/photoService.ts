@@ -22,8 +22,8 @@ const uploadFileToS3Bucket = async (file: File, putUrl: string) => {
 // Creates the new Photo record and generates the putURL for client side upload.
 export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photoFormData: PhotoFormData) => {
   try {
-    const { file, ...fileMetaData } = fileUploadData
-    if (!file) throw new Error("File not found!")
+    const { fullsize, thumbnail, ...fileMetaData } = fileUploadData
+    if (!fullsize || !thumbnail) throw new Error("File not found!")
 
     const res = await fetch(`${BASE_URL}/api/photos`, {
       method: "POST",
@@ -35,14 +35,17 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
     })
 
     if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`)
-    const { putURL, newPhotoId } = await res.json()
-    if (!putURL) throw new Error("A problem has occured with a presigned URL")
 
-    // To reduce server load, file is uploaded to S3 bucket from client.
-    const uploadStatus = await uploadFileToS3Bucket(file, putURL)
-    console.log("Upload Res:", uploadStatus)
+    const { fullsizePutURL, thumbnailPutURL, newPhotoId } = await res.json()
+    if (!fullsizePutURL || !thumbnailPutURL) {
+      throw new Error("A problem has occured with a presigned URL")
+    }
 
-    return { uploadStatus, newPhotoId }
+    // To reduce server load, files are uploaded directly to S3 bucket.
+    await uploadFileToS3Bucket(fullsize, fullsizePutURL)
+    await uploadFileToS3Bucket(thumbnail, thumbnailPutURL)
+
+    return { newPhotoId }
   } catch (error) {
     throw error
   }

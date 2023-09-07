@@ -28,11 +28,10 @@ const fetchAuthenticatedUserPhotos = async (): Promise<Photo[]> => {
   }
 }
 
-
 // Helper
 const appendPublicURLs = (photos: Photo[]): Photo[] => {
   return photos.map((photo) => {
-    return { ...photo, url: getPublicURL(photo.id) }
+    return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "thumbnail") }
   })
 }
 

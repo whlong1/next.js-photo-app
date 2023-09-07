@@ -1,4 +1,6 @@
 import { Photo } from "@/types/models"
+import { SizeType } from "@/types/types"
+import { FILE_EXTENSION_LOOKUP } from "./constants"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 
@@ -16,10 +18,13 @@ const client = new S3Client({
   },
 })
 
-export const getPublicURL = (photoId: string) => {
-  return `https://${process.env.BUCKET_NAME}.s3.${process.env.REGION}.amazonaws.com/${photoId}`
+export const getPublicURL = (photoId: string, mimeType: string, size: SizeType) => {
+  const fileExtension = FILE_EXTENSION_LOOKUP[mimeType]
+  const filePath = `${photoId}/${size}.${fileExtension}`
+  return `https://${process.env.BUCKET_NAME}.s3.${process.env.REGION}.amazonaws.com/${filePath}`
 }
 
+// TODO Update for new file path convention
 export const getPhotosWithPresignedURL = async (photos: Photo[]) => {
   return await Promise.all(photos.map(async (photo) => {
     // Temporary presigned URL:
@@ -28,6 +33,7 @@ export const getPhotosWithPresignedURL = async (photos: Photo[]) => {
   }))
 }
 
+// TODO Update for new file path convention
 export const generatePresignedGetURL = async (photoId: string) => {
   // GetObjectCommand: used to generate a pre-signed URL for viewing.
   const getCommand = new GetObjectCommand({
@@ -38,11 +44,18 @@ export const generatePresignedGetURL = async (photoId: string) => {
   return await getSignedUrl(client, getCommand, { expiresIn: 600 })
 }
 
-export const generatePresignedPutURL = async (photoId: string, fileType: string) => {
+export const generatePresignedPutURL = async (photoId: string, mimeType: string, size: SizeType) => {
+  // The photoId, mimeType, and size are used to generate the objectKey for the uploaded file.
+  // The photoId pseudo "directory" will contain two files: "fullsize" and "thumbnail".
+  // The FILE_EXTENSION_LOOKUP can be modified to handle additional mimeTypes.
+
+  // Example objectKey: 03f82/fullsize.jpg
+  const objectKey = `${photoId}/${size}.${FILE_EXTENSION_LOOKUP[mimeType]}`
+
   // PutObjectCommand: used to generate a pre-signed URL for uploading
   const putCommand = new PutObjectCommand({
-    Key: photoId,
-    ContentType: fileType,
+    Key: objectKey,
+    ContentType: mimeType,
     Bucket: process.env.BUCKET_NAME,
   })
   // Generate pre-signed URL for PUT request

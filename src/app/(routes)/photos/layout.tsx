@@ -16,10 +16,12 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
       <>
         <FilterSection
           queryKey="category"
+          sectionTitle="Category"
           queryValues={PHOTO_CATEGORIES}
         />
         <FilterSection
-          queryKey="Aspect Ratio"
+          queryKey="aspectRatio"
+          sectionTitle="Aspect Ratio"
           queryValues={ASPECT_RATIOS}
         />
       </>

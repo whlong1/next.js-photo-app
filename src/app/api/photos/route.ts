@@ -59,7 +59,7 @@ const GET = async (req: NextRequest) => {
     // Note, getPhotosWithPresignedURL() is more secure,
     // but the returned photos have been marked as public by the author.
     const photosWithPublicUrl = photos.map((photo) => {
-      return { ...photo, url: getPublicURL(photo.id) }
+      return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "thumbnail") }
     })
 
     return NextResponse.json(photosWithPublicUrl)

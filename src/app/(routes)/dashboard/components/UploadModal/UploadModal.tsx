@@ -17,7 +17,7 @@ import { PhotoFormData, FileUploadData } from "@/types/forms"
 import { createAndUploadPhoto } from "@/services/photoService"
 
 // Helpers
-import { getClosestAspectRatio } from "@/lib/helpers"
+import { getClosestAspectRatio, compressImage } from "@/lib/helpers"
 
 // Properties independent from file upload:
 const initialPhotoFormData: PhotoFormData = {
@@ -31,11 +31,13 @@ const initialPhotoFormData: PhotoFormData = {
 const initialFileUploadData: FileUploadData = {
   width: 0,
   height: 0,
-  file: null,
   fileName: "",
   mimeType: "",
   fileSize: 0,
   aspectRatio: "",
+
+  fullsize: null,
+  thumbnail: null,
 }
 
 const UploadModal = () => {
@@ -47,7 +49,7 @@ const UploadModal = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!fileUploadData.file) {
+    if (!fileUploadData.fullsize) {
       setMsg("Please select a file to upload!")
       return
     }
@@ -61,24 +63,22 @@ const UploadModal = () => {
     const image = new Image()
     const objectUrl = URL.createObjectURL(file)
     image.src = objectUrl
-    image.onload = () => setFileUploadData((current) => {
-      return {
-        ...current,
-        width: image.height,
-        height: image.height,
-        aspectRatio: getClosestAspectRatio(image.width, image.height)
-      }
-    })
-    setFileUploadData((current) => {
-      return {
-        ...current,
-        file: file,
+    image.onload = async () => {
+      const aspectRatio = getClosestAspectRatio(image.width, image.height)
+      const thumbnail = await compressImage(image, file.name, file.type)
+      const uploadObject = {
+        fullsize: file,
+        thumbnail: thumbnail,
         fileName: file.name,
         mimeType: file.type,
         fileSize: file.size,
+        width: image.width,
+        height: image.height,
+        aspectRatio: aspectRatio,
       }
-    })
-    setPreviewURL(objectUrl)
+      setPreviewURL(objectUrl)
+      setFileUploadData(uploadObject)
+    }
   }
 
   const handleFormReset = () => {
@@ -111,7 +111,7 @@ const UploadModal = () => {
         <section className="flex flex-grow flex-col md:flex-row">
           <PhotoUploader
             previewURL={previewURL}
-            file={fileUploadData.file}
+            file={fileUploadData.fullsize}
             selectAndPreview={selectAndPreview}
             handleUploadReset={handleUploadReset}
           />

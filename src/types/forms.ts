@@ -14,15 +14,17 @@ export interface PhotoFormData {
 }
 
 export interface FileUploadData {
-  file: File | null;
-  width: number;
-  height: number;
+  fullsize: File | null;
+  thumbnail: File | null;
+
   fileName: string;
   mimeType: string;
   fileSize: number;
 
-  // New
-  aspectRatio?: string;
+  width: number;
+  height: number;
+  aspectRatio: string;
+  
 }
 
 export interface VideoFormData {
@@ -41,7 +43,6 @@ export interface VideoFormData {
   // updatedAt?: Date;
   // createdAt?: Date;
 }
-
 
 export interface ImageAttributes {
   width: number;

@@ -19,6 +19,7 @@ interface PrismaQueryObject {
   OR?: ORCondition["OR"];
 }
 
+// Global constant?
 const validParams = {
   year: true,
   keyword: true,
@@ -26,6 +27,7 @@ const validParams = {
   location: true,
   authorName: true,
   description: true,
+  aspectRatio: true,
 }
 
 function isEmpty(params: SearchParams) {
@@ -77,7 +79,6 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   return { isPublic: true, ...rest, ...(keyword && getORCondition(keyword)) }
 }
 
-
 // Source:
 // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
 export const formatBytes = (bytes: number) => {
@@ -89,7 +90,6 @@ export const formatBytes = (bytes: number) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
-
 
 export const getClosestAspectRatio = (width: number, height: number) => {
   // Might be helpful as a global constant:

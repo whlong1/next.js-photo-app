@@ -89,3 +89,25 @@ export const formatBytes = (bytes: number) => {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
+
+
+export const getClosestAspectRatio = (width: number, height: number) => {
+  // Might be helpful as a global constant:
+  const commonAspectRatios = [
+    { ratioVal: 1, ratioStr: "1:1" },
+    { ratioVal: 1.5, ratioStr: "3:2" },
+    { ratioVal: 1.3, ratioStr: "4:3" },
+    { ratioVal: 1.7, ratioStr: "16:9" },
+    { ratioVal: 0.56, ratioStr: "9:16" },
+  ]
+
+  const targetRatio = width / height
+
+  const closestRatio = commonAspectRatios.reduce((acc, curr, idx) => {
+    const newDifference = Math.abs(targetRatio - curr.ratioVal)
+    const oldDifference = Math.abs(targetRatio - acc.ratioVal)
+    return newDifference < oldDifference ? curr : acc
+  })
+
+  return closestRatio.ratioStr
+}

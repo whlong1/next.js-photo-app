@@ -16,6 +16,10 @@ import { PhotoFormData, FileUploadData } from "@/types/forms"
 // Services
 import { createAndUploadPhoto } from "@/services/photoService"
 
+// Helpers
+import { getClosestAspectRatio } from "@/lib/helpers"
+
+// Properties independent from file upload:
 const initialPhotoFormData: PhotoFormData = {
   category: "",
   location: "",
@@ -23,6 +27,7 @@ const initialPhotoFormData: PhotoFormData = {
   isPublic: true,
 }
 
+// Properties that should be reset on upload:
 const initialFileUploadData: FileUploadData = {
   width: 0,
   height: 0,
@@ -30,6 +35,7 @@ const initialFileUploadData: FileUploadData = {
   fileName: "",
   mimeType: "",
   fileSize: 0,
+  aspectRatio: "",
 }
 
 const UploadModal = () => {
@@ -56,7 +62,12 @@ const UploadModal = () => {
     const objectUrl = URL.createObjectURL(file)
     image.src = objectUrl
     image.onload = () => setFileUploadData((current) => {
-      return { ...current, width: image.height, height: image.height }
+      return {
+        ...current,
+        width: image.height,
+        height: image.height,
+        aspectRatio: getClosestAspectRatio(image.width, image.height)
+      }
     })
     setFileUploadData((current) => {
       return {

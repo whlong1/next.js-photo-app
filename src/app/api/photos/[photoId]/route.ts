@@ -54,18 +54,23 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
 
     revalidateTag("photos")
 
+    // Remove fullsize object from S3 bucket:
     const deleteFullsizeResponse = await client.send(deleteFullsizeCommand)
+    // Remove thumbnail object from S3 bucket:
     const deleteThumbnailResponse = await client.send(deleteThumbnailCommand)
-    const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 
-    return NextResponse.json({
-      ...deleteFullsizeResponse,
-      ...deleteThumbnailResponse,
-      ...prismaDeleteResponse
-    })
+    const fullsizeStatus = deleteFullsizeResponse['$metadata'].httpStatusCode !== 204
+    const thumbnailStatus = deleteThumbnailResponse['$metadata'].httpStatusCode !== 204
+
+    if (fullsizeStatus) throw new Error("Failed to delete fullsize photo file")
+    if (thumbnailStatus) throw new Error("Failed to delete thumbnail photo file")
+
+    const deletedPhotoRecord = await prisma.photo.delete({ where: { id: photoId } })
+
+    return NextResponse.json({ msg: "Record removed", photoId: deletedPhotoRecord.id })
   } catch (error) {
     console.log(error)
-    throw error
+    return NextResponse.json({ msg: "Something went wrong" }, { status: 500 })
   }
 }
 

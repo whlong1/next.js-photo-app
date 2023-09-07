@@ -27,6 +27,7 @@ const POST = async (req: NextRequest) => {
     })
     //TODO Setting isUploaded to true here assumes the upload will be successful.
     //TODO Add an additional check to set it back to false if the upload fails.
+    //TODO Issue being, upload occurs in the client.
 
     if (!newPhoto) { throw new Error("Something went wrong!") }
 
@@ -45,6 +46,7 @@ const POST = async (req: NextRequest) => {
 const GET = async (req: NextRequest) => {
   try {
     const prismaQueryObject = createPrismaQueryFromURL(req.url)
+
     const photos: Photo[] = await prisma.photo.findMany({
       where: prismaQueryObject,
       orderBy: { createdAt: "desc" }

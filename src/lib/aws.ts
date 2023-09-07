@@ -38,19 +38,21 @@ export const generatePresignedGetURL = async (photoId: string) => {
   return await getSignedUrl(client, getCommand, { expiresIn: 600 })
 }
 
-const fileExtensionLookup: { [key: string]: string } = {
-  "image/jpeg": "jpg", "image/png": "png",
-}
+
 
 type SizeType = "fullsize" | "thumbnail"
 export const generatePresignedPutURL = async (photoId: string, mimeType: string, size: SizeType) => {
-  // The photoId is treated as a directory in the S3 bucket.
-  // The photoId directory contains a "fullsize" photo and a smaller thumbnail version.
+  // The photoId, mimeType, and size are used to generate the objectKey for the uploaded file.
+  // The photoId pseudo "directory" will contain two files: "fullsize" and "thumbnail".
+  
   // The fileExtensionLookup can be modified to handle additional mimeTypes.
+  const fileExtensionLookup: { [key: string]: string } = {
+    "image/jpeg": "jpg", "image/png": "png",
+  }
 
-  const objectKey = `${photoId}/${size}.${fileExtensionLookup[mimeType]}`
   // Example objectKey: 03f82/fullsize.jpg
-
+  const objectKey = `${photoId}/${size}.${fileExtensionLookup[mimeType]}`
+  
   // PutObjectCommand: used to generate a pre-signed URL for uploading
   const putCommand = new PutObjectCommand({
     Key: objectKey,

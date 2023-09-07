@@ -17,3 +17,7 @@ export const ASPECT_RATIOS = [
   "16:9",
   "9:16",
 ]
+
+export const FILE_EXTENSION_LOOKUP: { [key: string]: string } = {
+  "image/jpeg": "jpg", "image/png": "png",
+}

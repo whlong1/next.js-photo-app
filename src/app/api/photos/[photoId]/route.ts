@@ -4,6 +4,7 @@ import { revalidateTag } from "next/cache"
 import { currentUser } from "@clerk/nextjs"
 import { NextRequest, NextResponse } from "next/server"
 import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3"
+import { FILE_EXTENSION_LOOKUP } from "@/lib/constants"
 
 // Dynamic Route Segments
 // https://nextjs.org/docs/app/building-your-application/routing/route-handlers
@@ -39,17 +40,29 @@ const DELETE = async (req: NextRequest, options: RequestOptions) => {
     if (!photo) return NextResponse.json({ msg: "Resource not found" }, { status: 404 })
     if (photo.authorId !== user.id) return NextResponse.json({ msg: "Unauthorized" }, { status: 401 })
 
-    const deleteCommand = new DeleteObjectCommand({
-      Key: photoId,
+    const fileExtension = FILE_EXTENSION_LOOKUP[photo.mimeType]
+
+    const deleteFullsizeCommand = new DeleteObjectCommand({
       Bucket: process.env.BUCKET_NAME,
+      Key: `${photoId}/fullsize.${fileExtension}`,
+    })
+
+    const deleteThumbnailCommand = new DeleteObjectCommand({
+      Bucket: process.env.BUCKET_NAME,
+      Key: `${photoId}/thumbnail.${fileExtension}`,
     })
 
     revalidateTag("photos")
 
-    const s3DeleteResponse = await client.send(deleteCommand)
+    const deleteFullsizeResponse = await client.send(deleteFullsizeCommand)
+    const deleteThumbnailResponse = await client.send(deleteThumbnailCommand)
     const prismaDeleteResponse = await prisma.photo.delete({ where: { id: photoId } })
 
-    return NextResponse.json({ ...s3DeleteResponse, ...prismaDeleteResponse })
+    return NextResponse.json({
+      ...deleteFullsizeResponse,
+      ...deleteThumbnailResponse,
+      ...prismaDeleteResponse
+    })
   } catch (error) {
     console.log(error)
     throw error

@@ -46,25 +46,37 @@ model Profile {
 model Photo {
   id String @id @default(uuid())
 
+  // Optional 
   year     Int?
   title    String?
   location String?
   category String?
   description String?
 
-  // Required 
+  // File
   fileSize Int
   fileName String
   mimeType String
+
+  // Size
   width Int
   height Int
   aspectRatio String
 
+  // Color
+  rgb String
+  hex String
+  isDark Boolean
+  hueDegree Int
+  dominantColor String
+
+  // Meta
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
   isUploaded Boolean @default(false)
   isPublic Boolean @default(false)
 
-  authorId String // CLERK
-  authorName String // CLERK
+  // Clerk Auth
+  authorId String
+  authorName String
 }

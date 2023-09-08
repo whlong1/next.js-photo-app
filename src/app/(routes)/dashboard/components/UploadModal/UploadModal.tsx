@@ -17,7 +17,7 @@ import { PhotoFormData, FileUploadData } from "@/types/forms"
 import { createAndUploadPhoto } from "@/services/photoService"
 
 // Helpers
-import { getClosestAspectRatio, compressImage } from "@/lib/helpers"
+import { getClosestAspectRatio, compressImage, getImageColorDetails } from "@/lib/helpers"
 
 // Properties independent from file upload:
 const initialPhotoFormData: PhotoFormData = {
@@ -35,6 +35,12 @@ const initialFileUploadData: FileUploadData = {
   mimeType: "",
   fileSize: 0,
   aspectRatio: "",
+
+  rgb: "",
+  hex: "",
+  hueDegree: 0,
+  isDark: false,
+  dominantColor: "",
 
   fullsize: null,
   thumbnail: null,
@@ -64,9 +70,16 @@ const UploadModal = () => {
     const objectUrl = URL.createObjectURL(file)
     image.src = objectUrl
     image.onload = async () => {
-      const aspectRatio = getClosestAspectRatio(image.width, image.height)
+      const {
+        rgb,
+        hex,
+        isDark,
+        hueDegree,
+        dominantColor,
+      } = getImageColorDetails(image)
       const thumbnail = await compressImage(image, file.name, file.type)
-      const uploadObject = {
+      const aspectRatio = getClosestAspectRatio(image.width, image.height)
+      const uploadObject: FileUploadData = {
         fullsize: file,
         thumbnail: thumbnail,
         fileName: file.name,
@@ -75,6 +88,11 @@ const UploadModal = () => {
         width: image.width,
         height: image.height,
         aspectRatio: aspectRatio,
+        rgb: rgb,
+        hex: hex,
+        isDark: isDark,
+        hueDegree: hueDegree,
+        dominantColor: dominantColor,
       }
       setPreviewURL(objectUrl)
       setFileUploadData(uploadObject)

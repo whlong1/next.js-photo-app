@@ -17,23 +17,34 @@ export interface Photo {
   location: string | null;
   description: string | null;
 
-  // Required properties:
+  // File
   fileSize: number;
   fileName: string;
   mimeType: string;
+
+  // Size
   width: number;
   height: number;
   aspectRatio: string;
 
+  // Color
+  rgb: string;
+  hex: string;
+  isDark: boolean;
+  hueDegree: number;
+  dominantColor: string;
+
+  // Meta
+  updatedAt: Date;
+  createdAt: Date;
+  isPublic: boolean;
+  isUploaded: boolean;
+
+  // Clerk auth
+  authorId: string;
+  authorName: string;
+
   // The url prop is temporarily appended on server and not present on data
   // returned from the initial Prisma operation
   url?: string | null;
-
-  updatedAt: Date;
-  createdAt: Date;
-  isUploaded: boolean;
-  isPublic: boolean;
-
-  authorId: string;
-  authorName: string;
 }

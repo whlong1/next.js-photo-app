@@ -24,7 +24,12 @@ export interface FileUploadData {
   width: number;
   height: number;
   aspectRatio: string;
-  
+
+  rgb: string;
+  hex: string;
+  isDark: boolean;
+  hueDegree: number;
+  dominantColor: string;
 }
 
 export interface VideoFormData {

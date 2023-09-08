@@ -17,10 +17,12 @@ export interface Photo {
   location: string | null;
   description: string | null;
 
+  // File
   fileSize: number;
   fileName: string;
   mimeType: string;
 
+  // Size
   width: number;
   height: number;
   aspectRatio: string;
@@ -32,11 +34,13 @@ export interface Photo {
   hueDegree: number;
   dominantColor: string;
 
+  // Meta
   updatedAt: Date;
   createdAt: Date;
-  isUploaded: boolean;
   isPublic: boolean;
+  isUploaded: boolean;
 
+  // Clerk auth
   authorId: string;
   authorName: string;
 

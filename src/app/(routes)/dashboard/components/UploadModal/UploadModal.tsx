@@ -17,7 +17,7 @@ import { PhotoFormData, FileUploadData } from "@/types/forms"
 import { createAndUploadPhoto } from "@/services/photoService"
 
 // Helpers
-import { getClosestAspectRatio, compressImage } from "@/lib/helpers"
+import { getClosestAspectRatio, compressImage, getAverageColor } from "@/lib/helpers"
 
 // Properties independent from file upload:
 const initialPhotoFormData: PhotoFormData = {
@@ -66,6 +66,8 @@ const UploadModal = () => {
     image.onload = async () => {
       const aspectRatio = getClosestAspectRatio(image.width, image.height)
       const thumbnail = await compressImage(image, file.name, file.type)
+      const color = getAverageColor(image)
+      console.log(color)
       const uploadObject = {
         fullsize: file,
         thumbnail: thumbnail,

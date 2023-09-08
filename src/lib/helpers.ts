@@ -1,3 +1,6 @@
+// Libraries
+import { FastAverageColor } from "fast-average-color"
+
 // Types
 import { SearchParams } from "@/types/params"
 
@@ -131,4 +134,52 @@ export const compressImage = async (image: HTMLImageElement, fileName: string, m
   const thumbnailFile = new File([thumbnailBlob], fileName, { type: mimeType })
 
   return thumbnailFile
+}
+
+export const getAverageColor = (image: HTMLImageElement) => {
+  const fac = new FastAverageColor()
+  const { value } = fac.getColor(image)
+  return getColorHue(value[0], value[1], value[2])
+}
+
+
+// https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
+function getColorHue(r: number, g: number, b: number) {
+  r /= 255
+  g /= 255
+  b /= 255
+
+  let hue = 0
+  let cmin = Math.min(r, g, b)
+  let cmax = Math.max(r, g, b)
+  let delta = cmax - cmin
+
+  if (delta == 0) {
+    hue = 0
+  } else if (cmax == r) {
+    hue = ((g - b) / delta) % 6
+  } else if (cmax == g) {
+    hue = (b - r) / delta + 2
+  } else {
+    hue = (r - g) / delta + 4
+  }
+
+  hue = Math.round(hue * 60)
+  if (hue < 0) hue += 360
+
+  if (hue >= 0 && hue <= 15) {
+    return "red"
+  } else if (hue > 15 && hue <= 45) {
+    return "orange"
+  } else if (hue > 45 && hue <= 70) {
+    return "yellow"
+  } else if (hue > 70 && hue <= 170) {
+    return "green"
+  } else if (hue > 170 && hue <= 260) {
+    return "blue"
+  } else if (hue > 260 && hue <= 320) {
+    return "purple"
+  } else {
+    return "red"
+  }
 }

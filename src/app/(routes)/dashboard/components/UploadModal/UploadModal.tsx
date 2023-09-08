@@ -36,6 +36,12 @@ const initialFileUploadData: FileUploadData = {
   fileSize: 0,
   aspectRatio: "",
 
+  rgb: "",
+  hex: "",
+  hueDegree: 0,
+  isDark: false,
+  dominantColor: "",
+
   fullsize: null,
   thumbnail: null,
 }
@@ -73,7 +79,7 @@ const UploadModal = () => {
       } = getImageColorDetails(image)
       const thumbnail = await compressImage(image, file.name, file.type)
       const aspectRatio = getClosestAspectRatio(image.width, image.height)
-      const uploadObject = {
+      const uploadObject: FileUploadData = {
         fullsize: file,
         thumbnail: thumbnail,
         fileName: file.name,
@@ -82,6 +88,11 @@ const UploadModal = () => {
         width: image.width,
         height: image.height,
         aspectRatio: aspectRatio,
+        rgb: rgb,
+        hex: hex,
+        isDark: isDark,
+        hueDegree: hueDegree,
+        dominantColor: dominantColor,
       }
       setPreviewURL(objectUrl)
       setFileUploadData(uploadObject)

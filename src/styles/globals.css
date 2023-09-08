@@ -106,10 +106,6 @@ body>footer {
     @apply ml-4 px-3 py-1 flex items-center text-xs text-gray-500 border rounded border-gray-300 bg-white bg-opacity-40;
   }
 
-  .thumbnail {
-    @apply w-8 h-8 flex-shrink-0 rounded;
-  }
-
   .single-line-truncate {
     @apply w-full overflow-hidden break-all;
     display: -webkit-box;
@@ -173,7 +169,19 @@ body>footer {
     @apply flex text-xs text-gray-400 px-3 py-1 items-center rounded border border-gray-300 justify-start bg-white bg-opacity-40;
   }
 
+  .image-base {
+    @apply flex-shrink-0 border rounded relative transition-colors duration-500 ease-in-out;
+  }
+
   .thumbnail {
-    @apply bg-slate-200 relative w-12 h-12 border rounded mr-4;
+    @apply w-12 h-12 mr-4;
+  }
+
+  .preview {
+    @apply w-full h-full;
+  }
+
+  .fullscreen {
+    @apply w-full h-full;
   }
 }

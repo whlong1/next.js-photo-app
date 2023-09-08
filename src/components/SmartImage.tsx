@@ -9,7 +9,7 @@ import { Photo } from "@/types/models"
 // Components
 import Image from "next/image"
 
-// Credit for the smooth Image loading idea:
+// Credit for the initial smooth loading Image idea:
 // https://www.youtube.com/watch?v=GG66vQgc1Vg&ab_channel=SakuraDev
 
 // Doc on hexadecimal color code transparency:
@@ -18,11 +18,17 @@ import Image from "next/image"
 // Note: Including the unoptimized prop on Image seems to improve loading time
 // Might be due to the fact that it's directly fetched from the source (S3)
 
-const Thumbnail = ({ photo }: { photo: Photo }) => {
+interface SmartImageProps {
+  photo: Photo; displayMode: "thumbnail" | "preview" | "fullscreen";
+}
+
+const SmartImage = ({ photo, displayMode }: SmartImageProps) => {
   const { hex } = photo
   const imageInfo = photo.url
-    ? { src: photo.url, alt: "Thumbnail" }
+    ? { src: photo.url, alt: "Preview" }
     : { src: "/assets/placeholder.png", alt: "No image source" }
+
+  const containerClass = `image-base ${displayMode}`
 
   // Default of #e2e8f0 is equivalent to slate-200:
   const [backgroundColor, setBackgroundColor] = useState("#e2e8f0")
@@ -30,9 +36,10 @@ const Thumbnail = ({ photo }: { photo: Photo }) => {
   useEffect(() => { setBackgroundColor(`${hex}99`) }, [hex])
 
   return (
-    <div className="thumbnail transition-colors duration-500 ease-in-out" style={{ backgroundColor: backgroundColor }}>
+    <div className={containerClass} style={{ backgroundColor: backgroundColor }}>
       <Image
         fill={true}
+        priority={true}
         unoptimized={true}
         src={imageInfo.src}
         alt={imageInfo.alt}
@@ -44,4 +51,4 @@ const Thumbnail = ({ photo }: { photo: Photo }) => {
   )
 }
 
-export default Thumbnail
+export default SmartImage

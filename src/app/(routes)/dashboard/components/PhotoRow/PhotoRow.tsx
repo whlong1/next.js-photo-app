@@ -7,9 +7,9 @@ import { Photo } from "@/types/models"
 import { formatBytes } from "@/lib/helpers"
 
 // Components
-import Thumbnail from "./Thumbnail"
 import DeleteRowButton from "./DeleteRowButton"
 import PrivacyDropdown from "./PrivacyDropdown"
+import SmartImage from "@/components/SmartImage"
 
 // Hooks
 import { useMutationTransition } from "@/hooks/useMutationTransition"
@@ -21,7 +21,7 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
 
   return (
     <div className={`row-container ${transitionStyle}`}>
-      <Thumbnail photo={photo} />
+      <SmartImage photo={photo} displayMode="thumbnail" />
 
       <div className="flex flex-col text-xs">
         <p className="max-w-[360px] single-line-truncate">{photo.fileName}</p>

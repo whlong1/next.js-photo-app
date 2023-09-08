@@ -2,6 +2,7 @@
 import { Photo } from "@/types/models"
 
 // Components
+import SmartImage from "@/components/SmartImage"
 import PhotoInfoOverlay from "./PhotoInfoOverlay"
 
 //TODO Can the maxGridSpan be calculated based on the total volume of the photo list to reduce gaps?
@@ -29,11 +30,7 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
   return (
     <article style={articleStyle as React.CSSProperties}>
       <PhotoInfoOverlay photo={photo} />
-      <img
-        src={photo.url ? photo.url : ""}
-        alt={photo.title ? photo.title : ""}
-        className="w-full h-full object-cover border border-slate-300 drop-shadow rounded"
-      />
+      <SmartImage photo={photo} displayMode="preview" />
     </article>
   )
 }

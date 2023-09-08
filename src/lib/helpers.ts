@@ -136,50 +136,66 @@ export const compressImage = async (image: HTMLImageElement, fileName: string, m
   return thumbnailFile
 }
 
-export const getAverageColor = (image: HTMLImageElement) => {
+export const getImageColorDetails = (image: HTMLImageElement) => {
   const fac = new FastAverageColor()
-  const { value } = fac.getColor(image)
-  return getColorHue(value[0], value[1], value[2])
+  const {
+    rgb,
+    hex,
+    isDark,
+    value: [r, g, b],
+  } = fac.getColor(image)
+  const hueDegree: number = calculateHue(r, g, b)
+  const dominantColor: string = getColorName(hueDegree)
+  return { rgb, hex, hueDegree, dominantColor, isDark }
 }
 
-
+// Finds relative differences between color channels
+// Adapted from this excellent article on css-tricks:
 // https://css-tricks.com/converting-color-spaces-in-javascript/#aa-hsl-to-rgb
-function getColorHue(r: number, g: number, b: number) {
-  r /= 255
-  g /= 255
-  b /= 255
+const calculateHue = (r: number, g: number, b: number) => {
+  let hueDegree: number
 
-  let hue = 0
-  let cmin = Math.min(r, g, b)
-  let cmax = Math.max(r, g, b)
-  let delta = cmax - cmin
+  // Find largest and smallest rgb values:
+  const cmin = Math.min(r, g, b)
+  const cmax = Math.max(r, g, b)
 
-  if (delta == 0) {
-    hue = 0
-  } else if (cmax == r) {
-    hue = ((g - b) / delta) % 6
-  } else if (cmax == g) {
-    hue = (b - r) / delta + 2
-  } else {
-    hue = (r - g) / delta + 4
+  // Find difference between  max & min
+  const delta = cmax - cmin
+
+  // Determine dominant color channel:
+  if (delta === 0) hueDegree = 0
+  else if (cmax === r) hueDegree = (g - b) / delta % 6
+  else if (cmax === g) hueDegree = (b - r) / delta + 2
+  else hueDegree = (r - g) / delta + 4
+
+  // Convert for value between 0° and 360°:
+  hueDegree = Math.round(hueDegree * 60)
+  if (hueDegree < 0) hueDegree += 360
+
+  return hueDegree
+}
+
+const getColorName = (degree: number) => {
+  const hueRanges = [
+    { start: 0, end: 15, name: "red" },
+    { start: 15, end: 45, name: "orange" },
+    { start: 45, end: 75, name: "yellow" },
+    { start: 75, end: 105, name: "lime" },
+    { start: 105, end: 135, name: "green" },
+    { start: 135, end: 165, name: "turquoise" },
+    { start: 165, end: 195, name: "cyan" },
+    { start: 195, end: 225, name: "sky" },
+    { start: 225, end: 255, name: "blue" },
+    { start: 255, end: 285, name: "violet" },
+    { start: 285, end: 315, name: "magenta" },
+    { start: 315, end: 345, name: "rose" },
+    { start: 345, end: 360, name: "red" }
+  ]
+
+  for (const range of hueRanges) {
+    if (degree >= range.start && degree <= range.end) {
+      return range.name
+    }
   }
-
-  hue = Math.round(hue * 60)
-  if (hue < 0) hue += 360
-
-  if (hue >= 0 && hue <= 15) {
-    return "red"
-  } else if (hue > 15 && hue <= 45) {
-    return "orange"
-  } else if (hue > 45 && hue <= 70) {
-    return "yellow"
-  } else if (hue > 70 && hue <= 170) {
-    return "green"
-  } else if (hue > 170 && hue <= 260) {
-    return "blue"
-  } else if (hue > 260 && hue <= 320) {
-    return "purple"
-  } else {
-    return "red"
-  }
+  return "red"
 }

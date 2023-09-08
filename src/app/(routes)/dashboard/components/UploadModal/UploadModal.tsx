@@ -64,9 +64,15 @@ const UploadModal = () => {
     const objectUrl = URL.createObjectURL(file)
     image.src = objectUrl
     image.onload = async () => {
-      const aspectRatio = getClosestAspectRatio(image.width, image.height)
+      const {
+        rgb,
+        hex,
+        isDark,
+        hueDegree,
+        dominantColor,
+      } = getImageColorDetails(image)
       const thumbnail = await compressImage(image, file.name, file.type)
-      const { rgb, hex, hueDegree, dominantColor, isDark } = getImageColorDetails(image)
+      const aspectRatio = getClosestAspectRatio(image.width, image.height)
       const uploadObject = {
         fullsize: file,
         thumbnail: thumbnail,

@@ -18,6 +18,21 @@ export const ASPECT_RATIOS = [
   "9:16",
 ]
 
+export const DOMINANT_COLORS = [
+  "red",
+  "orange",
+  "yellow",
+  "lime",
+  "green",
+  "turquoise",
+  "cyan",
+  "sky",
+  "blue",
+  "violet",
+  "magenta",
+  "rose",
+]
+
 export const FILE_EXTENSION_LOOKUP: { [key: string]: string } = {
   "image/jpeg": "jpg", "image/png": "png",
 }

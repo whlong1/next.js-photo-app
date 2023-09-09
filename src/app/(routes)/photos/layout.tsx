@@ -4,7 +4,7 @@ import FilterNav from "./components/FilterNav"
 import FilterSection from "./components/FilterSection"
 
 // Constants
-import { PHOTO_CATEGORIES, ASPECT_RATIOS } from "@/lib/constants"
+import { PHOTO_CATEGORIES, ASPECT_RATIOS, DOMINANT_COLORS } from "@/lib/constants"
 
 // Types
 import { MenuElements } from "@/types/elements"
@@ -23,6 +23,11 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryKey="aspectRatio"
           sectionTitle="Aspect Ratio"
           queryValues={ASPECT_RATIOS}
+        />
+        <FilterSection
+          queryKey="dominantColor"
+          sectionTitle="Dominant Color"
+          queryValues={DOMINANT_COLORS}
         />
       </>
     )

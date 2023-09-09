@@ -31,7 +31,6 @@ export const DOMINANT_COLORS = [
   "violet",
   "magenta",
   "rose",
-  "red",
 ]
 
 export const FILE_EXTENSION_LOOKUP: { [key: string]: string } = {

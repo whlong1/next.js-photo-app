@@ -19,6 +19,7 @@ interface PrismaQueryObject {
   location?: string;
   authorName?: string;
   description?: string;
+  dominantColor?: string;
   OR?: ORCondition["OR"];
 }
 
@@ -31,6 +32,7 @@ const validParams = {
   authorName: true,
   description: true,
   aspectRatio: true,
+  dominantColor: true,
 }
 
 function isEmpty(params: SearchParams) {

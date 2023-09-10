@@ -2,6 +2,7 @@
 import Menu from "@/components/Menu"
 import FilterNav from "./components/FilterNav"
 import FilterSection from "./components/FilterSection"
+import RangeSelector from "./components/RangeSelector"
 
 // Constants
 import { PHOTO_CATEGORIES, ASPECT_RATIOS, DOMINANT_COLORS } from "@/lib/constants"
@@ -28,6 +29,10 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryKey="dominantColor"
           sectionTitle="Dominant Color"
           queryValues={DOMINANT_COLORS}
+        />
+        <RangeSelector
+          queryKey="hueRange"
+          sectionTitle="Color Range"
         />
       </>
     )

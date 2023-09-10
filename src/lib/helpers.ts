@@ -33,6 +33,10 @@ const validParams = {
   description: true,
   aspectRatio: true,
   dominantColor: true,
+
+  // maxHue: true,
+  // minHue: true,
+  hueRange: true,
 }
 
 function isEmpty(params: SearchParams) {
@@ -51,8 +55,19 @@ export const createQueryString = (searchParams: SearchParams): string => {
 
 //? ============= Create Prisma Query From URL Helpers ============= 
 
+const createHueRangeQuery = (hueRange: string[]) => {
+  if (hueRange.length !== 2) return {}
+  return {
+    hueDegree: {
+      gte: parseInt(hueRange[0]),
+      lte: parseInt(hueRange[1]),
+    },
+  }
+}
+
+
 // Handles general search term query:
-const getORCondition = (keyword: string): ORCondition => {
+const createORCondition = (keyword: string): ORCondition => {
   // Valid keys array ("keyword" and "year" must be excluded)
   const validKeys = Object.keys(validParams).filter((key) => {
     return key !== "keyword" && key !== "year"
@@ -78,10 +93,15 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   const searchParamsObject = Object.fromEntries(validPairs)
 
   // Separate keyword prop from the rest of the search object.
-  const { keyword, ...rest } = searchParamsObject
+  const { keyword, hueRange, ...rest } = searchParamsObject
 
   // Handle general keyword search with OR condition.
-  return { isPublic: true, ...rest, ...(keyword && getORCondition(keyword)) }
+  return {
+    ...rest,
+    isPublic: true,
+    ...(keyword && createORCondition(keyword)),
+    ...(hueRange && createHueRangeQuery(hueRange.split('-')))
+  }
 }
 
 // Source:

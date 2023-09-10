@@ -82,6 +82,10 @@ body>footer {
   object-fit: cover;
 }
 
+ul,li {
+  list-style: none;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

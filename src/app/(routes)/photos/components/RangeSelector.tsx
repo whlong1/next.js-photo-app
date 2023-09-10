@@ -7,6 +7,8 @@ import { useQueryManager } from "@/hooks/useQueryManager"
 // Types
 import { InputChangeEvent } from "@/types/events"
 
+type RangeInputStyle = React.CSSProperties & { "--thumb-bg-color": string; }
+
 interface RangeSelectorProps { queryKey: string; sectionTitle: string; }
 const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,7 +20,8 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
   const [minHue, setMinHue] = useState(defaultMin || "0")
   const [maxHue, setMaxHue] = useState(defaultMax || "360")
 
-  const colorDisplayClass = "border rounded text-xs font-medium bg-slate-100 w-12 h-6 flex items-center justify-center"
+  const maxHueStyle: RangeInputStyle = { '--thumb-bg-color': `hsl(${maxHue}, 100%, 50%)` }
+  const minHueStyle: RangeInputStyle = { '--thumb-bg-color': `hsl(${minHue}, 100%, 50%)` }
 
   const validRange = (max: string, min: string) => {
     return parseInt(max) > parseInt(min)
@@ -48,18 +51,19 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
               id="minHue"
               type="range"
               value={minHue}
+              style={minHueStyle}
               onChange={handleChange}
               aria-valuemin={0}
               aria-valuemax={360}
               aria-valuenow={parseInt(minHue)}
             />
-
             <input
               min="0"
               max="360"
               id="maxHue"
               type="range"
               value={maxHue}
+              style={maxHueStyle}
               onChange={handleChange}
               aria-valuemin={0}
               aria-valuemax={360}
@@ -67,17 +71,8 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
             />
           </div>
 
-          <div className="flex justify-between my-4">
-            <p className={colorDisplayClass} style={{ background: `hsl(${minHue}, 100%, 50%)` }}>
-              {minHue}°
-            </p>
-            <p className={colorDisplayClass} style={{ background: `hsl(${maxHue}, 100%, 50%)` }}>
-              {maxHue}°
-            </p>
-          </div>
-
           <button
-            className="btn h-8 p-0 text-xs bg-slate-100"
+            className="btn h-8 p-0 text-xs mt-4 bg-slate-100"
             onClick={handleClick}
           >
             Apply

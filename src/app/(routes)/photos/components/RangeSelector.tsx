@@ -18,6 +18,8 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
   const [minHue, setMinHue] = useState(defaultMin || "0")
   const [maxHue, setMaxHue] = useState(defaultMax || "360")
 
+  const colorDisplayClass = "border rounded text-xs font-medium bg-slate-100 w-12 h-6 flex items-center justify-center"
+
   const validRange = (max: string, min: string) => {
     return parseInt(max) > parseInt(min)
   }
@@ -51,6 +53,7 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
               aria-valuemax={360}
               aria-valuenow={parseInt(minHue)}
             />
+
             <input
               min="0"
               max="360"
@@ -65,12 +68,16 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
           </div>
 
           <div className="flex justify-between my-4">
-            <p className="border rounded text-xs">Min: {minHue}</p>
-            <p className="border rounded text-xs">Max: {maxHue}</p>
+            <p className={colorDisplayClass} style={{ background: `hsl(${minHue}, 100%, 50%)` }}>
+              {minHue}°
+            </p>
+            <p className={colorDisplayClass} style={{ background: `hsl(${maxHue}, 100%, 50%)` }}>
+              {maxHue}°
+            </p>
           </div>
 
           <button
-            className="btn"
+            className="btn h-8 p-0 text-xs bg-slate-100"
             onClick={handleClick}
           >
             Apply

@@ -1,19 +1,26 @@
 "use client"
 
-// React
+// Hooks
 import { useState } from "react"
+import { useQueryManager } from "@/hooks/useQueryManager"
 
-// Components
-import QueryTab from "./QueryTab"
-
-interface FilterSectionProps {
-  queryKey: string; queryValues: string[]; sectionTitle: string;
+interface RangeSelectorProps {
+  queryKey: string; sectionTitle: string;
 }
 
-//Example URL: /photos?hueRange=180-210
-const RangeSelector = (props: FilterSectionProps) => {
-  const { queryKey, queryValues, sectionTitle } = props
+// Example URL: /photos?hueRange=180-210
+// How should isQueryActive be handled here?
+// See QueryTab for reference.
+
+const RangeSelector = (props: RangeSelectorProps) => {
+  const { queryKey, sectionTitle } = props
   const [isOpen, setIsOpen] = useState(false)
+  const [minHue, setMinHue] = useState("")
+  const [maxHue, setMaxHue] = useState("")
+  const { queryParams, setQueryParams } = useQueryManager()
+
+  const hueRange = minHue && maxHue ? `${minHue}-${maxHue}` : ""
+  const handleClick = () => setQueryParams(queryKey, hueRange)
 
   return (
     <section>
@@ -22,11 +29,11 @@ const RangeSelector = (props: FilterSectionProps) => {
         <button>{isOpen ? "x" : "o"}</button>
       </div>
       {isOpen &&
-        <ul className="list-none pl-4 pb-4 border-b">
-          {queryValues.map((val) => (
-            <QueryTab key={val} queryKey={queryKey} queryValue={val} />
-          ))}
-        </ul>
+        <>
+          <input className="border" type="text" />
+          <input className="border" type="text" />
+          <button onClick={handleClick}>Apply</button>
+        </>
       }
     </section>
   )

@@ -33,8 +33,6 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
         <RangeSelector
           queryKey="hueRange"
           sectionTitle="Color Range"
-          queryValues={DOMINANT_COLORS}
-
         />
       </>
     )

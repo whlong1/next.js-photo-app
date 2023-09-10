@@ -71,10 +71,7 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
             />
           </div>
 
-          <button
-            className="btn h-8 p-0 text-xs mt-4 bg-slate-100"
-            onClick={handleClick}
-          >
+          <button className="filter-btn" onClick={handleClick}>
             Apply
           </button>
         </div>

@@ -9,14 +9,16 @@ import { DOMINANT_COLORS } from "@/lib/constants"
 // Hooks
 import { useQueryManager } from "@/hooks/useQueryManager"
 
-interface SwatchProps {
-  queryKey: string; queryValue: string; hex: string;
-}
+interface SwatchProps { queryKey: string; queryValue: string; hex: string; }
 const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
   const { queryParams, setQueryParams } = useQueryManager()
+
   const isQueryActive = queryParams.get(queryKey) === queryValue
   const selectedClass = isQueryActive ? "scale-[.85]" : ""
+
+  // If hueRange is applied, remove and vice versa
   const handleClick = () => setQueryParams(queryKey, queryValue)
+
   return (
     <div
       onClick={handleClick}

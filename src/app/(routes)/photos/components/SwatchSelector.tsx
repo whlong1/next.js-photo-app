@@ -3,30 +3,51 @@
 // React
 import { useState } from "react"
 
-// Components
-import QueryTab from "./QueryTab"
+// Constants
+import { DOMINANT_COLORS } from "@/lib/constants"
 
-interface FilterSectionProps {
-  queryKey: string; queryValues: string[]; sectionTitle: string;
+// Hooks
+import { useQueryManager } from "@/hooks/useQueryManager"
+
+interface SwatchProps {
+  queryKey: string; queryValue: string; hex: string;
+}
+const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
+  const { queryParams, setQueryParams } = useQueryManager()
+  const isQueryActive = queryParams.get(queryKey) === queryValue
+  const selectedClass = isQueryActive ? "scale-[.85]" : ""
+  const handleClick = () => setQueryParams(queryKey, queryValue)
+  return (
+    <div
+      onClick={handleClick}
+      style={{ background: hex }}
+      className={`swatch ${selectedClass}`}
+    />
+  )
 }
 
-const SwatchSelector = (props: FilterSectionProps) => {
-  const { queryKey, queryValues, sectionTitle } = props
+const SwatchSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const gridClass = "p-4 border-b grid grid-cols-4 grid-rows-3 h-full gap-1"
   return (
     <section>
-    <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-      <p>{sectionTitle}</p>
-      <button>{isOpen ? "x" : "o"}</button>
-    </div>
-    {isOpen &&
-      <ul className="pl-4 pb-4 border-b grid grid-cols-3	">
-        {queryValues.map((val) => (
-          <QueryTab key={val} queryKey={queryKey} queryValue={val} />
-        ))}
-      </ul>
-    }
-  </section>
+      <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
+        <p>Dominant Color</p>
+        <button>{isOpen ? "x" : "o"}</button>
+      </div>
+      {isOpen &&
+        <ul className={gridClass}>
+          {DOMINANT_COLORS.map((color) => (
+            <Swatch
+              key={color.name}
+              hex={color.hex}
+              queryValue={color.name}
+              queryKey={"dominantColor"}
+            />
+          ))}
+        </ul>
+      }
+    </section>
   )
 }
 

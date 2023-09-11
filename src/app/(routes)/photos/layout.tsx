@@ -26,16 +26,7 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           sectionTitle="Aspect Ratio"
           queryValues={ASPECT_RATIOS}
         />
-        <SwatchSelector
-          queryKey="dominantColor"
-          sectionTitle="Dominant Color"
-          queryValues={DOMINANT_COLORS}
-        />
-        {/* <FilterSection
-          queryKey="dominantColor"
-          sectionTitle="Dominant Color"
-          queryValues={DOMINANT_COLORS}
-        /> */}
+        <SwatchSelector />
         <RangeSelector
           queryKey="hueRange"
           sectionTitle="Color Range"

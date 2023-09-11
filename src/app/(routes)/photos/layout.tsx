@@ -26,6 +26,11 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           sectionTitle="Aspect Ratio"
           queryValues={ASPECT_RATIOS}
         />
+        <FilterSection
+          queryKey="brightness"
+          sectionTitle="Brightness"
+          queryValues={["light", "dark"]}
+        />
         <SwatchSelector />
         <RangeSelector
           queryKey="hueRange"

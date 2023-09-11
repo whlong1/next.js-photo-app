@@ -16,8 +16,13 @@ const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
   const isQueryActive = queryParams.get(queryKey) === queryValue
   const selectedClass = isQueryActive ? "scale-[.85]" : ""
 
-  // If hueRange is applied, remove and vice versa
-  const handleClick = () => setQueryParams(queryKey, queryValue)
+  const handleClick = () => {
+    // Remove hueRange when setting dominantColor:
+    if (queryParams.get("hueRange")) {
+      setQueryParams("hueRange", "")
+    }
+    setQueryParams(queryKey, queryValue)
+  }
 
   return (
     <div

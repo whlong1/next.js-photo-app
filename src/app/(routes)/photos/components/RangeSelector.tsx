@@ -28,8 +28,13 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
   }
 
   const handleClick = () => {
+    // Remove dominantColor when setting hueRange:
+    if (queryParams.get("dominantColor")) {
+      setQueryParams("dominantColor", "")
+    }
     setQueryParams(queryKey, `${minHue}-${maxHue}`)
   }
+
 
   const handleChange = ({ target: { value, id } }: InputChangeEvent) => {
     if (id === "minHue" && validRange(maxHue, value)) setMinHue(value)

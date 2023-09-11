@@ -191,4 +191,8 @@ ul,li {
   .filter-btn {
     @apply btn h-8 p-0 text-xs mt-4 bg-slate-100;
   }
+
+  .swatch {
+    @apply cursor-pointer w-full h-8 rounded border border-white shadow hover:scale-95;
+  }
 }

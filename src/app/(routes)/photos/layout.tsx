@@ -3,6 +3,7 @@ import Menu from "@/components/Menu"
 import FilterNav from "./components/FilterNav"
 import FilterSection from "./components/FilterSection"
 import RangeSelector from "./components/RangeSelector"
+import SwatchSelector from "./components/SwatchSelector"
 
 // Constants
 import { PHOTO_CATEGORIES, ASPECT_RATIOS, DOMINANT_COLORS } from "@/lib/constants"
@@ -25,11 +26,16 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           sectionTitle="Aspect Ratio"
           queryValues={ASPECT_RATIOS}
         />
-        <FilterSection
+        <SwatchSelector
           queryKey="dominantColor"
           sectionTitle="Dominant Color"
           queryValues={DOMINANT_COLORS}
         />
+        {/* <FilterSection
+          queryKey="dominantColor"
+          sectionTitle="Dominant Color"
+          queryValues={DOMINANT_COLORS}
+        /> */}
         <RangeSelector
           queryKey="hueRange"
           sectionTitle="Color Range"

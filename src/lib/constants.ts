@@ -19,18 +19,18 @@ export const ASPECT_RATIOS = [
 ]
 
 export const DOMINANT_COLORS = [
-  "red",
-  "orange",
-  "yellow",
-  "lime",
-  "green",
-  "turquoise",
-  "cyan",
-  "sky",
-  "blue",
-  "violet",
-  "magenta",
-  "rose",
+  { name: "red", hex: "#FF0000" },
+  { name: "orange", hex: "#FFA500" },
+  { name: "yellow", hex: "#FFFF00" },
+  { name: "lime", hex: "#00FF00" },
+  { name: "green", hex: "#008000" },
+  { name: "turquoise", hex: "#30D5C8" },
+  { name: "cyan", hex: "#00FFFF" },
+  { name: "sky", hex: "#00BFFF" },
+  { name: "blue", hex: "#0000FF" },
+  { name: "violet", hex: "#EE82EE" },
+  { name: "magenta", hex: "#FF00FF" },
+  { name: "rose", hex: "#FF007F" }
 ]
 
 export const FILE_EXTENSION_LOOKUP: { [key: string]: string } = {

@@ -10,9 +10,12 @@ import { getMyPhotos } from "@/actions/actions"
 const DashboardPhotoList = async () => {
   const photos: Photo[] = await getMyPhotos()
   return (
-    photos.map((photo) => (
-      <PhotoRow key={photo.id} photo={photo} />
-    ))
+    <div className="scrollable-rows">
+      {photos.map((photo) => (
+        <PhotoRow key={photo.id} photo={photo} />
+      ))}
+
+    </div>
   )
 }
 

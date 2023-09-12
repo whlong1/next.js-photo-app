@@ -26,7 +26,7 @@ const Menu = ({ menuElements }: { menuElements: MenuElements }) => {
         <button className={btnClass} onClick={() => setIsOpen(!isOpen)}>
         </button>
       </header>
-      <div className={toggleHiddenClass}>
+      <div className={`${toggleHiddenClass} scrollable`}>
         {menuElements.content}
       </div>
     </nav>

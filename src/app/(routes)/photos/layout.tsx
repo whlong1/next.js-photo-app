@@ -27,14 +27,14 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryValues={ASPECT_RATIOS}
         />
         <FilterSection
-          queryKey="brightness"
-          sectionTitle="Brightness"
-          queryValues={["light", "dark"]}
-        />
-        <FilterSection
           queryKey="mimeType"
           sectionTitle="File Type"
           queryValues={["PNG", "JPEG"]}
+        />
+        <FilterSection
+          queryKey="brightness"
+          sectionTitle="Brightness"
+          queryValues={["light", "dark"]}
         />
         <SwatchSelector />
         <RangeSelector

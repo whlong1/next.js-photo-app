@@ -6,7 +6,7 @@ import RangeSelector from "./components/RangeSelector"
 import SwatchSelector from "./components/SwatchSelector"
 
 // Constants
-import { PHOTO_CATEGORIES, ASPECT_RATIOS, DOMINANT_COLORS } from "@/lib/constants"
+import { PHOTO_CATEGORIES, ASPECT_RATIOS } from "@/lib/constants"
 
 // Types
 import { MenuElements } from "@/types/elements"
@@ -30,6 +30,11 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryKey="brightness"
           sectionTitle="Brightness"
           queryValues={["light", "dark"]}
+        />
+        <FilterSection
+          queryKey="mimeType"
+          sectionTitle="File Type"
+          queryValues={["PNG", "JPEG"]}
         />
         <SwatchSelector />
         <RangeSelector

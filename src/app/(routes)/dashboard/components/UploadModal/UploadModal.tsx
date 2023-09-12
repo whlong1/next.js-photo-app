@@ -59,7 +59,7 @@ const UploadModal = () => {
       setMsg("Please select a file to upload!")
       return
     }
-    const res = await createAndUploadPhoto(fileUploadData, photoFormData)
+    await createAndUploadPhoto(fileUploadData, photoFormData)
     handleFormReset()
     handleUploadReset()
     router.refresh()

@@ -35,6 +35,7 @@ const validParams = {
   dominantColor: true,
   brightness: true,
   hueRange: true,
+  mimeType: true,
 }
 
 function isEmpty(params: SearchParams) {
@@ -50,7 +51,6 @@ export const createQueryString = (searchParams: SearchParams): string => {
   }).join("&")
 }
 
-
 //? ============= Create Prisma Query From URL Helpers ============= 
 
 const createHueRangeQuery = (hueRange: string[]) => {
@@ -63,6 +63,11 @@ const createHueRangeQuery = (hueRange: string[]) => {
   }
 }
 
+const createMimeTypeQuery = (mimeType: string) => {
+  if (mimeType !== "PNG" && mimeType !== "JPEG") return {}
+  return { mimeType: `image/${mimeType.toLowerCase()}` }
+}
+
 // Wonky way to handle a boolean, but I think brightness makes
 // more sense as a query param for users over "isDark"
 // Consider updating the Photo schema
@@ -70,7 +75,6 @@ const createBrightnessQuery = (brightness: string) => {
   if (brightness !== "light" && brightness !== "dark") return {}
   return { isDark: brightness === "dark" }
 }
-
 
 // Handles general search term query:
 const createORCondition = (keyword: string): ORCondition => {
@@ -99,13 +103,14 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   const searchParamsObject = Object.fromEntries(validPairs)
 
   // Separate keyword prop from the rest of the search object.
-  const { keyword, hueRange, brightness, ...rest } = searchParamsObject
+  const { keyword, hueRange, brightness, mimeType, ...rest } = searchParamsObject
 
   // Handle general keyword search with OR condition.
   return {
     ...rest,
     isPublic: true,
     ...(keyword && createORCondition(keyword)),
+    ...(mimeType && createMimeTypeQuery(mimeType)),
     ...(brightness && createBrightnessQuery(brightness)),
     ...(hueRange && createHueRangeQuery(hueRange.split('-')))
   }

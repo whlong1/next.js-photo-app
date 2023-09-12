@@ -33,9 +33,7 @@ const validParams = {
   description: true,
   aspectRatio: true,
   dominantColor: true,
-
-  // maxHue: true,
-  // minHue: true,
+  brightness: true,
   hueRange: true,
 }
 
@@ -63,6 +61,14 @@ const createHueRangeQuery = (hueRange: string[]) => {
       lte: parseInt(hueRange[1]),
     },
   }
+}
+
+// Wonky way to handle a boolean, but I think brightness makes
+// more sense as a query param for users over "isDark"
+// Consider updating the Photo schema
+const createBrightnessQuery = (brightness: string) => {
+  if (brightness !== "light" && brightness !== "dark") return {}
+  return { isDark: brightness === "dark" }
 }
 
 
@@ -93,13 +99,14 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   const searchParamsObject = Object.fromEntries(validPairs)
 
   // Separate keyword prop from the rest of the search object.
-  const { keyword, hueRange, ...rest } = searchParamsObject
+  const { keyword, hueRange, brightness, ...rest } = searchParamsObject
 
   // Handle general keyword search with OR condition.
   return {
     ...rest,
     isPublic: true,
     ...(keyword && createORCondition(keyword)),
+    ...(brightness && createBrightnessQuery(brightness)),
     ...(hueRange && createHueRangeQuery(hueRange.split('-')))
   }
 }

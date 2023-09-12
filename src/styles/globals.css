@@ -146,10 +146,15 @@ ul,li {
     @apply mt-4;
   }
 
-  .scrollable-grid {
+  .scrollable {
     overflow-y: scroll;
     height: calc(100vh - 130px);
   }
+
+  /* .scrollable-grid {
+    overflow-y: scroll;
+    height: calc(100vh - 130px);
+  } */
 
   .basic-grid {
     @apply gap-2 p-4 w-full grid;

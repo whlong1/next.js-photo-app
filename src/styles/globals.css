@@ -174,11 +174,11 @@ li {
   }
 
   .nav-item {
-    @apply flex items-center justify-between text-xs leading-none h-[45px] p-4 border-b flex-row cursor-pointer;
+    @apply flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
   }
 
   .header {
-    @apply min-h-[64px] flex p-4 items-center border-b;
+    @apply min-h-[64px] flex p-4 items-center border-b border-super-faint bg-white;
   }
 
   .header-element {
@@ -214,5 +214,8 @@ li {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
+  }
+  .checkbox:checked {
+    @apply bg-sky-500 border-slate-200;
   }
 }

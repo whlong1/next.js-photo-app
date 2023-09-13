@@ -13,7 +13,7 @@ import { MenuElements } from "@/types/elements"
 
 const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
   const menuElements: MenuElements = {
-    name: <h2 className="text-sm">Browse</h2>,
+    name: <h2 className="text-black text-sm">Filters</h2>,
     content: (
       <>
         <FilterSection

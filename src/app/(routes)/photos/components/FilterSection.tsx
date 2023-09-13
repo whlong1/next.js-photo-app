@@ -14,13 +14,17 @@ const FilterSection = (props: FilterSectionProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <section>
+    <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p>{sectionTitle}</p>
-        <button>{isOpen ? "x" : "o"}</button>
+        <p className="font-semibold text-dark-grey">
+          {sectionTitle}
+        </p>
+        <button className="w-7 h-7 rounded">
+          {isOpen ? "x" : "o"}
+        </button>
       </div>
       {isOpen &&
-        <ul className="list-none pl-4 pb-4 border-b">
+        <ul className="list-none pb-4 border-b">
           {queryValues.map((val) => (
             <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}

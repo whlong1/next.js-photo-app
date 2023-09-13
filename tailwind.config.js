@@ -11,7 +11,9 @@ module.exports = {
         "gray-line": {
           400: "#b3b3b3",
         },
-        "grey-blue": "#4b4f56"
+        "grey-blue": "#4b4f56",
+        "dark-grey": "#86888c",
+        "super-faint": "#f6f6f8",
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -21,6 +21,7 @@ const FilterSection = (props: FilterSectionProps) => {
       </div>
       {isOpen &&
         <ul className="list-none pl-4 pb-4 border-b">
+          <input type="checkbox" name="" id="" className="checkbox" />
           {queryValues.map((val) => (
             <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}

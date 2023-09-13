@@ -8,17 +8,24 @@ const QueryTab = ({ queryValue, queryKey }: QueryTabProps) => {
   const { queryParams, setQueryParams } = useQueryManager()
   const isQueryActive = queryParams.get(queryKey) === queryValue
 
-  const selectedStyle = isQueryActive
-    ? "opacity-75 underline"
-    : "opacity-50 hover:underline"
-  const baseStyle = "cursor-pointer text-xs w-full h-full mt-4"
-  const style = `${baseStyle} ${selectedStyle}`
+  const selectedStyle = isQueryActive ? "" : ""
+  const baseStyle = "font-grey-blue font-semibold"
+  const conditionalClass = `${baseStyle} ${selectedStyle}`
 
   const handleClick = () => setQueryParams(queryKey, queryValue)
 
   return (
-    <li className={style} onClick={handleClick}>
-      {queryValue[0].toUpperCase() + queryValue.slice(1)}
+    <li className="cursor-pointer text-xs w-full h-full mt-4 flex" onClick={handleClick}>
+      <input
+        id=""
+        name=""
+        type="checkbox"
+        checked={isQueryActive}
+        className="checkbox mr-4"
+      />
+      <span className={`${conditionalClass}`}>
+        {queryValue[0].toUpperCase() + queryValue.slice(1)}
+      </span>
     </li>
   )
 }

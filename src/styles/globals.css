@@ -170,7 +170,7 @@ li {
   }
 
   .side-nav {
-    @apply w-[20rem] md:flex md:flex-col border-r border-[var(--border-color)] hidden;
+    @apply w-[20rem] md:flex md:flex-col border-r border-[var(--border-color)] hidden bg-white;
   }
 
   .nav-item {
@@ -210,7 +210,7 @@ li {
   }
 
   .checkbox {
-    @apply border border-grayline-400 w-4 h-4 rounded;
+    @apply border border-gray-line-400 w-4 h-4 rounded;
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;

@@ -5,22 +5,28 @@ import { useState } from "react"
 
 // Components
 import QueryTab from "./QueryTab"
+import ArrowButton from "./ArrowButton"
 
 interface FilterSectionProps {
-  queryKey: string; queryValues: string[]; sectionTitle: string;
+  queryKey: string;
+  queryValues: string[];
+  sectionTitle: string;
 }
+
 const FilterSection = (props: FilterSectionProps) => {
   const { queryKey, queryValues, sectionTitle } = props
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <section>
+    <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p>{sectionTitle}</p>
-        <button>{isOpen ? "x" : "o"}</button>
+        <p className="filter-title">
+          {sectionTitle}
+        </p>
+        <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&
-        <ul className="list-none pl-4 pb-4 border-b">
+        <ul className="filter-list">
           {queryValues.map((val) => (
             <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}

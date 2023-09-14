@@ -4,7 +4,7 @@
   --background-end-rgb: 255, 255, 255;
 
   --font-color: #94a3b8;
-  --border-color: #e5e7eb;
+  /* --border-color: #e5e7eb; */
   --background-color: white;
 }
 
@@ -52,13 +52,7 @@ body>nav {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-}
-
-main {
-  flex-grow: 1;
-  height: 100vh;
-  background-color: #F8F8FA;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 body>footer {
@@ -82,7 +76,8 @@ body>footer {
   object-fit: cover;
 }
 
-ul,li {
+ul,
+li {
   list-style: none;
 }
 
@@ -91,9 +86,17 @@ ul,li {
 @tailwind utilities;
 
 @layer components {
-  h1, h2, h3 {
-    @apply font-semibold;
+
+  main {
+    @apply bg-fill-grey h-full grow;
   }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold text-black cursor-default;
+  }
+
   .btn {
     @apply font-medium text-sm border rounded py-2 px-4 cursor-pointer transition-colors duration-200;
   }
@@ -165,23 +168,13 @@ ul,li {
   }
 
   .side-nav {
-    @apply 
-    w-[20rem] 
-    md:flex md:flex-col
-    border-r border-[var(--border-color)] 
-    hidden;
-  }
-
-  .nav-item {
-    @apply flex items-center justify-between text-xs leading-none h-[45px] p-4 border-b flex-row cursor-pointer;
+    @apply w-[20rem] md:flex md:flex-col border-r border-border-grey hidden bg-white;
   }
 
   .header {
-    @apply min-h-[64px] flex p-4 items-center border-b;
-  }
-  
-  .header-element {
-    @apply flex text-xs text-gray-400 px-3 py-1 items-center rounded border border-gray-300 justify-start bg-white bg-opacity-40;
+    @apply min-h-[64px] flex p-4 items-center bg-white
+    border-b border-border-grey
+    ;
   }
 
   .image-base {
@@ -206,5 +199,40 @@ ul,li {
 
   .swatch {
     @apply cursor-pointer w-full h-8 rounded border border-white shadow hover:scale-95;
+  }
+
+  .checkbox {
+    @apply border border-gray-line-400 w-4 h-4 rounded;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .checkbox:checked {
+    @apply bg-sky-500 border-slate-200;
+  }
+
+  .nav-item {
+    @apply flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
+  }
+
+  .filter-title {
+    @apply font-semibold text-dark-grey;
+  }
+
+  .filter-list {
+    @apply list-none pb-4 border-super-faint border-b;
+  }
+
+  .header-element {
+    @apply 
+      h-[28px]
+      px-3 py-1
+      flex items-center justify-start
+      text-xs text-text-grey font-medium leading-none
+      rounded-full 
+      bg-fill-grey
+      border border-gray-200
+    ;
   }
 }

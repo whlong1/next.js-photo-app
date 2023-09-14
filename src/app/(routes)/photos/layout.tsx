@@ -1,6 +1,5 @@
 // Components
 import Menu from "@/components/Menu"
-import FilterNav from "./components/FilterNav"
 import FilterSection from "./components/FilterSection"
 import RangeSelector from "./components/RangeSelector"
 import SwatchSelector from "./components/SwatchSelector"
@@ -13,7 +12,7 @@ import { MenuElements } from "@/types/elements"
 
 const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
   const menuElements: MenuElements = {
-    name: <h2 className="text-sm">Browse</h2>,
+    name: <h2 className="text-black text-sm">Filters</h2>,
     content: (
       <>
         <FilterSection
@@ -37,10 +36,7 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryValues={["light", "dark"]}
         />
         <SwatchSelector />
-        <RangeSelector
-          queryKey="hueRange"
-          sectionTitle="Color Range"
-        />
+        <RangeSelector />
       </>
     )
   }

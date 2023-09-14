@@ -5,11 +5,14 @@ import { useState } from "react"
 
 // Components
 import QueryTab from "./QueryTab"
-import Image from "next/image"
+import ArrowButton from "./ArrowButton"
 
 interface FilterSectionProps {
-  queryKey: string; queryValues: string[]; sectionTitle: string;
+  queryKey: string;
+  queryValues: string[];
+  sectionTitle: string;
 }
+
 const FilterSection = (props: FilterSectionProps) => {
   const { queryKey, queryValues, sectionTitle } = props
   const [isOpen, setIsOpen] = useState(false)
@@ -20,15 +23,7 @@ const FilterSection = (props: FilterSectionProps) => {
         <p className="font-semibold text-dark-grey">
           {sectionTitle}
         </p>
-        <button className="w-7 h-7 rounded flex items-center justify-center">
-          <Image
-            width={8}
-            height={8}
-            priority={true}
-            alt="Arrow Icon"
-            src={`/assets/icons/arrow-${isOpen ? "y" : "x"}.svg`}
-          />
-        </button>
+        <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&
         <ul className="list-none pb-4 border-b">

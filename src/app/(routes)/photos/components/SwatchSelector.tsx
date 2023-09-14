@@ -38,7 +38,7 @@ const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
 
 const SwatchSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const gridClass = "py-4 border-b grid grid-cols-4 grid-rows-3 h-full gap-1"
+  const gridClass = "filter-list py-4 grid grid-cols-4 grid-rows-3 gap-1"
   return (
     <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>

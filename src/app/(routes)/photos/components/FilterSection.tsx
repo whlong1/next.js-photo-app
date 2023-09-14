@@ -26,7 +26,7 @@ const FilterSection = (props: FilterSectionProps) => {
         <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&
-        <ul className="list-none pb-4 border-b">
+        <ul className="filter-list">
           {queryValues.map((val) => (
             <QueryTab key={val} queryKey={queryKey} queryValue={val} />
           ))}

@@ -173,10 +173,6 @@ li {
     @apply w-[20rem] md:flex md:flex-col border-r border-[var(--border-color)] hidden bg-white;
   }
 
-  .nav-item {
-    @apply flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
-  }
-
   .header {
     @apply min-h-[64px] flex p-4 items-center border-b border-super-faint bg-white;
   }
@@ -219,7 +215,15 @@ li {
     @apply bg-sky-500 border-slate-200;
   }
 
+  .nav-item {
+    @apply flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
+  }
+  
   .filter-title {
     @apply font-semibold text-dark-grey;
+  }
+
+  .filter-list {
+    @apply list-none pb-4 border-super-faint border-b;
   }
 }

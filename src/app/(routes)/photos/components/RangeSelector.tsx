@@ -4,13 +4,14 @@
 import { useState } from "react"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
+// Components
+import ArrowButton from "./ArrowButton"
+
 // Types
 import { InputChangeEvent } from "@/types/events"
-
 type RangeInputStyle = React.CSSProperties & { "--thumb-bg-color": string; }
 
-interface RangeSelectorProps { queryKey: string; sectionTitle: string; }
-const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
+const RangeSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { queryParams, setQueryParams } = useQueryManager()
 
@@ -32,9 +33,8 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
     if (queryParams.get("dominantColor")) {
       setQueryParams("dominantColor", "")
     }
-    setQueryParams(queryKey, `${minHue}-${maxHue}`)
+    setQueryParams("hueRange", `${minHue}-${maxHue}`)
   }
-
 
   const handleChange = ({ target: { value, id } }: InputChangeEvent) => {
     if (id === "minHue" && validRange(maxHue, value)) setMinHue(value)
@@ -42,13 +42,13 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
   }
 
   return (
-    <section>
+    <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p>{sectionTitle}</p>
-        <button>{isOpen ? "x" : "o"}</button>
+        <p className="filter-title">Color Range</p>
+        <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col py-4">
           <div className="track">
             <input
               min="0"
@@ -75,7 +75,6 @@ const RangeSelector = ({ queryKey, sectionTitle }: RangeSelectorProps) => {
               aria-valuenow={parseInt(maxHue)}
             />
           </div>
-
           <button className="filter-btn" onClick={handleClick}>
             Apply
           </button>

@@ -37,10 +37,7 @@ const PhotosLayout = ({ children }: { children: React.ReactNode }) => {
           queryValues={["light", "dark"]}
         />
         <SwatchSelector />
-        <RangeSelector
-          queryKey="hueRange"
-          sectionTitle="Color Range"
-        />
+        <RangeSelector />
       </>
     )
   }

@@ -9,6 +9,9 @@ import { DOMINANT_COLORS } from "@/lib/constants"
 // Hooks
 import { useQueryManager } from "@/hooks/useQueryManager"
 
+// Components
+import ArrowButton from "./ArrowButton"
+
 interface SwatchProps { queryKey: string; queryValue: string; hex: string; }
 const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
   const { queryParams, setQueryParams } = useQueryManager()
@@ -35,12 +38,12 @@ const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
 
 const SwatchSelector = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const gridClass = "p-4 border-b grid grid-cols-4 grid-rows-3 h-full gap-1"
+  const gridClass = "py-4 border-b grid grid-cols-4 grid-rows-3 h-full gap-1"
   return (
-    <section>
+    <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p>Dominant Color</p>
-        <button>{isOpen ? "x" : "o"}</button>
+        <p className="filter-title">Dominant Color</p>
+        <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&
         <ul className={gridClass}>

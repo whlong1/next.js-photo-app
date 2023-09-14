@@ -20,7 +20,7 @@ const FilterSection = (props: FilterSectionProps) => {
   return (
     <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p className="font-semibold text-dark-grey">
+        <p className="filter-title">
           {sectionTitle}
         </p>
         <ArrowButton isOpen={isOpen} />

@@ -87,11 +87,6 @@ li {
   list-style: none;
 }
 
-img {
-  display: flex;
-  margin: 0
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -222,5 +217,9 @@ img {
   }
   .checkbox:checked {
     @apply bg-sky-500 border-slate-200;
+  }
+
+  .filter-title {
+    @apply font-semibold text-dark-grey;
   }
 }

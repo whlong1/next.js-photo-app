@@ -13,7 +13,7 @@ const FilterChip = ({ param }: FilterChipProps) => {
   const handleClick = () => setQueryParams(param.queryKey, "")
 
   return (
-    <div className="header-element cursor-pointer ml-4" onClick={handleClick}>
+    <div className="header-element cursor-pointer ml-3" onClick={handleClick}>
       <p>{chipText}</p>
       <button className="ml-2">X</button>
     </div>

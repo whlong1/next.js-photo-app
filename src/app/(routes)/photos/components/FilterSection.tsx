@@ -5,6 +5,7 @@ import { useState } from "react"
 
 // Components
 import QueryTab from "./QueryTab"
+import Image from "next/image"
 
 interface FilterSectionProps {
   queryKey: string; queryValues: string[]; sectionTitle: string;
@@ -19,8 +20,12 @@ const FilterSection = (props: FilterSectionProps) => {
         <p className="font-semibold text-dark-grey">
           {sectionTitle}
         </p>
-        <button className="w-7 h-7 rounded">
-          {isOpen ? "x" : "o"}
+        <button className="w-7 h-7 rounded flex items-center justify-center">
+          {isOpen ?
+            <Image src="/assets/icons/arrow-y.svg" alt="Arrow" width={8} height={8} priority={true} />
+            :
+            <Image src="/assets/icons/arrow-x.svg" alt="Arrow" width={8} height={8} priority={true} />
+          }
         </button>
       </div>
       {isOpen &&

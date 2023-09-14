@@ -1,6 +1,5 @@
 // Components
 import Menu from "@/components/Menu"
-import FilterNav from "./components/FilterNav"
 import FilterSection from "./components/FilterSection"
 import RangeSelector from "./components/RangeSelector"
 import SwatchSelector from "./components/SwatchSelector"

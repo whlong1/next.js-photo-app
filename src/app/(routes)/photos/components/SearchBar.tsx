@@ -11,13 +11,15 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useState("")
   const { queryParams, setQueryParams } = useQueryManager()
 
-  const handleSearch = async () => {
-    setQueryParams("keyword", keyword)
-    setKeyword("")
+  const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setQueryParams("keyword", keyword)
+      setKeyword("")
+    }
   }
 
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(target.value)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value)
   }
 
   return (
@@ -34,12 +36,10 @@ const SearchBar = () => {
         name="keyword"
         value={keyword}
         onChange={handleChange}
+        onKeyDown={handleSearch}
         placeholder="Search Keywords"
         className="leading-none bg-transparent font-medium"
       />
-      {/* <button className="header-element ml-2" onClick={handleSearch}>
-        +
-      </button> */}
     </div>
   )
 }

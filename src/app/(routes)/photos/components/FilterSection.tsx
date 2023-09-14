@@ -21,11 +21,13 @@ const FilterSection = (props: FilterSectionProps) => {
           {sectionTitle}
         </p>
         <button className="w-7 h-7 rounded flex items-center justify-center">
-          {isOpen ?
-            <Image src="/assets/icons/arrow-y.svg" alt="Arrow" width={8} height={8} priority={true} />
-            :
-            <Image src="/assets/icons/arrow-x.svg" alt="Arrow" width={8} height={8} priority={true} />
-          }
+          <Image
+            width={8}
+            height={8}
+            priority={true}
+            alt="Arrow Icon"
+            src={`/assets/icons/arrow-${isOpen ? "y" : "x"}.svg`}
+          />
         </button>
       </div>
       {isOpen &&

@@ -23,7 +23,7 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="header-element ml-4 rounded-full h-full bg-fill-grey border-slate-200">
+    <div className="header-element ml-auto">
       <Image
         width={12}
         height={12}
@@ -38,7 +38,7 @@ const SearchBar = () => {
         onChange={handleChange}
         onKeyDown={handleSearch}
         placeholder="Search Keywords"
-        className="leading-none bg-transparent font-medium"
+        className="bg-transparent focus:outline-0"
       />
     </div>
   )

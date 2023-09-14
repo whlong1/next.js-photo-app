@@ -9,7 +9,7 @@ interface PhotosPageHeaderProps {
 const PhotosPageHeader = ({ activeParams }: PhotosPageHeaderProps) => {
   return (
     <header className="header">
-      <h1 className="text-xl">Browse</h1>
+      <h1 className="text-xl leading-none mb-[1px]">Browse</h1>
       <ClearFiltersButton activeParams={activeParams} />
       {activeParams.map((param) => (
         <FilterChip param={param} />

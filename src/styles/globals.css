@@ -94,7 +94,7 @@ li {
   h1,
   h2,
   h3 {
-    @apply font-semibold text-black;
+    @apply font-semibold text-black cursor-default;
   }
 
   .btn {

@@ -80,7 +80,7 @@ const createBrightnessQuery = (brightness: string) => {
 const createORCondition = (keyword: string): ORCondition => {
   // Valid keys array ("keyword" and "year" must be excluded)
   const validKeys = Object.keys(validParams).filter((key) => {
-    return key !== "keyword" && key !== "year"
+    return key !== "keyword" && key !== "year" && key !== "brightness" && key !== "hueRange"
   })
   // Produce Prisma filter conditions from valid keys
   const filterConditionsArray = validKeys.map((paramKey) => {
@@ -105,6 +105,7 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   // Separate keyword prop from the rest of the search object.
   const { keyword, hueRange, brightness, mimeType, ...rest } = searchParamsObject
 
+  console.log(brightness)
   // Handle general keyword search with OR condition.
   return {
     ...rest,

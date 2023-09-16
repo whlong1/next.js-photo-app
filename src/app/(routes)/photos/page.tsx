@@ -21,8 +21,8 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   return (
     <section className="flex flex-col w-full">
       <PhotosPageHeader activeParams={activeParams} />
-      {/* <BasicPhotoGrid photos={photos} /> */}
-      <MasonryPhotoGrid photos={photos}/>
+      <BasicPhotoGrid photos={photos} />
+      {/* <MasonryPhotoGrid photos={photos}/> */}
     </section>
   )
 }

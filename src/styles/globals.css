@@ -153,35 +153,18 @@ li {
     height: calc(100vh - 176px);
   }
 
-  /* GRID */
+  /* Grid Layouts */
   .masonry-grid {
     @apply gap-2 p-4 w-full grid;
     grid-auto-rows: 200px;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   }
 
-  /* .basic-grid {
+  .basic-grid {
     @apply gap-2 p-4 w-full grid;
-    grid-auto-rows: 200px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-} */
-
-.basic-grid {
-  @apply gap-2 p-4 w-full grid;
-  grid-auto-rows: 200px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-
-.basic-grid img {
-  width: 100%; /* Fills the width of its grid cell */
-  height: 200px; /* Enforces a consistent height */
-  object-fit: cover; /* Ensures that the image's aspect ratio is maintained while it covers the entire content box */
-  object-position: center; /* Centers the image within its content box */
-}
-
-
-
-
+    grid-auto-rows: 300px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
   
   .article img {
     object-fit: cover;

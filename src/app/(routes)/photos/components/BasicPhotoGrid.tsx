@@ -8,7 +8,7 @@ const BasicPhotoGrid = ({ photos }: { photos: Photo[] }) => {
   return (
     <section className="basic-grid scrollable">
       {photos.map((photo) => (
-        <PhotoCard key={photo.id} photo={photo} />
+        <PhotoCard key={photo.id} photo={photo} dynamic={false} />
       ))}
     </section>
 

@@ -1,1 +1,1 @@
-export type SizeType = "fullsize" | "thumbnail"
+export type SizeType = "fullsize" | "thumbnail" | "medium"

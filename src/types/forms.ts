@@ -16,6 +16,7 @@ export interface PhotoFormData {
 export interface FileUploadData {
   fullsize: File | null;
   thumbnail: File | null;
+  medium: File | null;
 
   fileName: string;
   mimeType: string;

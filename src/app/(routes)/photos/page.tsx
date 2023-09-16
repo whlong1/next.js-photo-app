@@ -13,6 +13,7 @@ import BasicPhotoGrid from "./components/BasicPhotoGrid"
 import { SearchParams } from "@/types/params"
 
 const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { masonry } = searchParams
   const photos: Photo[] = await fetchPhotos(searchParams)
   const activeParams = Object.keys(searchParams).map((key) => {
     return { queryKey: key, queryValue: searchParams[key] }
@@ -21,8 +22,10 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   return (
     <section className="flex flex-col w-full">
       <PhotosPageHeader activeParams={activeParams} />
-      <BasicPhotoGrid photos={photos} />
-      {/* <MasonryPhotoGrid photos={photos}/> */}
+      {masonry
+        ? <MasonryPhotoGrid photos={photos} />
+        : <BasicPhotoGrid photos={photos} />
+      }
     </section>
   )
 }

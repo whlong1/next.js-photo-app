@@ -77,7 +77,7 @@ const UploadModal = () => {
         hueDegree,
         dominantColor,
       } = getImageColorDetails(image)
-      const thumbnail = await compressImage(image, file.name, file.type)
+      const thumbnail = await compressImage(image, file.name, file.type, 200)
       const aspectRatio = getClosestAspectRatio(image.width, image.height)
       const uploadObject: FileUploadData = {
         fullsize: file,

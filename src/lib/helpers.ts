@@ -152,9 +152,14 @@ export const getClosestAspectRatio = (width: number, height: number) => {
 
 // GitHub repo outlining the use of canvas: https://github.com/codu-code/resize-image/tree/completed
 // Good source on image compression strategies: https://stackoverflow.com/questions/12168909/blob-from-dataurl
-export const compressImage = async (image: HTMLImageElement, fileName: string, mimeType: string) => {
+export const compressImage = async (
+  image: HTMLImageElement,
+  fileName: string,
+  mimeType: string,
+  targetWidth: number,
+) => {
   const canvas = document.createElement("canvas")
-  const maxWidth = 200
+  const maxWidth = targetWidth
 
   const scale = maxWidth / image.width
   canvas.width = maxWidth

@@ -15,7 +15,7 @@ import { SearchParams } from "@/types/params"
 const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { masonry } = searchParams
   const photos: Photo[] = await fetchPhotos(searchParams)
-  const activeParams = Object.keys(searchParams).map((key) => {
+  const activeParams = Object.keys(searchParams).filter((key) => key !== "masonry").map((key) => {
     return { queryKey: key, queryValue: searchParams[key] }
   })
 

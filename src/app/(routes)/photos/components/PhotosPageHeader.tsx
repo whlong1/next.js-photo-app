@@ -1,6 +1,7 @@
 // Components
 import SearchBar from "./SearchBar"
 import FilterChip from "./FilterChip"
+import GridToggle from "./GridToggle"
 import ClearFiltersButton from "./ClearFiltersButton"
 
 interface PhotosPageHeaderProps {
@@ -16,6 +17,7 @@ const PhotosPageHeader = ({ activeParams }: PhotosPageHeaderProps) => {
         <FilterChip key={idx} param={param} />
       ))}
       <SearchBar />
+      <GridToggle />
     </header>
   )
 }

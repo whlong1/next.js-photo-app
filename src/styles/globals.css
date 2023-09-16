@@ -59,22 +59,14 @@ body>footer {
   flex-shrink: 0;
 }
 
-.masonry-grid {
+/* .masonry-grid {
   gap: 8px;
   padding: 16px;
   display: grid;
   grid-auto-flow: dense;
   grid-auto-rows: 200px;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.basic-grid article {
-  max-height: 200px;
-}
-
-.basic-grid article img {
-  object-fit: cover;
-}
+} */
 
 ul,
 li {
@@ -161,10 +153,39 @@ li {
     height: calc(100vh - 176px);
   }
 
-  .basic-grid {
+  /* GRID */
+  .masonry-grid {
     @apply gap-2 p-4 w-full grid;
     grid-auto-rows: 200px;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+
+  /* .basic-grid {
+    @apply gap-2 p-4 w-full grid;
+    grid-auto-rows: 200px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+} */
+
+.basic-grid {
+  @apply gap-2 p-4 w-full grid;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.basic-grid img {
+  width: 100%; /* Fills the width of its grid cell */
+  height: 200px; /* Enforces a consistent height */
+  object-fit: cover; /* Ensures that the image's aspect ratio is maintained while it covers the entire content box */
+  object-position: center; /* Centers the image within its content box */
+}
+
+
+
+
+  
+  .article img {
+    object-fit: cover;
+    object-position: center;
   }
 
   .side-nav {

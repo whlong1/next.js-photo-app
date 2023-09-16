@@ -7,7 +7,6 @@ import { fetchPhotos } from "@/services/photoService"
 // Components
 import PhotosPageHeader from "./components/PhotosPageHeader"
 import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
-import ColumnPhotoGrid from "./components/ColumnPhotoGrid"
 import BasicPhotoGrid from "./components/BasicPhotoGrid"
 
 // Types
@@ -22,7 +21,8 @@ const Photos = async ({ searchParams }: { searchParams: SearchParams }) => {
   return (
     <section className="flex flex-col w-full">
       <PhotosPageHeader activeParams={activeParams} />
-      <BasicPhotoGrid photos={photos} />
+      {/* <BasicPhotoGrid photos={photos} /> */}
+      <MasonryPhotoGrid photos={photos}/>
     </section>
   )
 }

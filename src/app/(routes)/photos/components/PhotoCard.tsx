@@ -7,7 +7,7 @@ import PhotoInfoOverlay from "./PhotoInfoOverlay"
 
 //TODO Can the maxGridSpan be calculated based on the total volume of the photo list to reduce gaps?
 
-const PhotoCard = ({ photo }: { photo: Photo }) => {
+const PhotoCard = ({ photo, dynamic }: { photo: Photo, dynamic: boolean }) => {
   const { width, height } = photo
   const dimensions = width && height
 
@@ -23,8 +23,8 @@ const PhotoCard = ({ photo }: { photo: Photo }) => {
 
   const articleStyle = {
     position: "relative",
-    gridRowEnd: `span ${gridRowSpan}`,
-    gridColumnEnd: `span ${gridColumnSpan}`,
+    gridRowEnd: `span ${dynamic ? gridRowSpan : 1}`,
+    gridColumnEnd: `span ${dynamic ? gridColumnSpan : 1}`,
   }
 
   return (

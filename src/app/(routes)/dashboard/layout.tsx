@@ -1,19 +1,37 @@
 // Components
 import Link from "next/link"
 import Menu from "@/components/Menu"
+import ArrowButton from "../../../components/ArrowButton"
 
 // Types 
 import { MenuElements } from "@/types/elements"
 
+const MenuLink = ({ endpoint }: { endpoint: string }) => {
+  const title = endpoint[0].toLocaleUpperCase() + endpoint.slice(1)
+  return (
+    <Link className="px-4 w-full flex" href={`/dashboard/${endpoint}`}>
+      <div className="nav-item">
+        <p className="item-title">{title}</p>
+        <ArrowButton isOpen={false} />
+      </div>
+    </Link>
+  )
+}
+
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+  const dashboardEndpoints = [
+    "account",
+    "photos",
+    "favorites"
+  ]
+
   const menuElements: MenuElements = {
     name: <h2 className="text-sm">Dashboard</h2>,
     content: (
       <>
-        <Link className="nav-item" href="/dashboard/account">Account</Link>
-        <Link className="nav-item" href="/dashboard/photos">Photos</Link>
-        <Link className="nav-item" href="/dashboard/favorites">Favorites</Link>
-        <Link className="nav-item" href="/dashboard/analytics">Analytics</Link>
+        {dashboardEndpoints.map((ep) => (
+          <MenuLink key={ep} endpoint={ep} />
+        ))}
       </>
     )
   }

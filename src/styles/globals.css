@@ -216,11 +216,15 @@ li {
     @apply bg-sky-500 border-slate-200;
   }
 
-  .nav-item {
-    @apply flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
+  .nav-item-container {
+    @apply px-4 w-full flex;
   }
 
-  .filter-title {
+  .nav-item {
+    @apply w-full flex items-center justify-between text-xs leading-none h-[45px] border-super-faint border-b flex-row cursor-pointer;
+  }
+
+  .item-title {
     @apply font-semibold text-dark-grey;
   }
 

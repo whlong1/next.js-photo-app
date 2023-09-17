@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 // Components
-import ArrowButton from "./ArrowButton"
+import ArrowButton from "../../../../components/ArrowButton"
 
 // Types
 import { InputChangeEvent } from "@/types/events"
@@ -44,7 +44,7 @@ const RangeSelector = () => {
   return (
     <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p className="filter-title">Color Range</p>
+        <p className="item-title">Color Range</p>
         <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&

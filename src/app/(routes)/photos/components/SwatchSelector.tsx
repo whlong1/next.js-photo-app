@@ -10,7 +10,7 @@ import { DOMINANT_COLORS } from "@/lib/constants"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 // Components
-import ArrowButton from "./ArrowButton"
+import ArrowButton from "../../../../components/ArrowButton"
 
 interface SwatchProps { queryKey: string; queryValue: string; hex: string; }
 const Swatch = ({ hex, queryValue, queryKey }: SwatchProps) => {
@@ -42,7 +42,7 @@ const SwatchSelector = () => {
   return (
     <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p className="filter-title">Dominant Color</p>
+        <p className="item-title">Dominant Color</p>
         <ArrowButton isOpen={isOpen} />
       </div>
       {isOpen &&

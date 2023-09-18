@@ -33,14 +33,21 @@ const POST = async (req: NextRequest) => {
 
     // Generates a presigned PutURL for uploading the Fullsize photo:
     const fullsizePutURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType, "fullsize")
+    // Generates a presigned PutURL for uploading Medium size photo:
+    const mediumPutURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType, "medium")
     // Generates a presigned PutURL for uploading the Thumbnail photo:
     const thumbnailPutURL = await generatePresignedPutURL(newPhoto.id, requestBody.mimeType, "thumbnail")
-    // In both scenarios, the actual upload occurs on the client side using the URLs generated here
+    // In all scenarios, the actual upload occurs on the client side using the URLs generated here
 
     // Revalidates cache
     revalidateTag("photos")
 
-    return NextResponse.json({ fullsizePutURL, thumbnailPutURL, newPhotoId: newPhoto.id }, { status: 200 })
+    return NextResponse.json({
+      mediumPutURL,
+      fullsizePutURL,
+      thumbnailPutURL,
+      newPhotoId: newPhoto.id
+    }, { status: 200 })
   } catch (error) {
     console.log(error)
     throw error
@@ -59,7 +66,7 @@ const GET = async (req: NextRequest) => {
     // Note, getPhotosWithPresignedURL() is more secure,
     // but the returned photos have been marked as public by the author.
     const photosWithPublicUrl = photos.map((photo) => {
-      return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "thumbnail") }
+      return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "medium") }
     })
 
     return NextResponse.json(photosWithPublicUrl)

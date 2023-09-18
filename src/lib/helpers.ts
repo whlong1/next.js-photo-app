@@ -80,7 +80,7 @@ const createBrightnessQuery = (brightness: string) => {
 const createORCondition = (keyword: string): ORCondition => {
   // Valid keys array ("keyword" and "year" must be excluded)
   const validKeys = Object.keys(validParams).filter((key) => {
-    return key !== "keyword" && key !== "year"
+    return key !== "keyword" && key !== "year" && key !== "brightness" && key !== "hueRange"
   })
   // Produce Prisma filter conditions from valid keys
   const filterConditionsArray = validKeys.map((paramKey) => {
@@ -105,6 +105,7 @@ export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   // Separate keyword prop from the rest of the search object.
   const { keyword, hueRange, brightness, mimeType, ...rest } = searchParamsObject
 
+  console.log(brightness)
   // Handle general keyword search with OR condition.
   return {
     ...rest,
@@ -151,9 +152,14 @@ export const getClosestAspectRatio = (width: number, height: number) => {
 
 // GitHub repo outlining the use of canvas: https://github.com/codu-code/resize-image/tree/completed
 // Good source on image compression strategies: https://stackoverflow.com/questions/12168909/blob-from-dataurl
-export const compressImage = async (image: HTMLImageElement, fileName: string, mimeType: string) => {
+export const compressImage = async (
+  image: HTMLImageElement,
+  fileName: string,
+  mimeType: string,
+  targetWidth: number,
+) => {
   const canvas = document.createElement("canvas")
-  const maxWidth = 200
+  const maxWidth = targetWidth
 
   const scale = maxWidth / image.width
   canvas.width = maxWidth

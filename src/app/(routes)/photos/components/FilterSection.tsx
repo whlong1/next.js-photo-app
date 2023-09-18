@@ -5,7 +5,7 @@ import { useState } from "react"
 
 // Components
 import QueryTab from "./QueryTab"
-import ArrowButton from "./ArrowButton"
+import ArrowButton from "../../../../components/ArrowButton"
 
 interface FilterSectionProps {
   queryKey: string;
@@ -20,7 +20,7 @@ const FilterSection = (props: FilterSectionProps) => {
   return (
     <section className="px-4">
       <div className="nav-item" onClick={() => setIsOpen((current) => !current)}>
-        <p className="filter-title">
+        <p className="item-title">
           {sectionTitle}
         </p>
         <ArrowButton isOpen={isOpen} />

@@ -1,6 +1,8 @@
 import { ValidParams } from "@/types/enums"
 import { ORCondition, PrismaQueryObject } from "@/types/types"
 
+// =================== CONSTANTS ====================
+
 const EXCLUDED_PARAMS = [
   ValidParams.KEYWORD,
   ValidParams.YEAR,
@@ -8,14 +10,30 @@ const EXCLUDED_PARAMS = [
   ValidParams.HUE_RANGE
 ]
 
+// =================== UTILITY ====================
+/**
+  Filters the given URL search parameters based on the defined valid parameters.
+  @param pair The pair of [key, value] representing a URL search parameter.
+  @returns {boolean} Whether the given pair's key is a valid parameter.
+*/
+
+const paramFilterFn = (pair: [string, string]) => {
+  return Object.values(ValidParams).includes(pair[0] as ValidParams)
+}
+
+
+// =================== QUERY FUNCTIONS ====================
+
+/**
+  Creates a Prisma query object based on the given keyword.
+  The returned object contains OR conditions for each valid parameter.
+  @param keyword The keyword used to filter the search results.
+  @returns {ORCondition} The constructed Prisma OR condition object.
+*/
+
 const createHueRangeQuery = (hueRange: string[]) => {
   if (hueRange.length !== 2) return {}
-  return {
-    hueDegree: {
-      gte: parseInt(hueRange[0]),
-      lte: parseInt(hueRange[1]),
-    },
-  }
+  return { hueDegree: { gte: parseInt(hueRange[0]), lte: parseInt(hueRange[1]) } }
 }
 
 const createMimeTypeQuery = (mimeType: string) => {
@@ -46,9 +64,13 @@ const createORCondition = (keyword: string): ORCondition => {
   return { OR: filterConditionsArray }
 }
 
-const paramFilterFn = (pair: [string, string]) => {
-  return Object.values(ValidParams).includes(pair[0] as ValidParams)
-}
+// =================== MAIN EXPORT ====================
+
+/**
+  Creates a Prisma query object based on the given URL's search parameters.
+  @param url The URL containing the search parameters.
+  @returns {PrismaQueryObject} The constructed Prisma query object.
+*/
 
 export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {
   const { searchParams } = new URL(url)

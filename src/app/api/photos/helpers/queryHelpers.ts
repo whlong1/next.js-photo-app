@@ -1,21 +1,5 @@
+import { ValidParams } from "@/types/enums"
 import { ORCondition, PrismaQueryObject } from "@/types/types"
-
-// Global constant?
-const validParams = {
-  year: true,
-  keyword: true,
-  category: true,
-  location: true,
-  authorName: true,
-  description: true,
-  aspectRatio: true,
-  dominantColor: true,
-  brightness: true,
-  hueRange: true,
-  mimeType: true,
-}
-
-//? ============= Create Prisma Query From URL Helpers ============= 
 
 const createHueRangeQuery = (hueRange: string[]) => {
   if (hueRange.length !== 2) return {}
@@ -43,8 +27,8 @@ const createBrightnessQuery = (brightness: string) => {
 // Handles general search term query:
 const createORCondition = (keyword: string): ORCondition => {
   // Valid keys array ("keyword" and "year" must be excluded)
-  const validKeys = Object.keys(validParams).filter((key) => {
-    return key !== "keyword" && key !== "year" && key !== "brightness" && key !== "hueRange"
+  const validKeys = Object.values(ValidParams).filter((key) => {
+    return key !== ValidParams.KEYWORD && key !== ValidParams.YEAR && key !== ValidParams.BRIGHTNESS && key !== ValidParams.HUE_RANGE
   })
   // Produce Prisma filter conditions from valid keys
   const filterConditionsArray = validKeys.map((paramKey) => {
@@ -55,7 +39,7 @@ const createORCondition = (keyword: string): ORCondition => {
 }
 
 const paramFilterFn = (pair: [string, string]) => {
-  return validParams[pair[0] as keyof typeof validParams]
+  return Object.values(ValidParams).includes(pair[0] as ValidParams)
 }
 
 export const createPrismaQueryFromURL = (url: string): PrismaQueryObject => {

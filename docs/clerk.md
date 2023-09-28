@@ -1,7 +1,5 @@
 # Clerk
 
-This guide will outline the use of Clerk with Next.js. Any current issues and planning will be documented here as well.
-
 ## Resources
 
 [Get started with Next.js](https://clerk.com/docs/nextjs/get-started-with-nextjs)

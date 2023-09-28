@@ -3,9 +3,6 @@ import { Photo } from "@/types/models"
 import { SearchParams } from "@/types/params"
 import { PhotoFormData, FileUploadData } from "@/types/forms"
 
-// Helpers
-import { createQueryString } from "@/lib/helpers"
-
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 // Service function makes a request to the putURL returned from 
@@ -56,6 +53,19 @@ export const createAndUploadPhoto = async (fileUploadData: FileUploadData, photo
   } catch (error) {
     throw error
   }
+}
+
+function isEmpty(params: SearchParams) {
+  for (const key in params) return false
+  return true
+}
+
+export const createQueryString = (searchParams: SearchParams): string => {
+  if (isEmpty(searchParams)) return ""
+  return Object.keys(searchParams).map((k) => {
+    const key = k as keyof typeof searchParams
+    return `${key}=${searchParams[key]}`
+  }).join("&")
 }
 
 // Publicly accessible photos

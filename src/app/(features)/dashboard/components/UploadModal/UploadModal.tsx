@@ -17,7 +17,7 @@ import { PhotoFormData, FileUploadData } from "@/types/forms"
 import { createAndUploadPhoto } from "@/services/photoService"
 
 // Helpers
-import { getClosestAspectRatio, compressImage, getImageColorDetails } from "@/lib/helpers"
+import { getClosestAspectRatio, compressImage, getImageColorDetails } from "@/lib/imageHelpers"
 
 // Properties independent from file upload:
 const initialPhotoFormData: PhotoFormData = {

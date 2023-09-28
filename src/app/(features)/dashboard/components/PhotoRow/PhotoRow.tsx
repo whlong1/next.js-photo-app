@@ -4,7 +4,7 @@
 import { Photo } from "@/types/models"
 
 // Helpers
-import { formatBytes } from "@/lib/helpers"
+import { formatBytes } from "@/lib/imageHelpers"
 
 // Components
 import DeleteRowButton from "./DeleteRowButton"

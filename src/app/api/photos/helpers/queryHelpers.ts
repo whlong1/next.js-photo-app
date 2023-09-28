@@ -1,6 +1,13 @@
 import { ValidParams } from "@/types/enums"
 import { ORCondition, PrismaQueryObject } from "@/types/types"
 
+const EXCLUDED_PARAMS = [
+  ValidParams.KEYWORD,
+  ValidParams.YEAR,
+  ValidParams.BRIGHTNESS,
+  ValidParams.HUE_RANGE
+]
+
 const createHueRangeQuery = (hueRange: string[]) => {
   if (hueRange.length !== 2) return {}
   return {
@@ -27,9 +34,10 @@ const createBrightnessQuery = (brightness: string) => {
 // Handles general search term query:
 const createORCondition = (keyword: string): ORCondition => {
   // Valid keys array ("keyword" and "year" must be excluded)
-  const validKeys = Object.values(ValidParams).filter((key) => {
-    return key !== ValidParams.KEYWORD && key !== ValidParams.YEAR && key !== ValidParams.BRIGHTNESS && key !== ValidParams.HUE_RANGE
-  })
+  const validKeys = Object.values(ValidParams).filter(
+    (key) => !EXCLUDED_PARAMS.includes(key)
+  )
+
   // Produce Prisma filter conditions from valid keys
   const filterConditionsArray = validKeys.map((paramKey) => {
     return { [paramKey]: { contains: keyword, mode: "insensitive" } }

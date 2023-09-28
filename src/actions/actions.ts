@@ -14,20 +14,6 @@ import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 // direct DB query inside the server component, though taking advantage of the cache 
 // might be preferable eventually.
 
-// Alternate service function approach for reference:
-const fetchAuthenticatedUserPhotos = async (): Promise<Photo[]> => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/photos/self`, {
-      headers: headers(),
-      next: { tags: ["my-photos"], revalidate: 60 },
-    })
-    const data = await res.json()
-    return data
-  } catch (error) {
-    throw error
-  }
-}
-
 // Helper
 const appendPublicURLs = (photos: Photo[]): Photo[] => {
   return photos.map((photo) => {

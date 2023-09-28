@@ -43,5 +43,5 @@ Below you'll find a breakdown of the code necessary for On-demand Revalidation w
     - [Deep Dive: Caching and Revalidating](https://github.com/vercel/next.js/discussions/54075) by Tim Neutkens.
         > "If you were to fetch() a route handler from the user’s browser, it wouldn’t affect their Router Cache because Next.js wouldn't be aware of the changes. In such scenarios, you must call `router.refresh()`."
 
-### Questions
+## Questions
 1. Is there a way to opt into data caching when using cookies and headers?

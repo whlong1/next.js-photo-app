@@ -48,7 +48,3 @@ To get the app running on your local machine, follow the below steps:
 - Tailwind
 - TypeScript
 - AWS SDK
-
-## References
-
-[Deep Dive: Caching and Revalidating ](https://github.com/vercel/next.js/discussions/54075)

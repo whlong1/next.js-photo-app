@@ -1,25 +1,6 @@
 // Libraries
 import { FastAverageColor } from "fast-average-color"
 
-// Types
-import { SearchParams } from "@/types/params"
-
-
-function isEmpty(params: SearchParams) {
-  for (const key in params) return false
-  return true
-}
-
-export const createQueryString = (searchParams: SearchParams): string => {
-  if (isEmpty(searchParams)) return ""
-  return Object.keys(searchParams).map((k) => {
-    const key = k as keyof typeof searchParams
-    return `${key}=${searchParams[key]}`
-  }).join("&")
-}
-
-
-
 // Source:
 // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
 export const formatBytes = (bytes: number) => {

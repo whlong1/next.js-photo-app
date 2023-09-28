@@ -1,5 +1,5 @@
 // Helpers
-import { formatBytes } from "@/lib/helpers"
+import { formatBytes } from "@/lib/imageHelpers"
 
 interface FilePreviewRowProps {
   file: File | null;

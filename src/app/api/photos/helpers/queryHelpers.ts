@@ -1,24 +1,4 @@
-// Types
-import { SearchParams } from "@/types/params"
-
-interface ORCondition {
-  OR: {
-    [x: string]: {
-      contains: string;
-      mode: string;
-    };
-  }[];
-}
-
-interface PrismaQueryObject {
-  isPublic: boolean;
-  category?: string;
-  location?: string;
-  authorName?: string;
-  description?: string;
-  dominantColor?: string;
-  OR?: ORCondition["OR"];
-}
+import { ORCondition, PrismaQueryObject } from "@/types/types"
 
 // Global constant?
 const validParams = {

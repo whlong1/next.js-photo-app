@@ -33,23 +33,6 @@ export interface FileUploadData {
   dominantColor: string;
 }
 
-export interface VideoFormData {
-  year?: number;
-  genre?: string;
-  title?: string;
-  artist?: string;
-  director?: string;
-  category?: string;
-
-  // videoUrl: string | null;
-  // thumbnailUrl: string | null;
-
-  // Optional form data values:
-  // authorId?: string;
-  // updatedAt?: Date;
-  // createdAt?: Date;
-}
-
 export interface ImageAttributes {
   width: number;
   height: number;

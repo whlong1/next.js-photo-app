@@ -3,8 +3,13 @@ import { Suspense } from "react"
 import FileList from "../components/FileList/FileList"
 import PhotoListSkeleton from "../components/FileListSkeleton/FileListSkeleton"
 
-const Favorites = async () => {
+// Actions
+import { getMyFavorites } from "@/actions/actions"
 
+const Favorites = async () => {
+  const favorites = await getMyFavorites()
+
+  console.log(favorites)
   return (
     <>
       <header className="header">

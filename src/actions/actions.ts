@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
-import { Photo } from "@/types/models"
-import { headers } from "next/headers"
+import { Photo, Favorite } from "@/types/models"
 import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 
 // This action appears to be dynamic (no apparent need for cache management)
@@ -42,6 +41,20 @@ export const getMyPhotos = async () => {
     const photosWithPublicUrl = appendPublicURLs(photos)
 
     return photosWithPublicUrl
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getMyFavorites = async () => {
+  try {
+    const { userId } = auth()
+    if (!userId) throw new Error("Unauthorized")
+    const favorites: Favorite[] = await prisma.favorite.findMany({
+      where: { ownerId: userId },
+      include: { photo: true },
+    })
+    return favorites
   } catch (error) {
     throw error
   }

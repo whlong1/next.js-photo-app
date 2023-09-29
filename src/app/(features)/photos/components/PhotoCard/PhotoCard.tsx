@@ -3,7 +3,7 @@ import { Photo } from "@/types/models"
 
 // Components
 import SmartImage from "@/components/SmartImage"
-import PhotoInfoOverlay from "./PhotoInfoOverlay"
+import PhotoInfoOverlay from "./components/PhotoInfoOverlay"
 
 //TODO Can the maxGridSpan be calculated based on the total volume of the photo list to reduce gaps?
 

@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation"
 
 // Components
 import Link from "next/link"
-import NewPhotoForm from "./NewPhotoForm"
-import PhotoUploader from "./PhotoUploader"
+import NewPhotoForm from "./components/NewPhotoForm"
+import PhotoUploader from "./components/PhotoUploader"
 
 // Types
 import { InputChangeEvent } from "@/types/events"

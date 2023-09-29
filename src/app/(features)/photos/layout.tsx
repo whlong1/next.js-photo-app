@@ -1,8 +1,8 @@
 // Components
 import Menu from "@/components/Menu"
-import FilterSection from "./components/FilterSection"
-import RangeSelector from "./components/RangeSelector"
-import SwatchSelector from "./components/SwatchSelector"
+import FilterSection from "./components/Filters/FilterSection"
+import RangeSelector from "./components/Filters/RangeSelector"
+import SwatchSelector from "./components/Filters/SwatchSelector"
 
 // Constants
 import { PHOTO_CATEGORIES, ASPECT_RATIOS } from "@/lib/constants"

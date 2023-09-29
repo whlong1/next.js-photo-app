@@ -105,3 +105,14 @@ export const deletePhoto = async (photoId: string) => {
     throw error
   }
 }
+
+export const addPhotoToFavorites = async (photoId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/photos/${photoId}/favorites`, {
+      method: "POST",
+    })
+    return await res.json()
+  } catch (error) {
+    throw error
+  }
+}

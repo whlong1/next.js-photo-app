@@ -13,13 +13,6 @@ import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 // direct DB query inside the server component, though taking advantage of the cache 
 // might be preferable eventually.
 
-// Helper
-const appendPublicURLs = (photos: Photo[]): Photo[] => {
-  return photos.map((photo) => {
-    return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "thumbnail") }
-  })
-}
-
 // Alternate approach for added security
 const appendPresignedURLs = async (photos: Photo[]): Promise<Photo[]> => {
   return await Promise.all(photos.map(async (photo) => {
@@ -38,7 +31,12 @@ export const getMyPhotos = async () => {
       orderBy: [{ createdAt: 'desc' }],
     })
 
-    const photosWithPublicUrl = appendPublicURLs(photos)
+    const photosWithPublicUrl = photos.map((photo) => {
+      return {
+        ...photo,
+        url: getPublicURL(photo.id, photo.mimeType, "thumbnail")
+      }
+    })
 
     return photosWithPublicUrl
   } catch (error) {
@@ -46,7 +44,8 @@ export const getMyPhotos = async () => {
   }
 }
 
-export const getMyFavorites = async () => {
+//Todo: Block favorites where photo is no longer public
+export const getMyFavorites = async (): Promise<Photo[]> => {
   try {
     const { userId } = auth()
     if (!userId) throw new Error("Unauthorized")
@@ -54,7 +53,12 @@ export const getMyFavorites = async () => {
       where: { ownerId: userId },
       include: { photo: true },
     })
-    return favorites
+
+    const favoritePhotos = favorites.map((f) => {
+      return { ...f.photo, url: getPublicURL(f.photo.id, f.photo.mimeType, "medium") }
+    })
+
+    return favoritePhotos
   } catch (error) {
     throw error
   }

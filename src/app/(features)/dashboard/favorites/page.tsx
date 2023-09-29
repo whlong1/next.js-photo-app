@@ -1,25 +1,21 @@
 // Components
-import { Suspense } from "react"
-import FileList from "../components/FileList/FileList"
-import PhotoListSkeleton from "../components/FileListSkeleton/FileListSkeleton"
+import BasicPhotoGrid from "../../../../components/PhotoGrids/BasicPhotoGrid"
 
 // Actions
 import { getMyFavorites } from "@/actions/actions"
 
-const Favorites = async () => {
-  const favorites = await getMyFavorites()
+// Types
+import { Photo } from "@/types/models"
 
-  console.log(favorites)
+const Favorites = async () => {
+  const favorites: Photo[] = await getMyFavorites()
+
   return (
     <>
       <header className="header">
         <h1>Favorites</h1>
       </header>
-      <section className="h-full">
-        <Suspense fallback={<PhotoListSkeleton />}>
-          <FileList />
-        </Suspense>
-      </section>
+      <BasicPhotoGrid photos={favorites} />
     </>
   )
 }

@@ -2,11 +2,11 @@
 import { Photo } from "@/types/models"
 
 // Components
-import PhotoCard from "../PhotoCard/PhotoCard"
+import PhotoCard from "../../app/(features)/photos/components/PhotoCard/PhotoCard"
 
 const MasonryPhotoGrid = ({ photos }: { photos: Photo[] }) => {
   return (
-    <section className="masonry-grid scrollable">
+    <section className="masonry-grid scrollable h-full">
       {photos.map((photo) => (
         <PhotoCard key={photo.id} photo={photo} dynamic={true} />
       ))}

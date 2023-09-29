@@ -127,7 +127,7 @@ const UploadModal = () => {
       <div className="flex flex-col bg-white border rounded w-full md:max-h-[500px] max-w-[900px] min-h-[500px] sm:max-h-full">
         <header className="flex justify-between p-4 border-b">
           <h1>Upload Files</h1>
-          <Link href="/dashboard/photos">X</Link>
+          <Link href="/dashboard/files">X</Link>
         </header>
         <section className="flex flex-grow flex-col md:flex-row">
           <PhotoUploader

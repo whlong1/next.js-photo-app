@@ -48,3 +48,11 @@ export interface Photo {
   // returned from the initial Prisma operation
   url?: string | null;
 }
+
+
+export interface Favorite {
+  id: string;
+  ownerId: string;
+  photoId: string;
+  photo: Photo;
+}

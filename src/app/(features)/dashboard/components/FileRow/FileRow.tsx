@@ -7,14 +7,14 @@ import { Photo } from "@/types/models"
 import { formatBytes } from "@/lib/imageHelpers"
 
 // Components
-import DeleteRowButton from "./DeleteRowButton"
-import PrivacyDropdown from "./PrivacyDropdown"
+import DeleteRowButton from "./components/DeleteRowButton"
+import PrivacyDropdown from "./components/PrivacyDropdown"
 import SmartImage from "@/components/SmartImage"
 
 // Hooks
 import { useMutationTransition } from "@/hooks/useMutationTransition"
 
-const PhotoRow = ({ photo }: { photo: Photo }) => {
+const FileRow = ({ photo }: { photo: Photo }) => {
   const path = `/dashboard/photos/${photo.id}`
   const pendingStyle = "opacity-25 animate-pulse"
   const { handleTransition, transitionStyle } = useMutationTransition(pendingStyle)
@@ -39,4 +39,4 @@ const PhotoRow = ({ photo }: { photo: Photo }) => {
   )
 }
 
-export default PhotoRow
+export default FileRow

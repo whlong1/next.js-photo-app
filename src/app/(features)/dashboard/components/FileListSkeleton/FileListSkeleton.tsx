@@ -1,4 +1,4 @@
-const PhotoListLoading = () => {
+const FileListSkeleton = () => {
   return (
     Array(10).fill("").map((element, idx) => (
       <div key={idx} className="row-container">
@@ -12,4 +12,4 @@ const PhotoListLoading = () => {
   )
 }
 
-export default PhotoListLoading
+export default FileListSkeleton

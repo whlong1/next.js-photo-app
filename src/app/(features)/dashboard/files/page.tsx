@@ -1,14 +1,14 @@
 // Components
 import { Suspense } from "react"
+import FileList from "../components/FileList/FileList"
 import UploadModal from "../components/UploadModal/UploadModal"
-import PhotoListLoading from "../components/PhotoListLoading/PhotoListLoading"
-import DashboardPhotoList from "../components/DashboardPhotoList/DashboardPhotoList"
+import PhotoListSkeleton from "../components/FileListSkeleton/FileListSkeleton"
 
 // Types 
 import { SearchParams } from "@/types/params"
 
-interface DashboardPhotosProps { searchParams: SearchParams; }
-const DashboardPhotos = async ({ searchParams }: DashboardPhotosProps) => {
+interface FilesDashboardProps { searchParams: SearchParams; }
+const FilesDashboard = async ({ searchParams }: FilesDashboardProps) => {
 
   return (
     <section className="h-full">
@@ -21,11 +21,11 @@ const DashboardPhotos = async ({ searchParams }: DashboardPhotosProps) => {
 
       {searchParams.new && <UploadModal />}
 
-      <Suspense fallback={<PhotoListLoading />}>
-        <DashboardPhotoList />
+      <Suspense fallback={<PhotoListSkeleton />}>
+        <FileList />
       </Suspense>
     </section>
   )
 }
 
-export default DashboardPhotos
+export default FilesDashboard

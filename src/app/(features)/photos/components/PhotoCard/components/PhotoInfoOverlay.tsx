@@ -7,7 +7,7 @@ import OverlayHeader from "./OverlayHeader"
 const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
   return (
     <div className="photo-overlay">
-      <OverlayHeader />
+      <OverlayHeader photoId={photo.id} />
       <div className="flex items-center">
         <div className="bg-black rounded-full	drop-shadow w-9 h-9 border-[.25px] border-slate-500 mr-3" />
         <div className="pb-0.5">

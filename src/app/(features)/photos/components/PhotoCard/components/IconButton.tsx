@@ -6,8 +6,23 @@ import { useState } from "react"
 // Components
 import Image from "next/image"
 
-const IconButton = ({ icon }: { icon: string }) => {
+// Services
+import { addPhotoToFavorites } from "@/services/photoService"
+
+//Todo Consolidate name and icon props
+interface IconButtonProps {
+  icon: string;
+  name: string;
+  photoId: string;
+}
+
+const IconButton = ({ name, icon, photoId, }: IconButtonProps) => {
   const [hover, setHover] = useState(false)
+
+  const handleClick = async () => {
+    // service call
+    if (name === "favorite") await addPhotoToFavorites(photoId)
+  }
 
   const handleHover = (e: React.MouseEvent<HTMLButtonElement>) => {
     setHover(e.type === "mouseenter")
@@ -15,6 +30,7 @@ const IconButton = ({ icon }: { icon: string }) => {
 
   return (
     <button
+      onClick={handleClick}
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
       className="w-7 h-7 leading-none bg-white text-black rounded bg-opacity-60 hover:bg-opacity-90 transition text-sm ml-3 flex items-center justify-center"

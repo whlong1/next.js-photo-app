@@ -5,9 +5,9 @@ import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
 // Components
-import PhotosPageHeader from "./components/PhotosPageHeader"
-import MasonryPhotoGrid from "./components/MasonryPhotoGrid"
-import BasicPhotoGrid from "./components/BasicPhotoGrid"
+import BasicPhotoGrid from "./components/PhotoGrids/BasicPhotoGrid"
+import MasonryPhotoGrid from "./components/PhotoGrids/MasonryPhotoGrid"
+import PhotosPageHeader from "./components/PhotosPageHeader/PhotosPageHeader"
 
 // Types
 import { SearchParams } from "@/types/params"

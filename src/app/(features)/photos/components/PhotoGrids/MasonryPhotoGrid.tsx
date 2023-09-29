@@ -2,7 +2,7 @@
 import { Photo } from "@/types/models"
 
 // Components
-import PhotoCard from "./PhotoCard"
+import PhotoCard from "../PhotoCard/PhotoCard"
 
 const MasonryPhotoGrid = ({ photos }: { photos: Photo[] }) => {
   return (

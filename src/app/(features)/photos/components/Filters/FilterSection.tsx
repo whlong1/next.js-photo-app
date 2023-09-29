@@ -4,8 +4,8 @@
 import { useState } from "react"
 
 // Components
-import QueryTab from "./QueryTab"
-import ArrowButton from "../../../../components/ArrowButton"
+import QueryTab from "./QueryTab";
+import ArrowButton from "../../../../../components/ArrowButton"
 
 interface FilterSectionProps {
   queryKey: string;

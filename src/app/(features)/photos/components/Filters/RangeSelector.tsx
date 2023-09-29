@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useQueryManager } from "@/hooks/useQueryManager"
 
 // Components
-import ArrowButton from "../../../../components/ArrowButton"
+import ArrowButton from "../../../../../components/ArrowButton"
 
 // Types
 import { InputChangeEvent } from "@/types/events"

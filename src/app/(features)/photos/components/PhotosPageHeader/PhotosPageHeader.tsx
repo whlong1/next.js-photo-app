@@ -1,8 +1,8 @@
 // Components
-import SearchBar from "./SearchBar"
-import FilterChip from "./FilterChip"
-import GridToggle from "./GridToggle"
-import ClearFiltersButton from "./ClearFiltersButton"
+import SearchBar from "./components/SearchBar"
+import FilterChip from "./components/FilterChip"
+import GridToggle from "./components/GridToggle"
+import ClearFiltersButton from "./components/ClearFiltersButton"
 
 interface PhotosPageHeaderProps {
   activeParams: { queryKey: string, queryValue: string }[]

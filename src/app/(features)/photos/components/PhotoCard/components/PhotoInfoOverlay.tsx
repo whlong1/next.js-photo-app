@@ -5,34 +5,9 @@ import { Photo } from "@/types/models"
 import OverlayHeader from "./OverlayHeader"
 
 const PhotoInfoOverlay = ({ photo }: { photo: Photo }) => {
-  const classNames = `
-    p-4
-    z-10
-    w-full
-    h-full
-    absolute 
-
-    flex
-    flex-col
-    items-start
-    justify-end
-
-    text-white
-    leading-none
-    tracking-wide
-    
-    rounded
-    bg-black 
-    opacity-0
-    bg-opacity-40
-    hover:opacity-100
-    hover:cursor-pointer
-    transition-opacity
-  `
-
   return (
-    <div className={classNames}>
-      <OverlayHeader />
+    <div className="photo-overlay">
+      <OverlayHeader photoId={photo.id} />
       <div className="flex items-center">
         <div className="bg-black rounded-full	drop-shadow w-9 h-9 border-[.25px] border-slate-500 mr-3" />
         <div className="pb-0.5">

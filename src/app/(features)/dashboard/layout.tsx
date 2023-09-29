@@ -21,7 +21,7 @@ const MenuLink = ({ endpoint }: { endpoint: string }) => {
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const dashboardEndpoints = [
     "account",
-    "photos",
+    "files",
     "favorites"
   ]
 

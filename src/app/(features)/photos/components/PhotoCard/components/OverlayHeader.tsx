@@ -1,10 +1,18 @@
-const OverlayHeader = () => {
-  const buttonClassNames = "w-7 h-7 leading-none bg-white text-black rounded bg-opacity-60 hover:bg-opacity-90 transition text-sm ml-3"
+// Components
+import IconButton from "./IconButton"
 
+const OverlayHeader = ({ photoId }: { photoId: string }) => {
   return (
-    <header className="absolute top-4 right-4">
-      <button className={buttonClassNames}></button>
-      <button className={buttonClassNames}></button>
+    <header className="absolute top-4 right-4 flex items-center">
+      <IconButton
+        name="favorite"
+        photoId={photoId}
+        icon="/assets/icons/heart.svg"
+      />
+      {/* <IconButton
+        photoId={photoId}
+        icon="/assets/icons/bookmark.svg"
+      /> */}
     </header>
   )
 }

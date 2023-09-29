@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
-import { Photo } from "@/types/models"
-import { headers } from "next/headers"
+import { Photo, Favorite } from "@/types/models"
 import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 
 // This action appears to be dynamic (no apparent need for cache management)
@@ -13,13 +12,6 @@ import { generatePresignedGetURL, getPublicURL } from "@/lib/aws"
 // dynamic, and opts out of caching. As a result it makes the most sense to do a 
 // direct DB query inside the server component, though taking advantage of the cache 
 // might be preferable eventually.
-
-// Helper
-const appendPublicURLs = (photos: Photo[]): Photo[] => {
-  return photos.map((photo) => {
-    return { ...photo, url: getPublicURL(photo.id, photo.mimeType, "thumbnail") }
-  })
-}
 
 // Alternate approach for added security
 const appendPresignedURLs = async (photos: Photo[]): Promise<Photo[]> => {
@@ -39,9 +31,34 @@ export const getMyPhotos = async () => {
       orderBy: [{ createdAt: 'desc' }],
     })
 
-    const photosWithPublicUrl = appendPublicURLs(photos)
+    const photosWithPublicUrl = photos.map((photo) => {
+      return {
+        ...photo,
+        url: getPublicURL(photo.id, photo.mimeType, "thumbnail")
+      }
+    })
 
     return photosWithPublicUrl
+  } catch (error) {
+    throw error
+  }
+}
+
+//Todo: Block favorites where photo is no longer public
+export const getMyFavorites = async (): Promise<Photo[]> => {
+  try {
+    const { userId } = auth()
+    if (!userId) throw new Error("Unauthorized")
+    const favorites: Favorite[] = await prisma.favorite.findMany({
+      where: { ownerId: userId },
+      include: { photo: true },
+    })
+
+    const favoritePhotos = favorites.map((f) => {
+      return { ...f.photo, url: getPublicURL(f.photo.id, f.photo.mimeType, "medium") }
+    })
+
+    return favoritePhotos
   } catch (error) {
     throw error
   }

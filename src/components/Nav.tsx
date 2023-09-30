@@ -1,11 +1,19 @@
+// Components
 import Link from "next/link"
+import Image from "next/image"
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 
 const Nav = () => {
   return (
     <nav className="top-level-nav">
       <Link href="/">
-        <img className="w-8" src="/assets/branding/temp-logo.png" alt="Logo" />
+        <Image
+          src="/assets/branding/logo.svg"
+          alt="Logo"
+          width={30}
+          height={30}
+          priority={true}
+        />
       </Link>
 
       <SignedOut>

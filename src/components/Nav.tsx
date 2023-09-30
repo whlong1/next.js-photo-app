@@ -8,11 +8,11 @@ const Nav = () => {
     <nav className="top-level-nav">
       <Link href="/">
         <Image
-          src="/assets/branding/logo.svg"
-          alt="Logo"
           width={30}
           height={30}
           priority={true}
+          src="/assets/branding/logo.svg"
+          alt="Logo"
         />
       </Link>
 

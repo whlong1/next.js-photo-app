@@ -21,14 +21,12 @@ const Nav = () => {
         <Link href="/sign-in">Sign In</Link>
       </SignedOut>
 
-
       <SignedIn>
         <ul className="w-full flex ml-4">
           <li className="mr-4 hover:underline"><Link href="/photos">Browse</Link></li>
           <li className="mr-4 hover:underline"><Link href="/dashboard">Dashboard</Link></li>
         </ul>
       </SignedIn>
-
 
       <div className="ml-auto border rounded-full w-[34px] h-[34px]">
         <SignedIn >

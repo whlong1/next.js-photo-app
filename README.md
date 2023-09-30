@@ -1,4 +1,4 @@
-# Folio
+<img src="public/assets/branding/banner.svg" alt="Banner"/>
 
 A Next.js photography app utilizing the AWS SDK.
 

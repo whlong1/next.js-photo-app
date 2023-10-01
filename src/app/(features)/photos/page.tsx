@@ -5,8 +5,8 @@ import { Photo } from "@/types/models"
 import { fetchPhotos } from "@/services/photoService"
 
 // Components
-import BasicPhotoGrid from "../../../components/PhotoGrids/BasicPhotoGrid"
-import MasonryPhotoGrid from "../../../components/PhotoGrids/MasonryPhotoGrid"
+import BasicPhotoGrid from "@/components/PhotoGrids/BasicPhotoGrid"
+import MasonryPhotoGrid from "@/components/PhotoGrids/MasonryPhotoGrid"
 import PhotosPageHeader from "./components/PhotosPageHeader/PhotosPageHeader"
 
 // Types

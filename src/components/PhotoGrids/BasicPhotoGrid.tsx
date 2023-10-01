@@ -6,7 +6,7 @@ import PhotoCard from "../../app/(features)/photos/components/PhotoCard/PhotoCar
 
 const BasicPhotoGrid = ({ photos }: { photos: Photo[] }) => {
   return (
-    <section className="basic-grid scrollable h-full">
+    <section className="basic-grid scrollable">
       {photos.map((photo) => (
         <PhotoCard key={photo.id} photo={photo} dynamic={false} />
       ))}

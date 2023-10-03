@@ -9,6 +9,15 @@ import Image from "next/image"
 // Types
 import { MenuElements } from "@/types/elements"
 
+const NavBar = () => {
+  return (
+    <ul className="flex flex-col w-16 border border-red-500">
+      <li>X</li>
+      <li>X</li>
+    </ul>
+  )
+}
+
 const Menu = ({ menuElements }: { menuElements: MenuElements }) => {
   const [isOpen, setIsOpen] = useState(true)
   const toggleHiddenClass = isOpen ? "" : "hidden"

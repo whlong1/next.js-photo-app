@@ -17,7 +17,7 @@ const GridToggle = () => {
   return (
     <div
       onClick={handleClick}
-      className="w-20 h-[28px] ml-4 ml-auto flex justify-center border rounded-full"
+      className="w-20 h-[28px] ml-auto flex justify-center border rounded-full"
     >
       <button className={`${baseClass} ${isMasonry ? "" : activeClass} rounded-l-full`}>
         <Image
